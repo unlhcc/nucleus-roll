@@ -4,11 +4,6 @@
 
 This roll bundles the Nucleus virtual cluster management software for Comet.
 
-For more information about the various packages included in the nucleus roll please visit their official web pages:
-
-- <a href="" target="_blank"></a> is .
-
-
 ## Requirements
 
 To build/install this roll you must have root access to a Rocks development
