@@ -31,7 +31,7 @@
 
 ### Collection: Clusters
 
-**URI:** /clust
+**URI:** /cluster
 
 **Methods:**
 
@@ -40,7 +40,7 @@
 
 ### Resource: Cluster
 
-**URI:** /clust/*:name*
+**URI:** /cluster/*:name*
 
 **Methods:**
 
@@ -57,7 +57,7 @@
 
 ### Sub-collection: Virtual Machines
 
-**URI:** /clust/*:name*/vms
+**URI:** /cluster/*:name*/vms
 
 **Methods:**
 
@@ -68,7 +68,7 @@
 
 ### Sub-resource: Virtual Machine
 
-**URI:** /clust/*:name*/vms/*:name*
+**URI:** /cluster/*:name*/vms/*:name*
 
 **Methods:**
 
@@ -101,7 +101,7 @@
 
 ### Sub-resource: Virtual Machine Console
 
-**URI:** /clust/*:name*/vms/*:name*/console
+**URI:** /cluster/*:name*/vms/*:name*/console
 
 Represents a console of the Virtual Machine.
 
@@ -111,14 +111,14 @@ Represents a console of the Virtual Machine.
 
 
 ### Sub-collection: Virtual Machine storages
-**URI:** /clust/*:name*/vms/*:name*/storages
+**URI:** /cluster/*:name*/vms/*:name*/storages
 * **GET**: Retrieve a summarized list of all storages of specified guest
 * **POST**: ?????? Attach a new storage or virtual drive to specified virtual machine.
     * pool: Storage pool which disk image file locate in.
     * vol: Storage volume name of disk image.
 
 ### Sub-resource: storage
-**URI:** /clust/*:name*/vms/*:name*/storages/*:zvol*
+**URI:** /cluster/*:name*/vms/*:name*/storages/*:zvol*
 * **GET**: Retrieve storage information
     * dev: The name of the device.
     * dev: The name of the storage in the vm.
@@ -129,11 +129,11 @@ Represents a console of the Virtual Machine.
 * unmap: Detach the storage from VM, sync back if needed.
 
 ### Sub-collection: Virtual Machine Snapshots
-**URI:** /clust/*:name*/vms/*:name*/snapshots
+**URI:** /cluster/*:name*/vms/*:name*/snapshots
 * **GET**: Retrieve a list of snapshots on a VM.
 
 ### Sub-resource: Snapshot
-**URI:** /clust/*:name*/vms/*:name*/snapshots/*:snapshot*
+**URI:** /cluster/*:name*/vms/*:name*/snapshots/*:snapshot*
 * **GET**: Retrieve snapshot information.
     * created: The time when the snapshot was created
                (in seconds, since the epoch).
@@ -163,9 +163,6 @@ Represents a console of the Virtual Machine.
 * **GET**: Retrieve the full description of a Storage Pool
     * name: The name of the Storage Pool
             Used to identify the Storage Pool in this API
-            'kimchi_isos' is a reserved storage pool
-            which aggregates all ISO images
-            across all active storage pools into a single view.
     * state: Indicates the current state of the Storage Pool
         * active: The Storage Pool is ready for use
         * inactive: The Storage Pool is not available
