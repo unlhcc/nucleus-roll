@@ -2,7 +2,7 @@
 swagger: '2.0'
 info:
   title: Virtual Cluster REST API
-  description: Move your app forward with the API
+  description:  Comet REST API Specification. 
   version: "1.0.1"
 # the domain of the service
 host: comet.sdsc.edu
@@ -54,6 +54,8 @@ paths:
           schema:
             $ref: '#/definitions/Error'
   /projects:
+    tags:
+    - Project
     get:
       summary: The list of all projects that are allowed to create clusters
       description: |
@@ -97,6 +99,10 @@ definitions:
       id:
         type: string
         description: a unique id for the cluster
+  Clusters:
+    type: array
+      items:
+        $ref: '#/definitions/Cluster'  
   Project:
     type: object
     properties:
