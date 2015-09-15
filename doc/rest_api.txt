@@ -5,6 +5,7 @@ Project Comet REST API Specification
     to this API you should specify the following headers:
     -   Accept: application/json
     -   Content-type: application/json
+    
 -   A **Collection** is a group of Resources of a given type.
     -   A **GET** request retrieves a list of summarized Resource
         representations This summary *may* include all or some of the
@@ -14,6 +15,7 @@ Project Comet REST API Specification
         The set of Resource properties *must* be specified as a JSON
         object in the request body.
     -   No other HTTP methods are supported for Collections
+
 -   A **Resource** is a representation of a singular object in the API
     (eg. Virtual Machine).
     -   A **GET** request retrieves the full Resource representation.
