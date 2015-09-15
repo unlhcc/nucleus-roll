@@ -81,12 +81,18 @@ definitions:
       id:
         type: string
         description: a unique id for the cluster
+  Project:
+    type: object
+    properties:
+      username:
+        type: string
+        description: the project name.
   Profile:
     type: object
     properties:
       username:
         type: string
-        description: Image URL of the user.
+        description: username of the user.
       firstname:
         type: string
         description: First name of the user.
