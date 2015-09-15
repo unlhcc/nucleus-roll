@@ -53,6 +53,22 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /projects:
+    get:
+      summary: The list of all projects that are allowed to create clusters
+      description: |
+        The list of projects that are allowed to create clusters. 
+      responses:
+        200:
+          description: An array of projects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Project'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /user:
     get:
       summary: User Profile
