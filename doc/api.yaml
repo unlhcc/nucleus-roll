@@ -94,22 +94,70 @@ paths:
             $ref: '#/definitions/Error'
 definitions:
   Cluster:
+    tags:
+    - CLuster
     type: object
     properties:
       id:
         type: string
         description: a unique id for the cluster
   Clusters:
+    tags:
+    - Cluster
     type: array
       items:
         $ref: '#/definitions/Cluster'  
+  ComputeResource:
+    tags:
+    - Compute
+    type: object
+    properties:
+      name:
+        type: string
+        description: the compute resource name.
+  StoragePool:
+    tags:
+    - Storage
+    type: object
+    properties:
+      name:
+        type: string
+        description: the storage pool name.
+  StorageVolume:
+    tags:
+    - Storage
+    type: object
+    properties:
+      name:
+        type: string
+        description: the storage volume name.
+  StorageServer:
+    tags:
+    - Storage
+    type: object
+    properties:
+      name:
+        type: string
+        description: the storage server name.
+  StorageTarget:
+    tags:
+    - Storage
+    type: object
+    properties:
+      name:
+        type: string
+        description: the storage target name.
   Project:
+    tags:
+    - Project
     type: object
     properties:
       username:
         type: string
         description: the project name.
   Profile:
+    tags:
+    - User
     type: object
     properties:
       username:
