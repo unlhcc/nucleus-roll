@@ -28,6 +28,44 @@
 * URIs begin with a '/' to indicate the root of the API.
     * Variable segments in the URI begin with a ':' and should replaced with the
       appropriate resource identifier.
+* For calls marked as **asynchronous** the service will return the 202 Accepted code, with Location Header set to the new resource where request status can be queried, f.e.:
+
+**Request:**
+```
+POST /cluster/cluster1 HTTP/1.1
+```
+**Response:**
+```
+HTTP/1.1 202 Accepted
+Location: /queue/12345
+```
+**Request:**
+```
+GET /queue/12345 HTTP/1.1
+```
+**Response:**
+```
+HTTP/1.1 200 OK
+{"status":"pending", "eta":"10 min"}
+```
+**Request:**
+```
+GET /queue/12345 HTTP/1.1
+```
+**Response:**
+```
+HTTP/1.1 200 OK
+{"status":"In progress", "eta":"1 min"}
+```
+**Request:**
+```
+GET /queue/12345 HTTP/1.1
+```
+**Response:**
+```
+HTTP/1.1 303 See Other
+Location: /cluster/cluster1/frontend
+```
 
 ### Collection: Clusters
 
