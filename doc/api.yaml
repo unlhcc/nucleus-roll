@@ -53,6 +53,27 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /cluster:
+    tags:
+    - Cluster
+    get:
+      summary: return information about a cluster
+      description: return information about a cluster
+      responses:
+        200:
+          description: An array of projects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ComputeMaster'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ComputeServer'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /projects:
     tags:
     - Project
@@ -95,7 +116,7 @@ paths:
 definitions:
   Cluster:
     tags:
-    - CLuster
+    - Cluster
     type: object
     properties:
       id:
@@ -107,7 +128,15 @@ definitions:
     type: array
       items:
         $ref: '#/definitions/Cluster'  
-  ComputeResource:
+  ComputeMaster:
+    tags:
+    - Compute
+    type: object
+    properties:
+      name:
+        type: string
+        description: the compute resource name.
+  ComputeServer:
     tags:
     - Compute
     type: object
@@ -152,7 +181,7 @@ definitions:
     - Project
     type: object
     properties:
-      username:
+      name:
         type: string
         description: the project name.
   Profile:
