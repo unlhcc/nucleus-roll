@@ -1,7 +1,6 @@
 from flask import Flask
 from flask.ext.restplus import Api, Resource, fields
 
-
 info = """
 This API defines the rsources and actions to manage a virtual cluster on the
 SDSC comet cluster."""
@@ -13,9 +12,36 @@ api = Api(app,
           description=info
           )
 
+# #####################################################################
+# Namespaces
+# #####################################################################
+
 ns_cluster = api.namespace('cluster', 'Cluster commands')
 ns_project = api.namespace('project', 'Project commands')
 ns_user = api.namespace('user', 'User commands')
+
+# #####################################################################
+# Models
+# #####################################################################
+
+model_cluster = api.model('ClusterModel', {
+    'name': fields.String,
+})
+
+model_project = api.model('ProjectModel', {
+    'name': fields.String,
+})
+
+model_user = api.model('UserModel', {
+    'username': fields.String,
+    'firstname': fields.String,
+    'lastname': fields.String,
+    'email': fields.String,
+})
+
+# #####################################################################
+# Clusters
+# #####################################################################
 
 @ns_cluster.route('/')
 class Clusters(Resource):
@@ -42,6 +68,9 @@ class Cluster(Resource):
     def delete(self, id):
         return {'cluster': 'delete to be implemented'}
 
+# #####################################################################
+# Projects
+# #####################################################################
 
 @ns_project.route('/')
 @api.doc(params={'name': 'The unique name of the project'})
@@ -64,6 +93,10 @@ class Project(Resource):
     
     def delete(self, name):
         return {'Project': 'delete to be implemented'}
+
+# #####################################################################
+# Users
+# #####################################################################
 
 @ns_user.route('/')    
 class Users(Resource):
@@ -89,6 +122,10 @@ class User(Resource):
     
     def delete(self, username):
         return {'cluster': 'delete to be implemented'}
-    
+
+# #####################################################################
+# Main
+# #####################################################################
+
 if __name__ == '__main__':
     app.run(debug=True)
