@@ -6,7 +6,7 @@ var swaggerSuite = require('swagger-suite');  // you can just use require('swagg
 //
 // Load the Swagger file
 // ----------------------------------------
-var server = swaggerSuite(path.join(__dirname, 'api.yaml'));
+var server = swaggerSuite(path.join(__dirname, 'api.yml'));
 
 
 // This an Express error-handler middleware (notice the extra "err" parameter).
