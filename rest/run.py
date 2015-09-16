@@ -28,7 +28,7 @@ class Clusters(Resource):
         return {'clusters': 'to be implemented'}
 
     def post(self):
-        return {'cluster': 'get to be implemented'}
+        return {'cluster': 'post to be implemented'}
 
 @ns_cluster.route('/<string:id>')
 @api.doc(params={'id': 'The unique id of the cluster'})
@@ -60,7 +60,7 @@ class Project(Resource):
         return {'project': 'get to be implemented'}
 
     def post(self):
-        return {'Project': 'get to be implemented'}
+        return {'Project': 'post to be implemented'}
     
     def delete(self, name):
         return {'Project': 'delete to be implemented'}
@@ -85,7 +85,7 @@ class User(Resource):
         return {'User': 'get to be implemented'}
 
     def post(self):
-        return {'User': 'get to be implemented'}
+        return {'User': 'post to be implemented'}
     
     def delete(self, username):
         return {'cluster': 'delete to be implemented'}
