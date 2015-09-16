@@ -7,5 +7,4 @@ urlpatterns = patterns(
     url(r'^cluster/(?P<cluster_name>\w+)/stop$', 'cluster_stop', name='cluster_stop'),
     url(r'^cluster/(?P<cluster_name>\w+)/start$', 'cluster_start', name='cluster_start'),
     url(r'^/gregor/clusters/$', views.ClusterList.as_view()),
-
 )
