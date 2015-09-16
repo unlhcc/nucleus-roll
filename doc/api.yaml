@@ -49,12 +49,17 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /cluster:
+  /cluster/{cluster_name}:
     tags:
     - Cluster
     get:
       summary: return information about a cluster
       description: return information about a cluster
+      parameters:
+        - name: cluster_name
+          in: path
+          required: true
+          description: The cluster name
       responses:
         200:
           description: An array of projects
@@ -70,6 +75,15 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    delete:
+      summary: Remove the cluster
+      parameters:
+        - name: cluster_name
+          in: path
+          required: true
+          description: The cluster name
+    put:
+      summary: update the parameters of existed cluster
   /projects:
     tags:
     - Project
@@ -111,23 +125,6 @@ paths:
             $ref: '#/definitions/Error'
     post:
       summary:  Create a new cluster
-  /cluster/{cluster_name}:
-    get:
-      summary: Retrieve the full description of a cluster
-      parameters:
-        - name: cluster_name
-          in: path
-          required: true
-          description: The cluster name
-    delete:
-      summary: Remove the cluster
-      parameters:
-        - name: cluster_name
-          in: path
-          required: true
-          description: The cluster name
-    put:
-      summary: update the parameters of existed cluster
   /cluster/{cluster_name}/start:
     post:
       summary: Starts the cluster
