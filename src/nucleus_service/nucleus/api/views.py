@@ -10,7 +10,7 @@ from rest_framework import status
 # def cluster_list(request):
 #    return Response("response")
 
-class Cluster(APIView):
+class ClusterList(APIView):
     """
     List all clusters, or create a new cluster.
     """
