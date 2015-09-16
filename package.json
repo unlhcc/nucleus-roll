@@ -1,0 +1,22 @@
+{
+  "name": "nucleus-roll",
+  "description": "The REST API for Comet virtual infrastructure",
+  "keywords": [
+    "comet",
+    "virtual",
+    "hpc",
+    "virtualization",
+    "rest"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "nucleus": "DEBUG=swagger:* node doc/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdsc/nucleus-roll.git"
+  },
+  "dependencies": {
+    "swagger-suite": "0.0.9"
+  }
+}

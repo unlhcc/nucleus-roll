@@ -35,3 +35,4 @@ cache/
 *.tgz
 *.rpm
 *.zip
+node_modules
