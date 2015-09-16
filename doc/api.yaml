@@ -12,7 +12,7 @@ produces:
 paths:
   /cluster:
     get:
-      summary: The list of the clusters
+      summary: v1.0 The list of the clusters
       description: |
         The list of the clusters.
       parameters:
@@ -38,6 +38,7 @@ paths:
           type: string
       tags:
         - Cluster
+        - v1.0
       responses:
         200:
           description: An array of clusters
