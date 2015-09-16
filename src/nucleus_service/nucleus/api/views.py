@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 # def cluster_list(request):
 #    return Response("response")
 
-class PersonList(APIView):
+class UserList(APIView):
     """
     List all Persons that can create clusters.
     We will investigate djangos build in classes for that.
@@ -20,7 +20,7 @@ class PersonList(APIView):
 
 class ProjectList(APIView):
     """
-    List all Persons that can create clusters.
+    List all Projects that can create clusters.
     We will investigate iv django has already a project as part of user management.
     """
     def get(self, request, format=None):
