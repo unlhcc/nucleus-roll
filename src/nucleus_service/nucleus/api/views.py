@@ -6,3 +6,10 @@ from rest_framework.response import Response
 def cluster_list(request):
     return Response("response")
 
+@api_view(['POST'])
+def cluster_start(request, cluster_name):
+    return Response("response cluster start")
+
+@api_view(['POST'])
+def cluster_stop(request, cluster_name):
+    return Response("response cluster stop")
