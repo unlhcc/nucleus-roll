@@ -38,3 +38,5 @@ cache/
 *.rpm
 *.zip
 node_modules
+*.log
+*.pyc
