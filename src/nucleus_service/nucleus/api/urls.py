@@ -1,16 +1,35 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, include, url
 import views
+from rest_framework.routers import SimpleRouter, Route, DynamicDetailRoute
+
+class ClusterRouter(SimpleRouter):
+    routes = [
+        Route(
+            url=r'^{prefix}/$',
+            mapping={'get': 'list'},
+            name='{basename}-list',
+            initkwargs={'suffix': 'List'}
+        ),
+        Route(
+           url=r'^{prefix}/{lookup}/$',
+           mapping={'get': 'retrieve',
+            'delete': 'destroy'},
+           name='{basename}-detail',
+           initkwargs={'suffix': 'Detail'}
+        ),
+        DynamicDetailRoute(
+            url=r'^{prefix}/{lookup}/{methodname}$',
+            name='{basename}-{methodname}',
+            initkwargs={}
+        )
+    ]
+
+router = ClusterRouter()
+router.register(r'^', views.ClusterViewSet, base_name='cluster')
 
 urlpatterns = patterns(
     'api.views',
-    url(r'^cluster$', 'cluster_list', name='cluster_list'),
-    url(r'^cluster/(?P<cluster_name>\w+)/stop$', 'cluster_stop', name='cluster_stop'),
-    url(r'^cluster/(?P<cluster_name>\w+)/start$', 'cluster_start', name='cluster_start'),
-    #
-    # Cluster
-    #
-    url(r'clusters$', views.ClusterList.as_view()),
-    url(r'^clusters/(?P<cluster_name>\w+)/$', views.ClusterDetail.as_view()),    
+    url(r'^cluster', include(router.urls)),
     #
     # Users
     #
@@ -22,3 +41,5 @@ urlpatterns = patterns(
     url(r'^projects/$', views.ProjectList.as_view()),
     url(r'^projects/(?P<project_name>[0-9]+)/$', views.ProjectDetail.as_view()),
 )
+
+

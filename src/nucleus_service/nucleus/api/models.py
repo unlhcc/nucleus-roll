@@ -1,7 +1,8 @@
 from django.db import models
+from rest_framework import serializers
 
-"""
-class User(models.Model):
+
+"""class User(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
@@ -27,7 +28,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
         fields = ('name')
-                
+"""                
 class Cluster(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
@@ -37,10 +38,10 @@ class Cluster(models.Model):
 
 class ClusterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Snippet
-        fields = ('name')
+        model = Cluster
+        fields = ['name']
         
-                
+"""                
 class Storagepool(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
