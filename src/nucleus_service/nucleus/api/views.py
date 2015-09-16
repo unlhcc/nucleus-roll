@@ -21,7 +21,7 @@ class UserList(APIView):
 class ProjectList(APIView):
     """
     List all Projects that can create clusters.
-    We will investigate iv django has already a project as part of user management.
+    We will investigate if django has already a project as part of user management.
     """
     def get(self, request, format=None):
         return Response("todo")
@@ -29,7 +29,70 @@ class ProjectList(APIView):
     def post(self, request, format=None):
         return Response("todo")
 
+class ProjectDetail(APIView):
+    """
+    Retrieve, update or delete a project instance.
+    """
+    def get_object(self, id):
+        # try:
+        #    return Project.objects.get(id=id)
+        # except Project.DoesNotExist:
+        #    raise Http404
+        return None
 
+    def get(self, request, id, format=None):
+        # project = self.get_object(id)
+        # serializer = ProjectSerializer(project)
+        # return Response(serializer.data)
+        return Response("todo")
+    
+    def put(self, request, id, format=None):
+        # project = self.get_object(id)
+        # serializer = ProjectSerializer(project, data=request.data)
+        # if serializer.is_valid():
+        #    serializer.save()
+        #    return Response(serializer.data)
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response("todo")
+        
+    def delete(self, request, id, format=None):
+        # project = self.get_object(id)
+        # project.delete()
+        # return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response("todo")
+        
+class UserDetail(APIView):
+    """
+    Retrieve, update or delete a user instance.
+    """
+    def get_object(self, id):
+        # try:
+        #    return User.objects.get(id=id)
+        # except User.DoesNotExist:
+        #    raise Http404
+        return None
+
+    def get(self, request, id, format=None):
+        # user = self.get_object(id)
+        # serializer = UserSerializer(user)
+        # return Response(serializer.data)
+        return Response("todo")
+    
+    def put(self, request, id, format=None):
+        # user = self.get_object(id)
+        # serializer = UserSerializer(user, data=request.data)
+        # if serializer.is_valid():
+        #    serializer.save()
+        #    return Response(serializer.data)
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response("todo")
+        
+    def delete(self, request, id, format=None):
+        # user = self.get_object(id)
+        # user.delete()
+        # return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response("todo")
+        
 class ClusterList(APIView):
     """
     List all clusters, or create a new cluster.
@@ -48,6 +111,38 @@ class ClusterList(APIView):
         #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("todo")
 
+class ClusterDetail(APIView):
+    """
+    Retrieve, update or delete a cluster instance.
+    """
+    def get_object(self, id):
+        # try:
+        #    return Cluster.objects.get(id=id)
+        # except Cluster.DoesNotExist:
+        #    raise Http404
+        return None
+
+    def get(self, request, id, format=None):
+        # cluster = self.get_object(id)
+        # serializer = ClusterSerializer(cluster)
+        # return Response(serializer.data)
+        return Response("todo")
+    
+    def put(self, request, id, format=None):
+        # cluster = self.get_object(id)
+        # serializer = ClusterSerializer(cluster, data=request.data)
+        # if serializer.is_valid():
+        #    serializer.save()
+        #    return Response(serializer.data)
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response("todo")
+        
+    def delete(self, request, id, format=None):
+        # cluster = self.get_object(id)
+        # cluster.delete()
+        # return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response("todo")
+        
 @api_view(['POST'])
 def cluster_start(request, cluster_name):
     return Response("response cluster start")
