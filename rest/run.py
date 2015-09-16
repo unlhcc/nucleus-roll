@@ -64,6 +64,7 @@ api = Api(app,
 ns_cluster = api.namespace('cluster', 'Cluster commands')
 ns_project = api.namespace('project', 'Project commands')
 ns_user = api.namespace('user', 'User commands')
+ns_storage = api.namespace('storage', 'Storage commands')
 
 # #####################################################################
 # Models
@@ -239,6 +240,120 @@ class User(Resource):
     def delete(self, username):
         """Delete a user by unique user name."""
         return {'cluster': 'delete to be implemented'}
+
+# #####################################################################
+# Storage
+# #####################################################################
+
+
+@ns_storage.route('/pool')    
+class StoragePools(Resource):
+    def get(self):
+        """Get the list of Storage Pools"""
+        return {'Storage pools': 'get to be implemented'}
+
+    def post(self):
+        '''Create a storage pool'''
+        return {'User': 'post to be implemented'}
+
+@ns_storage.route('/pool/<string:name>')    
+class StoragePool(Resource):
+    """TODO:
+   
+	-   state: Indicates the current state of the Storage Pool
+            -   active: The Storage Pool is ready for use
+       	    -   inactive: The Storage Pool is not available
+    -   path: The path of the defined Storage Pool
+    -   capacity: The total space which can be used to store volumes The
+        unit is Bytes
+    -   allocated: The amount of space which is being used to store
+        volumes The unit is Bytes
+    -   available: Free space available for creating new volumes in the
+        pool
+
+     Actions (POST):
+
+     -   activate: Activate an inactive Storage Pool
+     -   deactivate: Deactivate an active Storage Pool
+    """
+    def get(self, name):
+        """Get the Storage Pool with given id"""
+        return {'Storage pool': 'get to be implemented'}
+
+@ns_storage.route('/pool/<string:poolname>/volume')    
+class StoragePoolVolumes(Resource):
+    """TODO:
+    -   **POST**:  The return
+    resource is a task resource \* See Resource: Task \* Only one of
+    'capacity', 'url' can be specified.
+    -   name: The name of the Storage Volume
+    -   capacity: The total space which can be used to store volumes The
+        unit is Gbytes
+    """
+    
+    def get(self, poolname):
+        """Get the Storage Pool volumes in the named pool"""
+        return {'Storage pool volume': 'get to be implemented'}
+
+    def post(self, poolname):
+        """Create a new Storage Volume in the Storage Pool"""
+
+
+@ns_storage.route('/pool/<string:poolname>/volume/<string:volumename>')    
+class StoragePoolVolume(Resource):
+
+    def get(self, poolname, volumename):
+        """Get the Storage Pool volume in the named pool by name.
+
+        TODO:
+        
+        -   **GET**: Retrieve the full description of a Storage Volume
+        -   name: The name of the Storage Volume Used to identify the
+            Storage Volume in this API
+        -   state: mapped / unmapped
+        -   host: The name of the host where the image is attached to
+        -   zpool: The name of the zpool storing the zvol
+        -   target: name of iSCSI target if exists
+        -   capacity: The total space which can be used to store data The
+            unit is Bytes
+        """
+
+        return {'Storage pool volume by name': 'get to be implemented'}
+
+@ns_storage.route('/storage/server')        
+class StorageServers(Resource):
+    """Retrieve a summarized list of used storage servers."""
+    
+    def get(self):
+        """Get the Storage servers."""
+        return {'Storage servers': 'get to be implemented'}
+
+@ns_storage.route('/storage/server/<string:host_or_ip>')            
+class StorageServer(Resource):
+    """Retrieve a summarized list of used storage servers.
+    """
+    
+    def get(self):
+        """Get the Storage server for a host with given name or ip."""
+        return {'Storage servers': 'get to be implemented'}
+    
+@ns_storage.route('/storage/servers/<string:host_or_ip>/zpool')            
+class StorageServerZpools(Resource):
+    """Retrieve a summarized list of used storage servers.
+    """
+    
+    def get(self):
+        """Retrieve a list of available storage zpools.
+
+        TODO:
+        
+        -   Response: A list with storage targets information.
+        -   host: IP or host name of storage server of this zpool.
+        -   zpool: Storage zpool name.
+
+        """
+        return {'Storage servers zpools': 'get to be implemented'}
+
 
 # #####################################################################
 # Main
