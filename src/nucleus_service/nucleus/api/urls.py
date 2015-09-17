@@ -1,24 +1,64 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, include, url
 import views
+from rest_framework.routers import Route, DynamicDetailRoute
+from rest_framework_nested.routers import SimpleRouter, NestedSimpleRouter
+
+class MainRouter(SimpleRouter):
+    routes = [
+        Route(
+            url=r'^{prefix}/$',
+            mapping={'get': 'list'},
+            name='{basename}-list',
+            initkwargs={'suffix': 'List'}
+        ),
+        Route(
+           url=r'^{prefix}/{lookup}/$',
+           mapping={'get': 'retrieve',
+            'delete': 'destroy'},
+           name='{basename}-detail',
+           initkwargs={'suffix': 'Detail'}
+        ),
+        DynamicDetailRoute(
+            url=r'^{prefix}/{lookup}/{methodname}$',
+            name='{basename}-{methodname}',
+            initkwargs={}
+        )
+    ]
+
+class ComputeRouter(NestedSimpleRouter):
+    routes = MainRouter.routes
+
+class StorageRouter(NestedSimpleRouter):
+    routes = MainRouter.routes
+
+router = MainRouter()
+router.register(r'^', views.ClusterViewSet, base_name='cluster')
+
+compute_router = ComputeRouter(router, r'^', lookup='compute_id')
+compute_router.register(r'compute', views.ComputeViewSet, base_name='cluster-compute')
+
+storage_router = StorageRouter(compute_router, r'compute', lookup='storage_id')
+storage_router.register(r'storage', views.StorageViewSet, base_name='cluster-compute-storage')
+
+project_router = MainRouter()
+project_router.register(r'^', views.ProjectViewSet, base_name='project')
+
+user_router = MainRouter()
+user_router.register(r'^', views.UserViewSet, base_name='user')
 
 urlpatterns = patterns(
     'api.views',
-    url(r'^cluster$', 'cluster_list', name='cluster_list'),
-    url(r'^cluster/(?P<cluster_name>\w+)/stop$', 'cluster_stop', name='cluster_stop'),
-    url(r'^cluster/(?P<cluster_name>\w+)/start$', 'cluster_start', name='cluster_start'),
-    #
-    # Cluster
-    #
-    url(r'clusters$', views.ClusterList.as_view()),
-    url(r'^clusters/(?P<cluster_name>\w+)/$', views.ClusterDetail.as_view()),    
+    url(r'^cluster', include(router.urls)),
+    url(r'^cluster', include(compute_router.urls)),
+    url(r'^cluster', include(storage_router.urls)),
     #
     # Users
     #
-    url(r'^users/$', views.UserList.as_view()),
-    url(r'^users/(?P<username>[0-9]+)/$', views.UserDetail.as_view()),
+    url(r'^user', include(user_router.urls)),
     #
     # Projects
     #
-    url(r'^projects/$', views.ProjectList.as_view()),
-    url(r'^projects/(?P<project_name>[0-9]+)/$', views.ProjectDetail.as_view()),
+    url(r'^project', include(project_router.urls)),
 )
+
+
