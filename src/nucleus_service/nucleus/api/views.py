@@ -48,6 +48,26 @@ class ComputeViewSet(ModelViewSet):
     def destroy(self, request, compute_id, compute_id_cluster_id, format=None):
         return Response("todo")
     
+    @detail_route(methods=['post'])
+    def poweroff(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
+    def shutdown(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
+    def reset(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
+    def start(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+
+    @detail_route(methods=['post'])
+    def stop(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+    
 class StorageViewSet(ModelViewSet):
     lookup_field = 'storage_id'
     serializer_class = StorageSerializer

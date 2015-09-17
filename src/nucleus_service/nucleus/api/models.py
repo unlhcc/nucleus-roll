@@ -45,15 +45,13 @@ class StorageSerializer(serializers.ModelSerializer):
 
 class Compute(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=100)
 
     class Meta:
-        ordering = ('name',)
+        pass
 
 class ComputeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Compute
-        fields = ['name']
 
 class Cluster(models.Model):
     created = models.DateTimeField(auto_now_add=True)
