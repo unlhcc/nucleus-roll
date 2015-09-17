@@ -34,107 +34,63 @@ class ClusterViewSet(ModelViewSet):
     @detail_route(methods=['post'])
     def start(self, request, cluster_id, format=None):
         return Response("todo")
-    
+
 class ComputeViewSet(ModelViewSet):
     lookup_field = 'compute_id'
     serializer_class = ComputeSerializer
 
-    def list(self, request, format=None):
+    def list(self, request, compute_id_cluster_id, format=None):
         return Response("todo")
 
     def retrieve(self, request, compute_id, compute_id_cluster_id, format=None):
         return Response("todo")
 
+    def destroy(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+    
+class StorageViewSet(ModelViewSet):
+    lookup_field = 'storage_id'
+    serializer_class = StorageSerializer
+
+    def list(self, request, compute_id_cluster_id, storage_id_compute_id, format=None):
+        return Response("todo")
+
+    def retrieve(self, request, storage_id, compute_id_cluster_id, storage_id_compute_id, format=None):
+        return Response("todo")
+
+    def destroy(self, request, storage_id, compute_id_cluster_id, storage_id_compute_id, format=None):
+        return Response("todo")
    
-class UserList(APIView):
-    """
-    List all Persons that can create clusters.
-    We will investigate djangos build in classes for that.
-    """
-    def get(self, request, format=None):
-        return Response("todo")
-        
-    def post(self, request, format=None):
+class UserViewSet(ModelViewSet):
+    lookup_field = 'user_id'
+    serializer_class = UserSerializer
+
+    def list(self, request, format=None):
+        """
+        List all Persons that can create clusters.
+        We will investigate djangos build in classes for that.
+        """
         return Response("todo")
 
-class ProjectList(APIView):
-    """
-    List all Projects that can create clusters.
-    We will investigate if django has already a project as part of user management.
-    """
-    def get(self, request, format=None):
-        return Response("todo")
-        
-    def post(self, request, format=None):
+    def retrieve(self, request, user_id, format=None):
         return Response("todo")
 
-class ProjectDetail(APIView):
-    def get_object(self, id):
-        # try:
-        #    return Project.objects.get(id=id)
-        # except Project.DoesNotExist:
-        #    raise Http404
-        return None
+    def destroy(self, request, user_id, format=None):
+        return Response("todo")
 
-    def get(self, request, id, format=None):
-        """
-        Retrieve a project instance.
-        """
-        # project = self.get_object(id)
-        # serializer = ProjectSerializer(project)
-        # return Response(serializer.data)
-        return Response("todo")
-    
-    def put(self, request, id, format=None):
-        """
-        Update a project instance.
-        """
-        # project = self.get_object(id)
-        # serializer = ProjectSerializer(project, data=request.data)
-        # if serializer.is_valid():
-        #    serializer.save()
-        #    return Response(serializer.data)
-        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response("todo")
-        
-    def delete(self, request, id, format=None):
-        """
-        Delete a project instance.
-        """
-        # project = self.get_object(id)
-        # project.delete()
-        # return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response("todo")
-        
-class UserDetail(APIView):
-    """
-    Retrieve, update or delete a user instance.
-    """
-    def get_object(self, id):
-        # try:
-        #    return User.objects.get(id=id)
-        # except User.DoesNotExist:
-        #    raise Http404
-        return None
+class ProjectViewSet(ModelViewSet):
+    lookup_field = 'project_id'
+    serializer_class = ProjectSerializer
 
-    def get(self, request, id, format=None):
-        # user = self.get_object(id)
-        # serializer = UserSerializer(user)
-        # return Response(serializer.data)
+    def list(self, request, format=None):
+        """
+        List all Projects that can create clusters.
+        We will investigate if django has already a project as part of user management.
+        """
         return Response("todo")
-    
-    def put(self, request, id, format=None):
-        # user = self.get_object(id)
-        # serializer = UserSerializer(user, data=request.data)
-        # if serializer.is_valid():
-        #    serializer.save()
-        #    return Response(serializer.data)
-        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, project_id, format=None):
         return Response("todo")
-        
-    def delete(self, request, id, format=None):
-        # user = self.get_object(id)
-        # user.delete()
-        # return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def destroy(self, request, project_id, format=None):
         return Response("todo")
-        

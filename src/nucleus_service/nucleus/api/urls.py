@@ -3,7 +3,7 @@ import views
 from rest_framework.routers import Route, DynamicDetailRoute
 from rest_framework_nested.routers import SimpleRouter, NestedSimpleRouter
 
-class ClusterRouter(SimpleRouter):
+class MainRouter(SimpleRouter):
     routes = [
         Route(
             url=r'^{prefix}/$',
@@ -26,29 +26,39 @@ class ClusterRouter(SimpleRouter):
     ]
 
 class ComputeRouter(NestedSimpleRouter):
-    routes = ClusterRouter.routes
+    routes = MainRouter.routes
 
-router = ClusterRouter()
+class StorageRouter(NestedSimpleRouter):
+    routes = MainRouter.routes
+
+router = MainRouter()
 router.register(r'^', views.ClusterViewSet, base_name='cluster')
 
 compute_router = ComputeRouter(router, r'^', lookup='compute_id')
 compute_router.register(r'compute', views.ComputeViewSet, base_name='cluster-compute')
 
+storage_router = StorageRouter(compute_router, r'compute', lookup='storage_id')
+storage_router.register(r'storage', views.StorageViewSet, base_name='cluster-compute-storage')
+
+project_router = MainRouter()
+project_router.register(r'^', views.ProjectViewSet, base_name='project')
+
+user_router = MainRouter()
+user_router.register(r'^', views.UserViewSet, base_name='user')
 
 urlpatterns = patterns(
     'api.views',
     url(r'^cluster', include(router.urls)),
     url(r'^cluster', include(compute_router.urls)),
+    url(r'^cluster', include(storage_router.urls)),
     #
     # Users
     #
-    url(r'^users/$', views.UserList.as_view()),
-    url(r'^users/(?P<username>[0-9]+)/$', views.UserDetail.as_view()),
+    url(r'^user', include(user_router.urls)),
     #
     # Projects
     #
-    url(r'^projects/$', views.ProjectList.as_view()),
-    url(r'^projects/(?P<project_name>[0-9]+)/$', views.ProjectDetail.as_view()),
+    url(r'^project', include(project_router.urls)),
 )
 
 
