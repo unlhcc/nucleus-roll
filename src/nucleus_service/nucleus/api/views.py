@@ -6,14 +6,22 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import detail_route
 from models import *
 
+
 class ClusterViewSet(ModelViewSet):
     lookup_field = 'cluster_id'
     serializer_class = ClusterSerializer
 
     def list(self, request, format=None):
+        #clusters = Cluster.objects.all()
+        #serializer = CLusterSerializer(clusters, many=True)
+        #return Response(serializer.data)
         return Response("todo")
 
     def retrieve(self, request, cluster_id, format=None):
+        #try:
+        #   return Cluster.objects.get(id=id)
+        #except Cluster.DoesNotExist:
+        #   raise Http404
         return Response("todo")
 
     def destroy(self, request, cluster_id, format=None):
@@ -27,7 +35,6 @@ class ClusterViewSet(ModelViewSet):
     def start(self, request, cluster_id, format=None):
         return Response("todo")
     
-
 class UserList(APIView):
     """
     List all Persons that can create clusters.
