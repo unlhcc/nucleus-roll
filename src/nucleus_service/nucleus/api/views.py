@@ -132,6 +132,9 @@ class ClusterDetail(APIView):
         except Cluster.DoesNotExist:
            raise Http404
 
+    def start(self, id):
+        return Response("start")
+    
     def get(self, request, id, format=None):
         cluster = self.get_object(id)
         serializer = ClusterSerializer(cluster)

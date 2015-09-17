@@ -14,16 +14,15 @@ class ClusterSerializer(serializers.ModelSerializer):
         fields = ('name')
         
 
-"""
 class User(models.Model):
+    username = models.CharField(max_length=24)
     created = models.DateTimeField(auto_now_add=True)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    username = models.CharField(max_length=24)
     email = models.CharField(max_length=100)            
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('username',)
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,4 +53,3 @@ class StoragepoolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Storagepool
         fields = ('name')
-"""
