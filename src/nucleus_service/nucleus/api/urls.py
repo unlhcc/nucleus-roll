@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 import views
-from rest_framework.routers import SimpleRouter, Route, DynamicDetailRoute
+from rest_framework.routers import Route, DynamicDetailRoute
+from rest_framework_nested.routers import SimpleRouter, NestedSimpleRouter
 
 class ClusterRouter(SimpleRouter):
     routes = [
@@ -24,12 +25,20 @@ class ClusterRouter(SimpleRouter):
         )
     ]
 
+class ComputeRouter(NestedSimpleRouter):
+    routes = ClusterRouter.routes
+
 router = ClusterRouter()
 router.register(r'^', views.ClusterViewSet, base_name='cluster')
+
+compute_router = ComputeRouter(router, r'^', lookup='compute_id')
+compute_router.register(r'compute', views.ComputeViewSet, base_name='cluster-compute')
+
 
 urlpatterns = patterns(
     'api.views',
     url(r'^cluster', include(router.urls)),
+    url(r'^cluster', include(compute_router.urls)),
     #
     # Users
     #

@@ -35,6 +35,17 @@ class ClusterViewSet(ModelViewSet):
     def start(self, request, cluster_id, format=None):
         return Response("todo")
     
+class ComputeViewSet(ModelViewSet):
+    lookup_field = 'compute_id'
+    serializer_class = ComputeSerializer
+
+    def list(self, request, format=None):
+        return Response("todo")
+
+    def retrieve(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+
+   
 class UserList(APIView):
     """
     List all Persons that can create clusters.
