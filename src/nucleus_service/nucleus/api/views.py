@@ -32,12 +32,12 @@ class ClusterViewSet(ModelViewSet):
 
     @detail_route(methods=['post'])
     def stop(self, request, cluster_id, format=None):
-        """Stop the named cluster"""
+        """Stop the named cluster."""
         return Response("todo")
     
     @detail_route(methods=['post'])
     def start(self, request, cluster_id, format=None):
-        """Start the named cluster"""
+        """Start the named cluster."""
         return Response("todo")
 
 class ComputeViewSet(ModelViewSet):
@@ -45,19 +45,24 @@ class ComputeViewSet(ModelViewSet):
     serializer_class = ComputeSerializer
 
     def list(self, request, compute_id_cluster_id, format=None):
+        """List the compute resources of the named cluster."""
         return Response("todo")
 
     def retrieve(self, request, compute_id, compute_id_cluster_id, format=None):
+        """Obtain the details of a named compute resource in a named cluster."""
         return Response("todo")
 
     def destroy(self, request, compute_id, compute_id_cluster_id, format=None):
+        """Destroy the named compute resource in a named cluster."""
         return Response("todo")
     
     @detail_route(methods=['post'])
     def poweroff(self, request, compute_id, compute_id_cluster_id, format=None):
+        """Power off the named compute resource in a named cluster."""        
         return Response("todo")
     
     def put(self, request, id, format=None):
+        """Create a new compute resource in a named cluster."""        
         # user = self.get_object(id)
         # serializer = UserSerializer(user, data=request.data)
         # if serializer.is_valid():
@@ -67,6 +72,7 @@ class ComputeViewSet(ModelViewSet):
         return Response("todo")
         
     def delete(self, request, id, format=None):
+        """Delete the named cluster."""                    
         # user = self.get_object(id)
         # user.delete()
         # return Response(status=status.HTTP_204_NO_CONTENT)
