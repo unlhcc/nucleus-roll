@@ -12,12 +12,14 @@ class ClusterViewSet(ModelViewSet):
     serializer_class = ClusterSerializer
 
     def list(self, request, format=None):
+        """List the available clusters."""
         #clusters = Cluster.objects.all()
         #serializer = CLusterSerializer(clusters, many=True)
         #return Response(serializer.data)
         return Response("todo")
 
     def retrieve(self, request, cluster_id, format=None):
+        """Obtain details about the named cluster."""
         #try:
         #   return Cluster.objects.get(id=id)
         #except Cluster.DoesNotExist:
@@ -25,14 +27,17 @@ class ClusterViewSet(ModelViewSet):
         return Response("todo")
 
     def destroy(self, request, cluster_id, format=None):
+        """Destroy the named cluster."""
         return Response("todo")
 
     @detail_route(methods=['post'])
     def stop(self, request, cluster_id, format=None):
+        """Stop the named cluster"""
         return Response("todo")
     
     @detail_route(methods=['post'])
     def start(self, request, cluster_id, format=None):
+        """Start the named cluster"""
         return Response("todo")
 
 class ComputeViewSet(ModelViewSet):
