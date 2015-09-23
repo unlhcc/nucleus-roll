@@ -43,6 +43,18 @@ class StorageSerializer(serializers.ModelSerializer):
         model = Storage
         fields = ['name']
 
+class Frontend(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    #name = models.CharField(max_length=100)
+
+    class Meta:
+        pass
+
+class FrontendSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Frontend
+        #fields = ['name']
+
 class Compute(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
