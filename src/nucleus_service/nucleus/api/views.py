@@ -6,6 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import detail_route
 from models import *
 
+import random
 
 class ClusterViewSet(ModelViewSet):
     lookup_field = 'cluster_id'
@@ -13,18 +14,17 @@ class ClusterViewSet(ModelViewSet):
 
     def list(self, request, format=None):
         """List the available clusters."""
-        #clusters = Cluster.objects.all()
-        #serializer = CLusterSerializer(clusters, many=True)
-        #return Response(serializer.data)
-        return Response("todo")
+        clusters = Cluster.objects.all()
+        serializer = ClusterSerializer(clusters, many=True)
+        return Response(serializer.data)
+    #    return Response("todo")
 
     def retrieve(self, request, cluster_id, format=None):
         """Obtain details about the named cluster."""
-        #try:
-        #   return Cluster.objects.get(id=id)
-        #except Cluster.DoesNotExist:
-        #   raise Http404
-        return Response("todo")
+        try:
+           return Response(ClusterSerializer(Cluster.objects.get(fe_name=cluster_id)).data)
+        except Cluster.DoesNotExist:
+           return Response(None, status=status.HTTP_404_NOT_FOUND)
 
     def destroy(self, request, cluster_id, format=None):
         """Destroy the named cluster."""
@@ -61,23 +61,31 @@ class ComputeViewSet(ModelViewSet):
         return Response("todo")
     
     @detail_route(methods=['post'])
+    def reboot(self, request, compute_id, compute_id_cluster_id, format=None):
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
     def reset(self, request, compute_id, compute_id_cluster_id, format=None):
         return Response("todo")
     
     @detail_route(methods=['post'])
-    def start(self, request, compute_id, compute_id_cluster_id, format=None):
-        return Response("todo")
+    def poweron(self, request, compute_id, compute_id_cluster_id, format=None):
+        compute_nodes = Compute(compute_id_cluster_id, compute_id)
+        res, err = compute_nodes.poweron()
+        job_id = random.randint(10000, 70000)
+        Group.create(job_id).save()
+        response = Response(
+            "booted up "+compute_id+" nodes with result "+res+" and error "+err, 
+            status=303,
+            headers={'Location': "/v1/cluster/%s/group/%s"%(compute_id_cluster_id, job_id)})
+        return response
 
-    @detail_route(methods=['post'])
-    def stop(self, request, compute_id, compute_id_cluster_id, format=None):
-        return Response("todo")
-    
     @detail_route(methods=['post'])
     def poweroff(self, request, compute_id, compute_id_cluster_id, format=None):
         """Power off the named compute resource in a named cluster."""        
         return Response("todo")
     
-    def put(self, request, id, format=None):
+    def create(self, request, compute_id_cluster_id, format=None):
         """Create a new compute resource in a named cluster."""        
         # user = self.get_object(id)
         # serializer = UserSerializer(user, data=request.data)
@@ -86,14 +94,58 @@ class ComputeViewSet(ModelViewSet):
         #    return Response(serializer.data)
         #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("todo")
-        
-    def delete(self, request, id, format=None):
-        """Delete the named cluster."""                    
-        # user = self.get_object(id)
-        # user.delete()
-        # return Response(status=status.HTTP_204_NO_CONTENT)
+
+class GroupViewSet(ModelViewSet):
+    lookup_field = 'group_id'
+    serializer_class = GroupSerializer
+
+    def list(self, request, group_id_cluster_id, format=None):
+        """List the group resources of the named cluster."""
         return Response("todo")
-        
+
+    def retrieve(self, request, group_id, group_id_cluster_id, format=None):
+        """Obtain the details of a named group resource in a named cluster."""
+        group = Group(group_id_cluster_id, group_id)
+        return Response(GroupSerializer(group).data)
+
+    def destroy(self, request, group_id, group_id_cluster_id, format=None):
+        """Destroy the named group resource in a named cluster."""
+        return Response("todo")
+
+
+       
+class FrontendViewSet(ModelViewSet):
+    serializer_class = FrontendSerializer
+
+    def retrieve(self, request, format=None):
+        """Obtain the details of a frontend resource in a named cluster."""
+        return Response("todo")
+
+    @detail_route(methods=['post'])
+    def shutdown(self, request, nested_1_cluster_id, format=None):
+        """Shutdown the frontend of a named cluster."""
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
+    def reboot(self, request, nested_1_cluster_id, format=None):
+        """Reboot the frontend of a named cluster."""
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
+    def reset(self, request, nested_1_cluster_id, format=None):
+        """Reset the frontend of a named cluster."""
+        return Response("todo")
+    
+    @detail_route(methods=['post'])
+    def poweron(self, request, nested_1_cluster_id, format=None):
+        """Power on the frontend of a named cluster."""
+        return Response("todo")
+
+    @detail_route(methods=['post'])
+    def poweroff(self, request, nested_1_cluster_id, format=None):
+        """Power off the frontend of a named cluster."""
+        return Response("todo")
+    
 class ClusterList(APIView):
     """
     List all clusters, or create a new cluster.
