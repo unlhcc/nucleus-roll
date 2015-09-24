@@ -75,7 +75,7 @@ class Compute(object):
         self.name = compute_id
 
     def poweron(self):
-        out, err = subprocess.Popen(['ssh', 'dimm@comet-fe1', '"date"'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        out, err = subprocess.Popen(['ssh', 'dimm@comet-fe1', '/opt/rocks/bin/rocks start host vm %s'%self.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
         return [out, err]
         
 
