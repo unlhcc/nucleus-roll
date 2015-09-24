@@ -29,6 +29,9 @@ class MainRouter(SimpleRouter):
 class ComputeRouter(NestedSimpleRouter):
     routes = MainRouter.routes
 
+class GroupRouter(NestedSimpleRouter):
+    routes = MainRouter.routes
+
 class StorageRouter(NestedSimpleRouter):
     routes = MainRouter.routes
 
@@ -51,6 +54,9 @@ compute_router.register(r'compute', views.ComputeViewSet, base_name='cluster-com
 frontend_router = FrontendRouter(router, r'^')
 frontend_router.register(r'frontend', views.FrontendViewSet, base_name='cluster-frontend')
 
+group_router = GroupRouter(router, r'^', lookup='group_id')
+group_router.register(r'group', views.GroupViewSet, base_name='cluster-group')
+
 storage_router = StorageRouter(compute_router, r'compute', lookup='storage_id')
 storage_router.register(r'storage', views.StorageViewSet, base_name='cluster-compute-storage')
 
@@ -65,6 +71,7 @@ urlpatterns = patterns(
     url(r'^cluster', include(router.urls)),
     url(r'^cluster', include(compute_router.urls)),
     url(r'^cluster', include(frontend_router.urls)),
+    url(r'^cluster', include(group_router.urls)),
     url(r'^cluster', include(storage_router.urls)),
     #
     # Users

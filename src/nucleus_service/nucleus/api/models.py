@@ -1,7 +1,7 @@
 from django.db import models
 from rest_framework import serializers
 
-
+import subprocess
 
 
 class User(models.Model):
@@ -55,15 +55,24 @@ class FrontendSerializer(serializers.ModelSerializer):
         model = Frontend
         #fields = ['name']
 
-class Compute(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+class Group(object):
+    def __init__(self, cluster_id, group_id):
+        self.group_id = group_id
 
-    class Meta:
-        pass
+class GroupSerializer(serializers.Serializer):
+    group_id = serializers.IntegerField()
 
-class ComputeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Compute
+class Compute(object):
+    def __init__(self, cluster_id, compute_id):
+        self.name = compute_id
+
+    def poweron(self):
+        out, err = subprocess.Popen(['ssh', 'dimm@comet-fe1', '"date"'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        return [out, err]
+        
+
+class ComputeSerializer(serializers.Serializer):
+    pass
 
 class Cluster(models.Model):
     created = models.DateTimeField(auto_now_add=True)

@@ -6,6 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import detail_route
 from models import *
 
+import random
 
 class ClusterViewSet(ModelViewSet):
     lookup_field = 'cluster_id'
@@ -70,7 +71,14 @@ class ComputeViewSet(ModelViewSet):
     
     @detail_route(methods=['post'])
     def poweron(self, request, compute_id, compute_id_cluster_id, format=None):
-        return Response("todo")
+        compute_nodes = Compute(compute_id_cluster_id, compute_id)
+        res, err = compute_nodes.poweron()
+        job_id = random.randint(10000, 70000)
+        response = Response(
+            "booted up "+compute_id+" nodes with result "+res+" and error "+err, 
+            status=303,
+            headers={'Location': "/v1/cluster/%s/group/%s"%(compute_id_cluster_id, job_id)})
+        return response
 
     @detail_route(methods=['post'])
     def poweroff(self, request, compute_id, compute_id_cluster_id, format=None):
@@ -86,7 +94,26 @@ class ComputeViewSet(ModelViewSet):
         #    return Response(serializer.data)
         #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("todo")
-        
+
+class GroupViewSet(ModelViewSet):
+    lookup_field = 'group_id'
+    serializer_class = GroupSerializer
+
+    def list(self, request, group_id_cluster_id, format=None):
+        """List the group resources of the named cluster."""
+        return Response("todo")
+
+    def retrieve(self, request, group_id, group_id_cluster_id, format=None):
+        """Obtain the details of a named group resource in a named cluster."""
+        group = Group(group_id_cluster_id, group_id)
+        return Response(GroupSerializer(group).data)
+
+    def destroy(self, request, group_id, group_id_cluster_id, format=None):
+        """Destroy the named group resource in a named cluster."""
+        return Response("todo")
+
+
+       
 class FrontendViewSet(ModelViewSet):
     serializer_class = FrontendSerializer
 
