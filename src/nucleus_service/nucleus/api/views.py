@@ -14,18 +14,17 @@ class ClusterViewSet(ModelViewSet):
 
     def list(self, request, format=None):
         """List the available clusters."""
-        #clusters = Cluster.objects.all()
-        #serializer = CLusterSerializer(clusters, many=True)
-        #return Response(serializer.data)
-        return Response("todo")
+        clusters = Cluster.objects.all()
+        serializer = ClusterSerializer(clusters, many=True)
+        return Response(serializer.data)
+    #    return Response("todo")
 
     def retrieve(self, request, cluster_id, format=None):
         """Obtain details about the named cluster."""
-        #try:
-        #   return Cluster.objects.get(id=id)
-        #except Cluster.DoesNotExist:
-        #   raise Http404
-        return Response("todo")
+        try:
+           return Response(ClusterSerializer(Cluster.objects.get(fe_name=cluster_id)).data)
+        except Cluster.DoesNotExist:
+           return Response(None, status=status.HTTP_404_NOT_FOUND)
 
     def destroy(self, request, cluster_id, format=None):
         """Destroy the named cluster."""
@@ -74,6 +73,7 @@ class ComputeViewSet(ModelViewSet):
         compute_nodes = Compute(compute_id_cluster_id, compute_id)
         res, err = compute_nodes.poweron()
         job_id = random.randint(10000, 70000)
+        Group.create(job_id).save()
         response = Response(
             "booted up "+compute_id+" nodes with result "+res+" and error "+err, 
             status=303,

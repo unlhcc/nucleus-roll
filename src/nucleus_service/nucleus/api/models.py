@@ -53,14 +53,22 @@ class Frontend(models.Model):
 class FrontendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Frontend
-        #fields = ['name']
 
-class Group(object):
-    def __init__(self, cluster_id, group_id):
-        self.group_id = group_id
+class Group(models.Model):
+    group_id = models.IntegerField()
+    state = models.CharField(max_length=100, default="queued")
+
+    @classmethod
+    def create(cls, group_id):
+        group = cls(group_id=group_id, state="running")
+        return group
+
+    class Meta:
+        managed = True
 
 class GroupSerializer(serializers.Serializer):
     group_id = serializers.IntegerField()
+    state = serializers.CharField(max_length=100)
 
 class Compute(object):
     def __init__(self, cluster_id, compute_id):
@@ -75,12 +83,28 @@ class ComputeSerializer(serializers.Serializer):
     pass
 
 class Cluster(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+    fe_name = models.CharField(max_length=100,default="")
+    vlan = models.IntegerField(default=0)
+    fe_pub_ip = models.CharField(max_length=45,default="0.0.0.0")
+    fe_pub_gateway = models.CharField(max_length=45,default="0.0.0.0")
+    fe_container = models.CharField(max_length=100,default="comet-ln1")
+    num_computes = models.IntegerField(default=3)
+    compute_containers = models.CharField(max_length=255,default="")
+    fe_cdrom = models.CharField(max_length=255,default="none")
 
     class Meta:
-        pass
+        managed = True
 
 class ClusterSerializer(serializers.ModelSerializer):
+    fe_name = serializers.CharField(max_length=100,default="")
+    vlan = serializers.IntegerField(default=0)
+    fe_pub_ip = serializers.CharField(max_length=45,default="0.0.0.0")
+    fe_pub_gateway = serializers.CharField(max_length=45,default="0.0.0.0")
+    fe_container = serializers.CharField(max_length=100,default="comet-ln1")
+    num_computes = serializers.IntegerField(default=3)
+    compute_containers = serializers.CharField(max_length=255,default="")
+    fe_cdrom = serializers.CharField(max_length=255,default="none")
+
     class Meta:
         model = Cluster
 
