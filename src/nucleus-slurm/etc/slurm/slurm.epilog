@@ -243,45 +243,74 @@ fi
 if [[ ${SLURM_JOB_PARTITION} == "virt" ]] ; then
     ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Starting virt cleanup for JobID:${SLURM_JOB_ID}"
 
-    # Give domains some time to shutdown gracefully before getting out the hammer...
-    /bin/sleep 30
-
-    # In the event the node hasn't responded to the shutdown command explictly kill it here...
-    domain=$(/usr/bin/virsh list | /bin/awk '/running/ {print $2}')
-    if [[ $domain == vm* ]]
+    # Shutdown running domain here...
+    running_domain=$(/usr/bin/virsh list | /bin/awk '/running/ {print $2}')
+    if [[ $running_domain == vm* ]]
     then
-        ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Destroying $domain for JobID:${SLURM_JOB_ID}"
-        /usr/bin/virsh destroy $domain > /dev/null 2>&1
+        ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Shutting down $running_domain for JobID:${SLURM_JOB_ID}"
+        /usr/bin/virsh shutdown $running_domain > /dev/null 2>&1
         if [[ $? -ne 0 ]]
         then
-            ${LOGGER} -p local0.error -t nucleus-slurm -i "EPILOG: Unable to destroying $domain for JobID:${SLURM_JOB_ID}"
+            ${LOGGER} -p local0.error -t nucleus-slurm -i "EPILOG: Unable to shutdown $running_domain for JobID:${SLURM_JOB_ID}"
         fi
     fi
 
+    # Give running domain some time to shutdown gracefully before getting out the hammer...
+    duration=60
+    sleeptime=15
+    running_domain=$(/usr/bin/virsh list | /bin/awk '/running/ {print $2}')
+    while [[ $? -eq 0 ]];
+    do
+        ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Waiting for domain $running_domain to shutdown..."
+        /bin/sleep $sleeptime
+
+        # Don't wait forever...
+        duration=$(( $duration - $sleeptime ))
+        if (( $duration <= 0 ))
+        then
+            ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Destroying $running_domain for JobID:${SLURM_JOB_ID}"
+            /usr/bin/virsh destroy $running_domain > /dev/null 2>&1
+            if [[ $? -ne 0 ]]
+            then
+                ${LOGGER} -p local0.error -t nucleus-slurm -i "EPILOG: Unable to destroy $running_domain for JobID:${SLURM_JOB_ID}"
+            fi
+            break
+        fi
+        /usr/bin/virsh list | /bin/egrep -q 'running'
+    done
+
+    # A few more seconds to shutdown...
+    sleep 10
+
     # Take care of 'leftover' domains including a domain that is not running above but cannot
     # be undefined because it is in a 'transitional' state
-    for domain in $(/usr/bin/virsh list --all | /bin/awk '/vm/ {print $2}')
+    all_domains=$(/usr/bin/virsh list --all | /bin/awk '/vm/ {print $2}')
+    for domain in $all_domains
     do
         if [[ $domain == vm* ]]
         then
             ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Undefining leftover domain $domain"
             /usr/bin/virsh undefine $domain > /dev/null 2>&1
 	    ret=$?
-	    if [[ $ret -ne 0 ]]; then
+	    if [[ $ret -ne 0 ]]
+            then
                 ${LOGGER} -p local0.error -t nucleus-slurm -i "EPILOG: Unable to undefine leftover domain $domain"
                 ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Destroying leftover domain $domain"
                 /usr/bin/virsh destroy $domain > /dev/null 2>&1
+                if [[ $? -ne 0 ]]; then
+                    ${LOGGER} -p local0.error -t nucleus-slurm -i "EPILOG: Unable to destroy leftover domain $domain"
+                fi
             fi
         fi
     done
 
     # Wait for sync-back to complete...
-    /sbin/zfs list -r | /bin/egrep -q "^scratch\/vm"
+    /sbin/zfs list -r scratch/${running_domain}-vol
     while [[ $? -eq 0 ]]
     do
-        ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Waiting for ZFS sync to complete..."
+        ${LOGGER} -p local0.info -t nucleus-slurm -i "EPILOG: Waiting for ZFS sync for domain $running_domain to complete..."
         /bin/sleep 30
-        /sbin/zfs list -r | /bin/egrep -q "^scratch\/vm"
+        /sbin/zfs list -r scratch/${running_domain}-vol
     done
 
     notify 'completed'
