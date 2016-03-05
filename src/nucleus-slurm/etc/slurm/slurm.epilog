@@ -318,16 +318,15 @@ if [[ ${SLURM_JOB_PARTITION} == "virt" ]] ; then
 
     # Reboot node if memory is too fragmented to start a new VM quickly...
     rebootFlag=0
-    while IFS= read -r memrec
+    mems=$(/bin/grep "Normal" /proc/buddyinfo | /usr/bin/tr -s ' ' ':' | /bin/cut -d: -f15)
+    for mem in $mems
     do
-        mem=$(echo $memrec | /usr/bin/tr -s ' ' ':' | /bin/cut -d: -f15)
-        /usr/bin/test $mem -gt 15000
-        if [[ $? -ne 0 ]]
+        if $(( $mem < 15000 ))
         then
-            ${LOGGER} -p local0.info -t nucleus.slurm -i "EPILOG: Memory fragmentation high ($memrec), flagging for reboot"
+            ${LOGGER} -p local0.info -t nucleus.slurm -i "EPILOG: Memory fragmentation high, flagging physical node for reboot"
             rebootFlag=1
         fi
-    done < <(/bin/grep "Normal" /proc/buddyinfo)
+    done
 
     if [[ $rebootFlag -eq 1 ]]
     then
