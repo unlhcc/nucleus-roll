@@ -1,0 +1,79 @@
+#!/bin/sh
+
+init()
+{
+    . /etc/profile.d/modules.sh
+    . /etc/profile.d/opt-modulefiles.sh
+
+    module load intel mvapich2_ib python
+}
+
+export COMPUTESET_JOB_STAGE='JOBSCRIPT'
+export NOTIFY_SCRIPT=/home/dimm/code/nucleus-service/nucleus_service/computeset_job_notify.sh
+notify(){
+    export COMPUTESET_JOB_STATE="$1"
+    /bin/logger -p local0.info -t nucleus-computeset -i "${SLURM_JOB_NAME} is in ${COMPUTESET_JOB_STATE} state"
+    ${NOTIFY_SCRIPT}
+}
+
+signal_handler()
+{
+    cleanup_and_exit
+}
+
+barrier()
+{
+    srun -n${SLURM_NTASKS} hostname
+    wait
+    notify "running"
+}
+
+save_env()
+{
+    TRACKING_DIR=/var/spool/slurmd/job_tracking/${SLURM_JOB_USER}
+    ENV_TRACKING_FILE=${TRACKING_DIR}/${SLURM_JOB_ID}/environment
+    tf=$(mktemp)
+    /usr/bin/printenv | /bin/egrep "^SLURM" > $tf
+    /bin/cat ${ENV_TRACKING_FILE} ${tf} | /bin/sort -u > ${ENV_TRACKING_FILE}
+}
+
+sleepytime()
+{
+    interval=10
+    echo "sleeptime = ${sleeptime}, interval = ${interval}, iters = $(( ${sleeptime}/${interval} ))"
+
+    for (( i=${sleeptime}; i>=${interval}; i-=${interval} ))
+    do
+        # Here we can update nucleus with status if we want
+        /bin/sleep $interval
+        /bin/date
+    done
+}
+
+cleanup_and_exit()
+{
+    retval=0
+    notify "ending"
+    exit $retval
+}
+
+trap 'signal_handler' USR1 CONT TERM
+
+[[ $# -ne 1 ]] && sleeptime=300 || sleeptime=$(($1 * 60))
+
+
+################################################################################
+## Virtual Cluster Job Script
+################################################################################
+
+init
+
+barrier
+
+save_env
+
+sleepytime
+
+cleanup_and_exit
+
+exit 0
