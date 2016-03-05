@@ -74,6 +74,7 @@ if [[ ${SLURM_JOB_PARTITION} == "virt" ]] ; then
     check_status 0 $? "PROLOG: celery notification script missing"
 
     #notify 'submitted'
+    /bin/rm /tmp/computeset_job_notify.sh.out
 
     /usr/bin/test $(/sbin/lspci | /bin/grep Mellanox | /usr/bin/wc -l) -eq 2
     check_status 0 $? "PROLOG: Mellanox SR-IOV device missing"
@@ -84,7 +85,7 @@ if [[ ${SLURM_JOB_PARTITION} == "virt" ]] ; then
     /sbin/service img-storage-vm status
     check_status 0 $? "PROLOG: img-storage-vm is not running"
 
-    /bin/mount -t zfs | /bin/grep -q "scratch on /scratch type zfs (rw,xattr)"
+    /bin/mount -t zfs | /bin/grep -q "scratch on /scratch type zfs"
     check_status 0 $? "PROLOG: ZFS filesystem NOT mounted at /scratch"
 
     fs=$(/bin/df -hP -t zfs --block-size=1G | /bin/awk '/scratch/ {print $4}')
@@ -93,6 +94,9 @@ if [[ ${SLURM_JOB_PARTITION} == "virt" ]] ; then
 
     /usr/bin/test -d /mnt/images/public
     check_status 0 $? "PROLOG: virtual cluster ISO repository not found"
+
+    /usr/bin/test -d /home/${SLURM_JOB_USER}
+    check_status 0 $? "PROLOG: virtual cluster user homedir not mounted"
 
     /bin/sleep $(( $RANDOM % 15))
 
