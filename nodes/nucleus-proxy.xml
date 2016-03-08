@@ -1,0 +1,67 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart interface="public">
+
+
+	<description>
+	SUN Java Language SDK
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2014 The Regents of the University of California.
+	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
+	
+	</copyright>
+
+	<package os="linux">jdk</package>
+	<package os="linux">apache-tomcat</package>
+
+<post os="linux">
+
+/usr/sbin/useradd -M -u412 -c "Tomcat" -d /opt/tomcat tomcat
+
+chown -R 412.412 /opt/tomcat
+chown -R 412.412 /opt/tomcat-*
+
+
+<!--
+	libgcj lays down a dummy 'java' executible, so let's nuke it.
+	this makes sure that the real java (included in this roll) is used
+-->
+rm -f /usr/bin/java
+
+<file name="/etc/man.config" mode="append">
+MANPATH /usr/java/jdk1.5/man
+</file>
+
+<!-- configure mod_jk -->
+
+<file name="/etc/httpd/conf.d/mod_jk.conf">
+LoadModule jk_module modules/mod_jk.so
+JkWorkersFile /etc/httpd/conf/workers.properties
+
+# Where to put jk logs
+JkLogFile     /var/log/httpd/mod_jk.log
+
+# Set the jk log level [debug/error/info]
+JkLogLevel    info
+
+# Select the log format
+JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+
+# JkOptions indicate to send SSL KEY SIZE,
+JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
+
+# JkRequestLogFormat set the request format
+JkRequestLogFormat     "%w %V %T"
+</file>
+
+
+<file name="/etc/httpd/conf/workers.properties">
+workers.java_home=/usr/java/jdk1.5
+ps=/
+</file>
+
+</post>
+
+</kickstart>

@@ -1,11 +1,11 @@
 #
-# $Id$
+# $Id: maven.sh,v 1.12 2012/11/27 00:49:02 phil Exp $
 #
 # @Copyright@
 # 
 # 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		       version 6.1.1 (Sand Boa)
+# 		         version 6.2 (SideWinder)
 # 
 # Copyright (c) 2000 - 2014 The Regents of the University of California.
 # All rights reserved.	
@@ -54,66 +54,14 @@
 # 
 # @Copyright@
 #
-# $Log$
-#
 
-ifndef ROLLCOMPILER
-  ROLLCOMPILER = gnu
-endif
+export MAVEN_HOME=/opt/maven
 
--include $(ROLLSROOT)/etc/Rolls.mk
-include Rolls.mk
+BIN=$MAVEN_HOME/bin
 
-export SURL=https://forge.sdsc.edu/triton/
-
-default:
-	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
-
-distclean:: clean
-	-rm -f _arch build.log
-	-rm -rf RPMS SRPMS
-
-doc:
-	cd docs; make html
-
-######################################################################
-# DOCUMENTATION CREATION
-######################################################################
-
-UNAME := $(shell uname)
-
-BROWSER=firefox
-ifeq ($(UNAME), Darwin)
-BROWSER=open
-endif
-
-publish:
-	ghp-import -n -p docs/build/html
-
-view:
-	$(BROWSER) docs/build/html/index.html
-
-man: 
-	vcluster --help > docs/source/man/man.rst
-
-#
-# TODO: include real location of the egs and things
-#
-
-cleandoc:
-	cd docs; make clean
-	rm -rf build dist docs/build .eggs *.egg-info
-	rm -rf *.egg-info
-	find . -name "*~" -exec rm {} \;
-	find . -name "*.pyc" -exec rm {} \;
-	echo "clean done"
-
-tag: log
-	cm-authors > AUTHORS
-	git tag
-	@echo "New Tag?"; read TAG; git tag $$TAG; python setup.py install; git commit -m $$TAG --allow-empty; git push origin --tags
-
-rmtag:
-	git tag
-	@echo "rm Tag?"; read TAG; git tag -d $$TAG; git push origin :refs/tags/$$TAG
+if [ -d ${BIN} ]; then
+	if ! echo ${PATH} | /bin/grep -q ${BIN} ; then
+        	export PATH=${PATH}:${BIN}
+	fi
+fi
 

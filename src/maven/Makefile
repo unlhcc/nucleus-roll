@@ -1,11 +1,10 @@
-#
-# $Id$
+# $Id: Makefile,v 1.12 2012/11/27 00:49:02 phil Exp $
 #
 # @Copyright@
 # 
 # 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		       version 6.1.1 (Sand Boa)
+# 		         version 6.2 (SideWinder)
 # 
 # Copyright (c) 2000 - 2014 The Regents of the University of California.
 # All rights reserved.	
@@ -53,44 +52,27 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 # @Copyright@
+#
 
-REDHAT.ROOT = $(CURDIR)/../../
-
+PKGROOT		= /opt/maven
+REDHAT.ROOT	= $(PWD)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
-include $(SDSCDEVEL)/Pull.mk
-include $(SDSCDEVEL)/Rules.mk
 
-$(NAME).spec: DESCRIPTION LICENSE
 
-DESCRIPTION:
-	$(MODULE_LOAD_CC); \
-	( \
-	  $(DESCRIBE_PKG); \
-	  $(DESCRIBE_CC) \
-	) > $@
-
-LICENSE: $(SRC_DIRS)
-	$(CHECK_LICENSE_FILES)
-	echo GPL > $@
-
-build: $(SRC_DIRS)
-	( \
-	  $(MODULE_LOAD_CC); \
-	  cd $(SOURCE_DIR); \
-	  ./configure CC=$(CC) --prefix=$(ROOT)/$(PKGROOT); \
-	  $(MAKE); \
-	)
-	@echo "::: Package $(NAME) build complete :::"
-	
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)/$(NAME)
-	( \
-	  cd $(SOURCE_DIR); \
-	  $(MAKE) install; \
+	mkdir -p $(ROOT)/$(PKGROOT)
+	mkdir -p $(ROOT)/etc/profile.d
+	(								\
+		cd $(NAME)-$(VERSION);					\
+		find . -type f | cpio -pduv $(ROOT)/$(PKGROOT);		\
 	)
-	$(INSTALL_LICENSE_FILES)
-	@echo "::: Package $(NAME) install complete :::"
+	install -m444 maven.sh		$(ROOT)/etc/profile.d
+	install -m444 maven.csh		$(ROOT)/etc/profile.d
+
+build: 
+	gunzip -c $(NAME)-$(VERSION)-bin.tar.gz | tar -x
 
 clean::
-	rm -rf $(SOURCE_DIR) DESCRIPTION LICENSE
+	rm -rf $(NAME)-$(VERSION)
+	

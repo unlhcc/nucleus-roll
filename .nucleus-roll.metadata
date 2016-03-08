@@ -1,0 +1,10 @@
+6b1118eb9d15bcc73c291731337c0f15d30d3fdb src/RPMS/jdk-8u73-linux-x64.rpm
+eb044fc4b4d12e6b58e870e4a5f654d57d409f36 src/RPMS/tomcat-7.0.65-1.el6.noarch.rpm
+eb044fc4b4d12e6b58e870e4a5f654d57d409f36 src/RPMS/tomcat-7.0.65-1.el6.noarch.rpm
+31df79959c430d589ad4839e83de558afa784a3a src/RPMS/tomcat-jsvc-7.0.65-1.el6.noarch.rpm
+b877a419b7cd51b5bbe10bab83a68ab7475f69a6 src/RPMS/tomcat-lib-7.0.65-1.el6.noarch.rpm
+e71dc8a710a722a91caab081700525af6243c10b src/RPMS/tomcat-native-1.1.34-1.el6.i686.rpm
+4104d9e90b790000745cc03acb423561100b6a17 src/RPMS/tomcat-servlet-3.0-api-7.0.65-1.el6.noarch.rpm
+876fd0987e158a4d52a353a314cb65ec26737709 src/RPMS/tomcat-jsp-2.2-api-7.0.65-1.el6.noarch.rpm
+b07217e60e1ddbb188a28b842771d02b57a6d8c2 src/RPMS/tomcat-el-2.2-api-7.0.65-1.el6.noarch.rpm
+5b4c117854921b527ab6190615f9435da730ba05 src/maven/apache-maven-3.3.9-bin.tar.gz

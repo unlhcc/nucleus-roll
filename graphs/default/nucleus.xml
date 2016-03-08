@@ -22,4 +22,8 @@
 		<tail>nucleus-base</tail>
 	</order>
 
+	<order head="base" cond="proxy">
+		<tail>nucleus-proxy</tail>
+	</order>
+
 </graph>
