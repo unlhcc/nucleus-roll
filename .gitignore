@@ -7,7 +7,7 @@ BUILD/
 SOURCES/
 SPECS/
 SRPMS/
-RPMS/
+./RPMS/
 Rolls.mk
 Rules-install.mk
 Rules-linux-centos.mk
