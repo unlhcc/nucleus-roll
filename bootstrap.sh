@@ -67,6 +67,8 @@ fi
 
 . $ROLLSROOT/etc/bootstrap-functions.sh
 
-install_os_packages java-server
+make download
 
+install jdk-8u73-linux-x64.rpm
+compile_and_install maven
 
