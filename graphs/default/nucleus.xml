@@ -11,19 +11,9 @@
 	All rights reserved. Rocks(r) v6.1.1 www.rocksclusters.org
 	</copyright>
 
-	<!-- add edges here -->
-	<edge from="base">
-		<to>nucleus-base</to>
+	<edge from="base" cond="proxy">
+		<to>nucleus-proxy</to>
 	</edge>
 
-	<!-- enforce post section ordering -->
-	<!-- nucleus-base post sections execute after base post sections -->
-	<order head="base">
-		<tail>nucleus-base</tail>
-	</order>
-
-	<order head="base" cond="proxy">
-		<tail>nucleus-proxy</tail>
-	</order>
 
 </graph>

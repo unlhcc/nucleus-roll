@@ -67,8 +67,9 @@ fi
 
 . $ROLLSROOT/etc/bootstrap-functions.sh
 
-make download
-
-install jdk-8u73-linux-x64.rpm
+yum install src/RPMS/jdk-8u73-linux-x64.rpm
 compile_and_install maven
 
+# install can't find /usr/src/redhat/RPMS and fails. installing by hand
+
+yum install RPMS/x86_64/apache-maven*

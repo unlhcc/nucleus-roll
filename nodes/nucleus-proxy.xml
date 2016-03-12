@@ -13,10 +13,14 @@
 	
 	</copyright>
 
-	<package os="linux">jdk</package>
-	<package os="linux">apache-tomcat</package>
+	<package os="linux">tomcat</package>
+	<package os="linux">nucleus-guacamole-client</package>
 
-<post os="linux">
+<post>
+/sbin/chkconfig tomcat on
+</post>
+
+<post os="linux_not_sure_if_this_is_needed">
 
 /usr/sbin/useradd -M -u412 -c "Tomcat" -d /opt/tomcat tomcat
 
