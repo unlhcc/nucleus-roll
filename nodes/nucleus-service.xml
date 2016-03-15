@@ -24,14 +24,21 @@
     <package os="linux">MySQL-python</package>
     <package os="linux">amqp</package>
     <package os="linux">M2Crypto</package>
+    <package os="linux">celery</package>
+    <package os="linux">kombu</package>
+    <package os="linux">anyjson</package>
+    <package os="linux">billiard</package>
 
-    <package os="linux">httpd</package>
-    <package os="linux">mod_wsgi</package>
+    <!--package os="linux">httpd</package>
+    <package os="linux">mod_wsgi</package-->
     
     <package os="linux">mysql-server</package>
+
+    <package os="linux">nginx</package>
+    <package os="linux">uwsgi</package>
 <post>
 
-<file name="/etc/httpd/conf.d/nucleus.conf">
+<!--file name="/etc/httpd/conf.d/nucleus.conf">
 LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
 
 WSGIScriptAlias /nucleus /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/wsgi.py
@@ -55,6 +62,65 @@ Alias /static/ /var/www/html/static/
 Order deny,allow
 Allow from all
 &lt;/Location&gt;
+</file-->
+
+<file name="/root/.mysqld.my.cnf" perms="600" mode="append" rcs="false" vars="expanded">
+[client]
+host        = 127.0.0.1
+port        = 3306
+user        = root
+</file>
+
+<file name="/root/.nucleus.my.cnf" perms="600" mode="append" rcs="false" vars="expanded">
+[client]
+host        = 127.0.0.1
+port        = 3306
+user        = nucleus
+</file>
+
+
+<file name="/etc/rc.d/rocksconfig.d/post-98-setup-mysql" perms="700" rcs="false">
+#!/bin/bash
+service mysqld start
+
+MYSQL_ROOT_PASS=$(&lt; /dev/urandom tr -dc '_()/*&amp;#A-Z-a-z-0-9' | head -c26)
+MYSQL_NUCLEUS_PASS=$(&lt; /dev/urandom tr -dc '_()/*&amp;#A-Z-a-z-0-9' | head -c26)
+
+echo "password = $MYSQL_ROOT_PASS" >> /root/.mysqld.my.cnf
+echo "password = $MYSQL_NUCLEUS_PASS" >> /root/.nucleus.my.cnf
+
+MYSQL_TEMP_PASS=`grep "A temporary password is generated for root@localhost:" /var/log/mysqld.log | sed 's/ /\n/g' | tail -n 1 | tr -d '\n'`
+
+SECURE_MYSQL=$(expect -c "
+set timeout 10
+spawn mysql_secure_installation
+expect \"Enter password for user root\"
+send \"$MYSQL_TEMP_PASS\r\"
+expect \"New password:\"
+send \"$MYSQL_ROOT_PASS\r\"
+expect \"Re-enter new password:\"
+send \"$MYSQL_ROOT_PASS\r\"
+expect \"Change the password for root ?\"
+send \"n\r\"
+expect \"Remove anonymous users?\"
+send \"y\r\"
+expect \"Disallow root login remotely?\"
+send \"y\r\"
+expect \"Remove test database and access to it?\"
+send \"y\r\"
+expect \"Reload privilege tables now?\"
+send \"y\r\"
+expect eof
+")
+
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "CREATE DATABASE comet-nucleus;"
+
+# Add nucleus user to MySQL Grant tables
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON comet-nucleus.* TO 'nucleus'@'localhost' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS' WITH GRANT OPTION;"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON comet-nucleus.* TO nucleus@'%' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS';"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "FLUSH PRIVILEGES;"
+
+rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </file>
 
 </post>
