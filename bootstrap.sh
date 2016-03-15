@@ -67,7 +67,8 @@ fi
 
 . $ROLLSROOT/etc/bootstrap-functions.sh
 
-yum install src/RPMS/jdk-8u73-linux-x64.rpm
+yum install src/RPMS/swig* # needed to build high-performance M2Crypto with -builtin key, otherwise fails
+
 compile_and_install maven
 
 # install can't find /usr/src/redhat/RPMS and fails. installing by hand

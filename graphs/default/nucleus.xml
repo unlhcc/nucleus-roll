@@ -11,8 +11,12 @@
 	All rights reserved. Rocks(r) v6.1.1 www.rocksclusters.org
 	</copyright>
 
-	<edge from="base" cond="proxy">
+	<edge from="base" cond="nucleus_proxy">
 		<to>nucleus-proxy</to>
+	</edge>
+
+	<edge from="base" cond="nucleus_service">
+		<to>nucleus-service</to>
 	</edge>
 
 

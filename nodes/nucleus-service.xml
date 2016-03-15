@@ -1,0 +1,64 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart interface="public">
+
+
+	<description>
+	SUN Java Language SDK
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2014 The Regents of the University of California.
+	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
+	
+	</copyright>
+
+	<package os="linux">nucleus-service</package>
+    <package os="linux">django</package>
+    <package os="linux">django-rest-auth</package>
+    <package os="linux">django-rest-framework</package>
+    <package os="linux">djangorestframework-httpsignature</package>
+    <package os="linux">django-rest-swagger</package>
+    <package os="linux">docopts</package>
+    <package os="linux">drf-nested-routers</package>
+    <package os="linux">MySQL-python</package>
+    <package os="linux">amqp</package>
+    <package os="linux">M2Crypto</package>
+
+    <package os="linux">httpd</package>
+    <package os="linux">mod_wsgi</package>
+    
+    <package os="linux">mysql-server</package>
+<post>
+
+<file name="/etc/httpd/conf.d/nucleus.conf">
+LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+
+WSGIScriptAlias /nucleus /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/wsgi.py
+WSGIApplicationGroup %{GLOBAL}
+WSGIDaemonProcess nucleus_service_app python-path=/opt/python/lib/site-packages/django:/opt/python/lib/python2.7/site-packages/nucleus_service
+WSGISocketPrefix /var/run/wsgi
+WSGIProcessGroup nucleus_service_app
+WSGIPassAuthorization On
+
+&lt;Directory /opt/python/lib/python2.7/site-packages/nucleus_service&gt;
+&lt;Files wsgi.py&gt;
+    Options All
+    Require all granted
+&lt;/Files&gt;
+&lt;/Directory&gt;
+
+
+# The Django static files
+Alias /static/ /var/www/html/static/
+&lt;Location /static&gt;
+Order deny,allow
+Allow from all
+&lt;/Location&gt;
+</file>
+
+</post>
+
+
+
+</kickstart>

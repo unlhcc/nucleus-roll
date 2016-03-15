@@ -8,3 +8,5 @@ e71dc8a710a722a91caab081700525af6243c10b src/RPMS/tomcat-native-1.1.34-1.el6.i68
 876fd0987e158a4d52a353a314cb65ec26737709 src/RPMS/tomcat-jsp-2.2-api-7.0.65-1.el6.noarch.rpm
 b07217e60e1ddbb188a28b842771d02b57a6d8c2 src/RPMS/tomcat-el-2.2-api-7.0.65-1.el6.noarch.rpm
 5b4c117854921b527ab6190615f9435da730ba05 src/maven/apache-maven-3.3.9-bin.tar.gz
+5d9778357bef34420a3f70d36b4d6f17d4b9ea0f src/RPMS/swig-2.0.8-1.el6.sroycode.x86_64.rpm
+e771c47d471600bebdbfb89be3386c9d9cd1998a src/RPMS/mysql-5.7.11-1.el6.x86_64.rpm-bundle.tar

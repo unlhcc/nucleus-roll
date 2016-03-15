@@ -14,22 +14,18 @@ include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
 build:: $(SRC_DIRS)
+	tar -xvzf $(SOURCE_PKG)
 	@echo "::: Package $(NAME) build complete :::"
 
-repo_clone: 
-	git clone $(GIT_REPO) $(NAME)
-	( \
-	  cd $(NAME); \
-	  git checkout $(RELEASE); \
-	)
-
-install:: repo_clone
+install::
 	( \
 	    $(MODULE_LOAD_PYTHON); \
-	    cd $(NAME); \
+	    ls; \
+	    cd $(SOURCE_DIR); \
 	    python setup.py install --root=$(ROOT); \
         )
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
 	rm -rf $(SOURCE_DIR)
+
