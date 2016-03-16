@@ -14,9 +14,9 @@
 	</copyright>
 
 	<package os="linux">nucleus-service</package>
-    <package os="linux">django</package>
+    <package os="linux">Django</package>
     <package os="linux">django-rest-auth</package>
-    <package os="linux">django-rest-framework</package>
+    <package os="linux">djangorestframework</package>
     <package os="linux">djangorestframework-httpsignature</package>
     <package os="linux">django-rest-swagger</package>
     <package os="linux">docopts</package>
@@ -28,17 +28,20 @@
     <package os="linux">kombu</package>
     <package os="linux">anyjson</package>
     <package os="linux">billiard</package>
+    <package os="linux">httpsig</package>
+    <package os="linux">pycrypto</package>
+    <package os="linux">PyYAML</package>
 
-    <!--package os="linux">httpd</package>
-    <package os="linux">mod_wsgi</package-->
+    <package os="linux">httpd24u</package>
+    <package os="linux">mod_wsgi</package>
     
     <package os="linux">mysql-server</package>
 
-    <package os="linux">nginx</package>
-    <package os="linux">uwsgi</package>
+    <!--package os="linux">nginx</package>
+    <package os="linux">uwsgi</package-->
 <post>
 
-<!--file name="/etc/httpd/conf.d/nucleus.conf">
+<file name="/etc/httpd/conf.d/nucleus.conf">
 LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
 
 WSGIScriptAlias /nucleus /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/wsgi.py
@@ -62,32 +65,42 @@ Alias /static/ /var/www/html/static/
 Order deny,allow
 Allow from all
 &lt;/Location&gt;
-</file-->
+</file>
 
-<file name="/root/.mysqld.my.cnf" perms="600" mode="append" rcs="false" vars="expanded">
+<file name="/root/.mysqld.my.cnf" perms="600" mode="append" rcs="false">
 [client]
 host        = 127.0.0.1
 port        = 3306
 user        = root
 </file>
 
-<file name="/root/.nucleus.my.cnf" perms="600" mode="append" rcs="false" vars="expanded">
+<file name="/opt/rocks/etc/.nucleus.my.cnf" perms="600" mode="append" rcs="false">
 [client]
 host        = 127.0.0.1
 port        = 3306
 user        = nucleus
+database    = comet-nucleus
 </file>
 
 
 <file name="/etc/rc.d/rocksconfig.d/post-98-setup-mysql" perms="700" rcs="false">
-#!/bin/bash
+#!/bin/bash -l
 service mysqld start
 
-MYSQL_ROOT_PASS=$(&lt; /dev/urandom tr -dc '_()/*&amp;#A-Z-a-z-0-9' | head -c26)
-MYSQL_NUCLEUS_PASS=$(&lt; /dev/urandom tr -dc '_()/*&amp;#A-Z-a-z-0-9' | head -c26)
+# we need a password which contains a symbol from each group, otherwise MySQL won't accept one
+
+while [[ $MYSQL_NUCLEUS_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[0-9]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[a-z]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[A-Z]*  ]]
+do
+    MYSQL_NUCLEUS_PASS=$(< /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+done
+
+while [[ $MYSQL_ROOT_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $MYSQL_ROOT_PASS != *[0-9]*  ]] || [[ $MYSQL_ROOT_PASS != *[a-z]*  ]] || [[ $MYSQL_ROOT_PASS != *[A-Z]*  ]]
+do
+    MYSQL_ROOT_PASS=$(< /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+done
 
 echo "password = $MYSQL_ROOT_PASS" >> /root/.mysqld.my.cnf
-echo "password = $MYSQL_NUCLEUS_PASS" >> /root/.nucleus.my.cnf
+echo "password = $MYSQL_NUCLEUS_PASS" >> /opt/rocks/etc/.nucleus.my.cnf
 
 MYSQL_TEMP_PASS=`grep "A temporary password is generated for root@localhost:" /var/log/mysqld.log | sed 's/ /\n/g' | tail -n 1 | tr -d '\n'`
 
@@ -113,12 +126,16 @@ send \"y\r\"
 expect eof
 ")
 
-/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "CREATE DATABASE comet-nucleus;"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "CREATE DATABASE \`comet-nucleus\`;"
 
 # Add nucleus user to MySQL Grant tables
-/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON comet-nucleus.* TO 'nucleus'@'localhost' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS' WITH GRANT OPTION;"
-/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON comet-nucleus.* TO nucleus@'%' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS';"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON \`comet-nucleus\`.* TO 'nucleus'@'localhost' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS' WITH GRANT OPTION;"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON \`comet-nucleus\`.* TO nucleus@'%' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS';"
 /usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "FLUSH PRIVILEGES;"
+
+module load python
+cd /opt/python/lib/python2.7/site-packages/nucleus_service
+python manage.py collectstatic --noinput
 
 rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </file>
