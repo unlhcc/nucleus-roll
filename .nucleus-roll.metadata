@@ -17,3 +17,6 @@ e75e909a56496ddd26671d9baab317037fc89f5c src/RPMS/httpd24u-filesystem-2.4.18-3.i
 ac2e58f82d06c5c5fd6d31edca216e2dd91be712 src/RPMS/httpd24u-tools-2.4.18-3.ius.el6.x86_64.rpm
 3640cb035c53b8feb31893e9ed89439ceb5371d0 src/RPMS/apr15u-1.5.2-1.ius.el6.x86_64.rpm
 20c4e743f149114e84e06d17c1960031ad4c3d15 src/RPMS/libnghttp2-1.6.0-1.el6.1.x86_64.rpm
+9f060a22f762ef1904e0162597e4ca54d9676d8f src/RPMS/httpd24u-devel-2.4.18-3.ius.el6.x86_64.rpm
+7e705b3cd990f33774eb8aa2df96777c3e021017 src/RPMS/apr15u-devel-1.5.2-1.ius.el6.x86_64.rpm
+a6ad6662b6a678ad6e8899e26989537410ffbf06 src/RPMS/apr15u-util-devel-1.5.4-3.ius.el6.x86_64.rpm

@@ -91,15 +91,22 @@ service mysqld start
 
 while [[ $MYSQL_NUCLEUS_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[0-9]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[a-z]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[A-Z]*  ]]
 do
-    MYSQL_NUCLEUS_PASS=$(< /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+    MYSQL_NUCLEUS_PASS=$(&lt; /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
 done
 
 while [[ $MYSQL_ROOT_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $MYSQL_ROOT_PASS != *[0-9]*  ]] || [[ $MYSQL_ROOT_PASS != *[a-z]*  ]] || [[ $MYSQL_ROOT_PASS != *[A-Z]*  ]]
 do
-    MYSQL_ROOT_PASS=$(< /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+    MYSQL_ROOT_PASS=$(&lt; /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
 done
 
+while [[ $DJANGO_ADMIN_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $DJANGO_ADMIN_PASS != *[0-9]*  ]] || [[ $DJANGO_ADMIN_PASS != *[a-z]*  ]] || [[ $DJANGO_ADMIN_PASS != *[A-Z]*  ]]
+do
+    DJANGO_ADMIN_PASS=$(&lt; /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+done
+
+
 echo "password = $MYSQL_ROOT_PASS" >> /root/.mysqld.my.cnf
+echo $DJANGO_ADMIN_PASS >> /root/.django_admin
 echo "password = $MYSQL_NUCLEUS_PASS" >> /opt/rocks/etc/.nucleus.my.cnf
 
 MYSQL_TEMP_PASS=`grep "A temporary password is generated for root@localhost:" /var/log/mysqld.log | sed 's/ /\n/g' | tail -n 1 | tr -d '\n'`
@@ -136,9 +143,16 @@ expect eof
 module load python
 cd /opt/python/lib/python2.7/site-packages/nucleus_service
 python manage.py collectstatic --noinput
+python manage.py makemigrations
+python manage.py migrate
+
+echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'dmishin@sdsc.edu', '$DJANGO_ADMIN_PASS')" | python manage.py shell
 
 rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </file>
+
+/sbin/chkconfig httpd on
+
 
 </post>
 
