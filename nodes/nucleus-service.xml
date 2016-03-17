@@ -10,36 +10,36 @@
 	<copyright>
 	Copyright (c) 2000 - 2014 The Regents of the University of California.
 	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
-	
+
 	</copyright>
 
-	<package os="linux">nucleus-service</package>
-    <package os="linux">Django</package>
-    <package os="linux">django-rest-auth</package>
-    <package os="linux">djangorestframework</package>
-    <package os="linux">djangorestframework-httpsignature</package>
-    <package os="linux">django-rest-swagger</package>
-    <package os="linux">docopts</package>
-    <package os="linux">drf-nested-routers</package>
-    <package os="linux">MySQL-python</package>
-    <package os="linux">amqp</package>
-    <package os="linux">M2Crypto</package>
-    <package os="linux">celery</package>
-    <package os="linux">kombu</package>
-    <package os="linux">anyjson</package>
-    <package os="linux">billiard</package>
-    <package os="linux">httpsig</package>
-    <package os="linux">pycrypto</package>
-    <package os="linux">PyYAML</package>
+	<package>nucleus-service</package>
+    <package>Django</package>
+    <package>django-rest-auth</package>
+    <package>djangorestframework</package>
+    <package>djangorestframework-httpsignature</package>
+    <package>django-rest-swagger</package>
+    <package>docopts</package>
+    <package>drf-nested-routers</package>
+    <package>MySQL-python</package>
+    <package>amqp</package>
+    <package>M2Crypto</package>
+    <package>celery</package>
+    <package>kombu</package>
+    <package>anyjson</package>
+    <package>billiard</package>
+    <package>httpsig</package>
+    <package>pycrypto</package>
+    <package>PyYAML</package>
 
     <package disable="1">httpd</package>
-    <package os="linux">httpd24u</package>
-    <package os="linux">mod_wsgi</package>
-    
-    <package os="linux">mysql-server</package>
+    <package>httpd24u</package>
+    <package>mod_wsgi</package>
 
-    <!--package os="linux">nginx</package>
-    <package os="linux">uwsgi</package-->
+    <package>mysql-server</package>
+
+    <!--package>nginx</package>
+    <package>uwsgi</package-->
 <post>
 
 <file name="/etc/httpd/conf.d/nucleus.conf">

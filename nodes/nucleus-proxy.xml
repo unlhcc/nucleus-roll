@@ -9,13 +9,13 @@
 	<copyright>
 	Copyright (c) 2000 - 2014 The Regents of the University of California.
 	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
-	
+
 	</copyright>
-    
+
     <package disable="1">httpd</package>
-	<package os="linux">tomcat</package>
-	<package os="linux">nucleus-guacamole-client</package>
-    <package os="linux">httpd24u</package>
+	<package>tomcat</package>
+	<package>nucleus-guacamole-client</package>
+    <package>httpd24u</package>
 
 <post>
 /sbin/chkconfig tomcat on
