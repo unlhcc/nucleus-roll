@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+	<description>
+		Packages and configuration for all Nucleus nodes.
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2014 The Regents of the University of California.
+	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
+
+	</copyright>
+
+    <package>amqp</package>
+    <package>celery</package>
+    <package>kombu</package>
+    <package>anyjson</package>
+    <package>billiard</package>
+
+<post>
+
+<!-- Enable Services -->
+/sbin/chkconfig celeryd on
+
+</post>
+
+</kickstart>
