@@ -4,7 +4,6 @@
 
 
 	<description>
-	SUN Java Language SDK
 	</description>
 
 	<copyright>
@@ -12,33 +11,14 @@
 	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
 	
 	</copyright>
-
+    
+    <package disable="1">httpd</package>
 	<package os="linux">tomcat</package>
 	<package os="linux">nucleus-guacamole-client</package>
+    <package os="linux">httpd24u</package>
 
 <post>
 /sbin/chkconfig tomcat on
-</post>
-
-<post os="linux_not_sure_if_this_is_needed">
-
-/usr/sbin/useradd -M -u412 -c "Tomcat" -d /opt/tomcat tomcat
-
-chown -R 412.412 /opt/tomcat
-chown -R 412.412 /opt/tomcat-*
-
-
-<!--
-	libgcj lays down a dummy 'java' executible, so let's nuke it.
-	this makes sure that the real java (included in this roll) is used
--->
-rm -f /usr/bin/java
-
-<file name="/etc/man.config" mode="append">
-MANPATH /usr/java/jdk1.5/man
-</file>
-
-<!-- configure mod_jk -->
 
 <file name="/etc/httpd/conf.d/mod_jk.conf">
 LoadModule jk_module modules/mod_jk.so
@@ -58,12 +38,6 @@ JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
 
 # JkRequestLogFormat set the request format
 JkRequestLogFormat     "%w %V %T"
-</file>
-
-
-<file name="/etc/httpd/conf/workers.properties">
-workers.java_home=/usr/java/jdk1.5
-ps=/
 </file>
 
 </post>

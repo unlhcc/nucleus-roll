@@ -32,6 +32,7 @@
     <package os="linux">pycrypto</package>
     <package os="linux">PyYAML</package>
 
+    <package disable="1">httpd</package>
     <package os="linux">httpd24u</package>
     <package os="linux">mod_wsgi</package>
     
@@ -152,6 +153,7 @@ rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </file>
 
 /sbin/chkconfig httpd on
+/sbin/chkconfig celeryd on
 
 
 </post>
