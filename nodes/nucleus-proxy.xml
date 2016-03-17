@@ -40,6 +40,16 @@ JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
 JkRequestLogFormat     "%w %V %T"
 </file>
 
+<!-- Post-install re-configuration for tomcat -->
+<file name="/etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh">
+#!/bin/bash
+
+# Tomcat rpm adds tomcat user and group which are NOT valid in
+# Trestles trust domain. Fix that here...
+
+/bin/rm /etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh
+</file>
+
 </post>
 
 </kickstart>
