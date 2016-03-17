@@ -20,12 +20,7 @@
     <package>docopts</package>
     <package>drf-nested-routers</package>
     <package>MySQL-python</package>
-    <package>amqp</package>
     <package>M2Crypto</package>
-    <package>celery</package>
-    <package>kombu</package>
-    <package>anyjson</package>
-    <package>billiard</package>
     <package>httpsig</package>
     <package>pycrypto</package>
     <package>PyYAML</package>
@@ -40,7 +35,6 @@
 
 <!-- Enable Services -->
 /sbin/chkconfig httpd on
-/sbin/chkconfig celeryd on
 
 <!-- Apache configuration for nucleus-service -->
 <file name="/etc/httpd/conf.d/nucleus.conf">
