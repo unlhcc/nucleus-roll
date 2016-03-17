@@ -86,19 +86,19 @@ service mysqld start
 
 # we need a password which contains a symbol from each group, otherwise MySQL won't accept one
 
-while [[ $MYSQL_NUCLEUS_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[0-9]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[a-z]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[A-Z]*  ]]
+while [[ $MYSQL_NUCLEUS_PASS != *[_\(\)/*+^%!]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[0-9]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[a-z]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[A-Z]*  ]]
 do
-    MYSQL_NUCLEUS_PASS=$(&lt; /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+    MYSQL_NUCLEUS_PASS=$(&lt; /dev/urandom tr -dc '_()/*+^%!A-Z-a-z-0-9' | head -c26)
 done
 
-while [[ $MYSQL_ROOT_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $MYSQL_ROOT_PASS != *[0-9]*  ]] || [[ $MYSQL_ROOT_PASS != *[a-z]*  ]] || [[ $MYSQL_ROOT_PASS != *[A-Z]*  ]]
+while [[ $MYSQL_ROOT_PASS != *[_\(\)/*+^%!]*  ]] || [[ $MYSQL_ROOT_PASS != *[0-9]*  ]] || [[ $MYSQL_ROOT_PASS != *[a-z]*  ]] || [[ $MYSQL_ROOT_PASS != *[A-Z]*  ]]
 do
-    MYSQL_ROOT_PASS=$(&lt; /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+    MYSQL_ROOT_PASS=$(&lt; /dev/urandom tr -dc '_()/*+^%!A-Z-a-z-0-9' | head -c26)
 done
 
-while [[ $DJANGO_ADMIN_PASS != *[_\(\)\[\]/*+^%!]*  ]] || [[ $DJANGO_ADMIN_PASS != *[0-9]*  ]] || [[ $DJANGO_ADMIN_PASS != *[a-z]*  ]] || [[ $DJANGO_ADMIN_PASS != *[A-Z]*  ]]
+while [[ $DJANGO_ADMIN_PASS != *[_\(\)/*+^%!]*  ]] || [[ $DJANGO_ADMIN_PASS != *[0-9]*  ]] || [[ $DJANGO_ADMIN_PASS != *[a-z]*  ]] || [[ $DJANGO_ADMIN_PASS != *[A-Z]*  ]]
 do
-    DJANGO_ADMIN_PASS=$(&lt; /dev/urandom tr -dc '_()[]/*+^%!A-Z-a-z-0-9' | head -c26)
+    DJANGO_ADMIN_PASS=$(&lt; /dev/urandom tr -dc '_()/*+^%!A-Z-a-z-0-9' | head -c26)
 done
 
 
