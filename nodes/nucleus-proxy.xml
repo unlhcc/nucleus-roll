@@ -1,9 +1,8 @@
 <?xml version="1.0" standalone="no"?>
 
 <kickstart interface="public">
-
-
 	<description>
+		Packages and configuration for the Nucleus proxy server.
 	</description>
 
 	<copyright>
@@ -22,6 +21,7 @@
 <!-- Enable Services -->
 /sbin/chkconfig tomcat on
 
+<!-- Apache Configuration -->
 <file name="/etc/httpd/conf.d/mod_jk.conf">
 LoadModule jk_module modules/mod_jk.so
 JkWorkersFile /etc/httpd/conf/workers.properties
