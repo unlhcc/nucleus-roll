@@ -38,6 +38,17 @@ frontend before continuing with installation.
 
 ## Installation
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+To make working for development:
+
+On service node:
+Comment /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/settings.py   CSRF_COOKIE_SECURE = True line, otherwise requires secure connection
+
+Do chmod 644 /opt/rocks/etc/.nucleus.my.cnf , TODO: make belonging to apache user
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 To install, execute these instructions on a Rocks frontend:
 
 ```shell
