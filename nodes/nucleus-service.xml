@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 
-<kickstart interface="public">
+<kickstart>
 	<description>
 		Packages and configuration for the Nucleus service server.
 	</description>
