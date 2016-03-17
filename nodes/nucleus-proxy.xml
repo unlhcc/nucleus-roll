@@ -13,9 +13,9 @@
 	</copyright>
     
     <package disable="1">httpd</package>
-	<package os="linux">tomcat</package>
-	<package os="linux">nucleus-guacamole-client</package>
-    <package os="linux">httpd24u</package>
+	<package>tomcat</package>
+	<package>nucleus-guacamole-client</package>
+    <package>httpd24u</package>
 
 <post>
 /sbin/chkconfig tomcat on
