@@ -36,10 +36,8 @@
     <package>httpd24u</package>
     <package>mod_wsgi</package>
 
-    <package>mysql-server</package>
+    <package>mysql-community-server</package>
 
-    <!--package>nginx</package>
-    <package>uwsgi</package-->
 <post>
 
 <file name="/etc/httpd/conf.d/nucleus.conf">
