@@ -40,6 +40,10 @@
 
 <post>
 
+<!-- Enable Services -->
+/sbin/chkconfig httpd on
+/sbin/chkconfig celeryd on
+
 <file name="/etc/httpd/conf.d/nucleus.conf">
 LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
 
@@ -149,10 +153,6 @@ echo "from django.contrib.auth.models import User; User.objects.create_superuser
 
 rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </file>
-
-/sbin/chkconfig httpd on
-/sbin/chkconfig celeryd on
-
 
 </post>
 

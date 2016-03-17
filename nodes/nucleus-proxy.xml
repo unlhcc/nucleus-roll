@@ -18,6 +18,8 @@
     <package>httpd24u</package>
 
 <post>
+
+<!-- Enable Services -->
 /sbin/chkconfig tomcat on
 
 <file name="/etc/httpd/conf.d/mod_jk.conf">
