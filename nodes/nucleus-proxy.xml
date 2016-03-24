@@ -22,6 +22,9 @@
 <!-- Enable Services -->
 /sbin/chkconfig tomcat on
 
+chown -R tomcat:tomcat /var/lib/tomcat
+
+
 <!-- Apache Configuration -->
 <file name="/etc/httpd/conf.d/mod_jk.conf">
 LoadModule jk_module modules/mod_jk.so
@@ -41,6 +44,9 @@ JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
 
 # JkRequestLogFormat set the request format
 JkRequestLogFormat     "%w %V %T"
+
+JkMount /nucleus-guacamole-0.9.8/* ajp13
+
 </file>
 
 <!-- Post-install re-configuration for tomcat -->
@@ -51,6 +57,11 @@ JkRequestLogFormat     "%w %V %T"
 # Trestles trust domain. Fix that here...
 
 /bin/rm /etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh
+</file>
+
+<file name="/etc/httpd/conf/workers.properties">
+workers.java_home=/usr/java/latest
+ps=/
 </file>
 
 </post>

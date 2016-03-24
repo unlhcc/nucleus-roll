@@ -19,7 +19,7 @@ build:: $(SRC_DIRS)
 install::
 	( \
 	    cd $(SOURCE_DIR)/native; \
-	    ./configure --with-apxs=/usr/sbin/apxs; \
+	    ./configure --with-apxs=/usr/bin/apxs; \
 	    make; \
 	    mkdir -p $(ROOT)/usr/lib64/httpd/modules/; \
 	    cp apache-2.0/mod_jk.so $(ROOT)/usr/lib64/httpd/modules/; \
