@@ -66,10 +66,10 @@ Allow from all
 
 
 <file name="/tmp/mysqld.patch" perms="644" rcs="false">
---- /etc/init.d/mysqld  2016-02-01 16:09:12.000000000 -0800
-+++ /etc/init.d/mysqld  2016-03-30 18:21:55.847076006 -0700
+--- /etc/init.d/mysqld	2016-02-01 16:09:12.000000000 -0800
++++ /etc/init.d/mysqld	2016-03-30 18:21:55.847076006 -0700
 @@ -46,6 +46,8 @@
-
+ 
  get_mysql_option mysqld datadir "/var/lib/mysql"
  datadir="$result"
 +get_mysql_option mysqld user "mysql"
@@ -88,57 +88,57 @@ Allow from all
      echo "$initfile"
 @@ -85,7 +87,7 @@
      else
-    # prepare for start
-    touch "$errlogfile"
--   chown mysql:mysql "$errlogfile"
-+   chown "$user":"$user" "$errlogfile"
-    chmod 0640 "$errlogfile"
-    [ -x /sbin/restorecon ] &amp;&amp; /sbin/restorecon "$errlogfile"
-    if [ ! -d "$datadir/mysql" ] ; then
+ 	# prepare for start
+ 	touch "$errlogfile"
+-	chown mysql:mysql "$errlogfile"
++	chown "$user":"$user" "$errlogfile"
+ 	chmod 0640 "$errlogfile"
+ 	[ -x /sbin/restorecon ] &amp;&amp; /sbin/restorecon "$errlogfile"
+ 	if [ ! -d "$datadir/mysql" ] ; then
 @@ -94,7 +96,7 @@
-        then
-        mkdir -p "$datadir" || exit 1
-        fi
--       chown mysql:mysql "$datadir"
-+       chown "$user":"$user" "$datadir"
-        chmod 0751 "$datadir"
-        if [ -x /sbin/restorecon ] ; then
-        /sbin/restorecon "$datadir"
+ 	    then
+ 		mkdir -p "$datadir" || exit 1
+ 	    fi
+-	    chown mysql:mysql "$datadir"
++	    chown "$user":"$user" "$datadir"
+ 	    chmod 0751 "$datadir"
+ 	    if [ -x /sbin/restorecon ] ; then
+ 		/sbin/restorecon "$datadir"
 @@ -106,21 +108,21 @@
-        done
-        fi
-        # Now create the database
--       action $"Initializing MySQL database: " /usr/sbin/mysqld --initialize --datadir="$datadir" --user=mysql
-+       action $"Initializing MySQL database: " /usr/sbin/mysqld --initialize --datadir="$datadir" --user="$user"
-        ret=$?
-        [ $ret -ne 0 ] &amp;&amp; return $ret
-        initfile="$(install_validate_password_sql_file)"
-        action $"Installing validate password plugin: " /usr/sbin/mysqld --datadir="$datadir" --user=mysql --init-file="$initfile"
-        ret=$?
-        rm -f "$initfile"
--       chown -R mysql:mysql "$datadir"
-+       chown -R "$user":"$user" "$datadir"
-        [ $ret -ne 0 ] &amp;&amp; return $ret
-        # Generate certs if needed
-        if [ -x /usr/bin/mysql_ssl_rsa_setup -a ! -e "${datadir}/server-key.pem" ] ; then
--       /usr/bin/mysql_ssl_rsa_setup --datadir="$datadir" --uid=mysql &gt;/dev/null 2&gt;&amp;1
-+       /usr/bin/mysql_ssl_rsa_setup --datadir="$datadir" --uid="$user" &gt;/dev/null 2&gt;&amp;1
-        fi
-    fi
--   chown mysql:mysql "$datadir"
-+   chown "$user":"$user" "$datadir"
-    chmod 0751 "$datadir"
-    # Pass all the options determined above, to ensure consistent behavior.
-    # In many cases mysqld_safe would arrive at the same conclusions anyway
+ 		done
+ 	    fi
+ 	    # Now create the database
+-	    action $"Initializing MySQL database: " /usr/sbin/mysqld --initialize --datadir="$datadir" --user=mysql
++	    action $"Initializing MySQL database: " /usr/sbin/mysqld --initialize --datadir="$datadir" --user="$user"
+ 	    ret=$?
+ 	    [ $ret -ne 0 ] &amp;&amp; return $ret
+ 	    initfile="$(install_validate_password_sql_file)"
+ 	    action $"Installing validate password plugin: " /usr/sbin/mysqld --datadir="$datadir" --user=mysql --init-file="$initfile"
+ 	    ret=$?
+ 	    rm -f "$initfile"
+-	    chown -R mysql:mysql "$datadir"
++	    chown -R "$user":"$user" "$datadir"
+ 	    [ $ret -ne 0 ] &amp;&amp; return $ret
+ 	    # Generate certs if needed
+ 	    if [ -x /usr/bin/mysql_ssl_rsa_setup -a ! -e "${datadir}/server-key.pem" ] ; then
+-		/usr/bin/mysql_ssl_rsa_setup --datadir="$datadir" --uid=mysql &gt;/dev/null 2&gt;&amp;1
++		/usr/bin/mysql_ssl_rsa_setup --datadir="$datadir" --uid="$user" &gt;/dev/null 2&gt;&amp;1
+ 	    fi
+ 	fi
+-	chown mysql:mysql "$datadir"
++	chown "$user":"$user" "$datadir"
+ 	chmod 0751 "$datadir"
+ 	# Pass all the options determined above, to ensure consistent behavior.
+ 	# In many cases mysqld_safe would arrive at the same conclusions anyway
 @@ -131,7 +133,7 @@
-    # alarms, per bug #547485
-    $exec   --datadir="$datadir" --socket="$socketfile" \
-        --pid-file="$mypidfile" \
--       --basedir=/usr --user=mysql $extra_opts &gt;/dev/null 2&gt;&amp;1 &amp;
-+       --basedir=/usr --user="$user" $extra_opts &gt;/dev/null 2&gt;&amp;1 &amp;
-    safe_pid=$!
-    # Spin for a maximum of N seconds waiting for the server to come up;
-    # exit the loop immediately if mysqld_safe process disappears.
+ 	# alarms, per bug #547485
+ 	$exec   --datadir="$datadir" --socket="$socketfile" \
+ 		--pid-file="$mypidfile" \
+-		--basedir=/usr --user=mysql $extra_opts &gt;/dev/null 2&gt;&amp;1 &amp;
++		--basedir=/usr --user="$user" $extra_opts &gt;/dev/null 2&gt;&amp;1 &amp;
+ 	safe_pid=$!
+ 	# Spin for a maximum of N seconds waiting for the server to come up;
+ 	# exit the loop immediately if mysqld_safe process disappears.
 </file>
 
 /usr/bin/patch -p0 &lt; /tmp/mysqld.patch
@@ -240,3 +240,4 @@ rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </post>
 
 </kickstart>
+
