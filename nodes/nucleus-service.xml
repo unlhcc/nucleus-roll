@@ -168,8 +168,6 @@ database    = comet-nucleus
 <file name="/etc/rc.d/rocksconfig.d/post-98-setup-mysql" perms="700" rcs="false">
 #!/bin/bash -l
 
-/bin/chown mysql_comet:mysql_comet /var/run/mysqld
-
 service mysqld start
 
 # we need a password which contains a symbol from each group, otherwise MySQL won't accept one
@@ -239,6 +237,7 @@ rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 /usr/sbin/groupadd -g8172 mysql_comet
 /usr/sbin/useradd -M -u510844 -g8172 -c "Comet mysql" -d /var/lib/mysql mysql_comet
 /usr/sbin/userdel mysql
+/bin/chown mysql_comet:mysql_comet /var/run/mysqld
 
 </post>
 

@@ -21,6 +21,7 @@
 
 <!-- Enable Services -->
 /sbin/chkconfig tomcat on
+/sbin/chkconfig httpd on
 
 /usr/sbin/groupadd -g8848 tomcat_comet
 /usr/sbin/useradd -M -u513458 -g8848 -c "Comet tomcat" -d /usr/share/tomcat tomcat_comet
