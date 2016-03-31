@@ -63,7 +63,9 @@ Allow from all
 &lt;/Location&gt;
 </file>
 
-
+<!-- On nucleus DB host run celery under apache - to access the database --> 
+/bin/sed -i -- 's/CELERYD_USER="celery_comet"/CELERYD_USER="apache"/' /etc/default/celeryd
+/bin/sed -i -- 's/CELERYD_GROUP="celery_comet"/CELERYD_GROUP="apache"/' /etc/default/celeryd
 
 <file name="/tmp/mysqld.patch" perms="644" rcs="false">
 --- /etc/init.d/mysqld	2016-02-01 16:09:12.000000000 -0800
@@ -163,6 +165,8 @@ port        = 3306
 user        = nucleus
 database    = comet-nucleus
 </file>
+
+/bin/chown apache:apache /opt/rocks/etc/.nucleus.my.cnf # don't know why owner attribute didn't work
 
 <!-- Post-install configuration for MySQL Community Server -->
 <file name="/etc/rc.d/rocksconfig.d/post-98-setup-mysql" perms="700" rcs="false">
