@@ -22,8 +22,19 @@
 <!-- Enable Services -->
 /sbin/chkconfig tomcat on
 
-chown -R tomcat:tomcat /var/lib/tomcat
+/usr/sbin/groupadd -g8848 tomcat_comet
+/usr/sbin/useradd -M -u513458 -g8848 -c "Comet tomcat" -d /usr/share/tomcat_comet tomcat_comet
+/usr/sbin/userdel tomcat
 
+chown -R tomcat_comet:tomcat_comet /var/lib/tomcat
+
+<file name="/etc/profile.d/tomcat.sh" perms="444" rcs="false">
+export TOMCAT_USER=tomcat_comet
+</file>
+
+<file name="/etc/profile.d/tomcat.csh" perms="444" rcs="false">
+setenv TOMCAT_USER tomcat_comet
+</file>
 
 <!-- Apache Configuration -->
 <file name="/etc/httpd/conf.d/mod_jk.conf">
