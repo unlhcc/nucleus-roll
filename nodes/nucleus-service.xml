@@ -73,7 +73,7 @@ Allow from all
  get_mysql_option mysqld datadir "/var/lib/mysql"
  datadir="$result"
 +get_mysql_option mysqld user "mysql"
-+$user="$result"
++user="$result"
  get_mysql_option mysqld socket "$datadir/mysql.sock"
  socketfile="$result"
  get_mysql_option mysqld_safe log-error "/var/log/mysqld.log"
@@ -167,6 +167,9 @@ database    = comet-nucleus
 <!-- Post-install configuration for MySQL Community Server -->
 <file name="/etc/rc.d/rocksconfig.d/post-98-setup-mysql" perms="700" rcs="false">
 #!/bin/bash -l
+
+/bin/chown mysql_comet:mysql_comet /var/run/mysqld
+
 service mysqld start
 
 # we need a password which contains a symbol from each group, otherwise MySQL won't accept one
@@ -234,7 +237,7 @@ rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 </file>
 
 /usr/sbin/groupadd -g8172 mysql_comet
-/usr/sbin/useradd -M -u510844 -g8172 -c "Comet mysql" -d /dev/null mysql_comet
+/usr/sbin/useradd -M -u510844 -g8172 -c "Comet mysql" -d /var/lib/mysql mysql_comet
 /usr/sbin/userdel mysql
 
 </post>
