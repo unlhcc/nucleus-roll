@@ -25,10 +25,8 @@ install::
         )
 
 	mkdir -p $(ROOT)/etc/init.d
-	mkdir -p $(ROOT)/etc/default
 	( \
 	    $(INSTALL) -m755 initd/* $(ROOT)/etc/init.d; \
-	    $(INSTALL) -m755 default/* $(ROOT)/etc/default \
 	)
 
 	@echo "::: Package $(NAME) install complete :::"

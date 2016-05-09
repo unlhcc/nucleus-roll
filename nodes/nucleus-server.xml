@@ -1,3 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+	<description>
+		Packages and configuration for the Nucleus service server.
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2014 The Regents of the University of California.
+	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
+
+	</copyright>
+
+    <package>celery</package>
+    <package>nucleus-service</package>
+
+<post>
+
+<file name="/etc/default/celeryd" perms="755">
 #!/bin/bash
 
 CELERYD_NODES="nucleus_service_worker"
@@ -13,7 +32,7 @@ CELERY_APP="nucleus"
 CELERYD_CHDIR="/opt/python/lib/python2.7/site-packages/nucleus_service"
 
 # Extra command-line arguments to the worker
-CELERYD_OPTS="--concurrency=4"
+CELERYD_OPTS="--concurrency=64 -Q frontend"
 
 # %N will be replaced with the first part of the nodename.
 CELERYD_LOG_FILE="/var/log/celery/%N.log"
@@ -28,3 +47,10 @@ CELERYD_GROUP="celery_comet"
 # If enabled pid and log directories will be created if missing,
 # and owned by the userid/group configured.
 CELERY_CREATE_DIRS=1
+</file>
+
+chkconfig celeryd on
+
+</post>
+
+</kickstart>

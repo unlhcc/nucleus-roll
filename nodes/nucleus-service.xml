@@ -35,6 +35,7 @@
 
 <!-- Enable Services -->
 /sbin/chkconfig httpd on
+chkconfig celeryd on
 
 <!-- Apache configuration for nucleus-service -->
 <file name="/etc/httpd/conf.d/nucleus.conf">
@@ -62,10 +63,6 @@ Order deny,allow
 Allow from all
 &lt;/Location&gt;
 </file>
-
-<!-- On nucleus DB host run celery under apache - to access the database --> 
-/bin/sed -i -- 's/CELERYD_USER="celery_comet"/CELERYD_USER="apache"/' /etc/default/celeryd
-/bin/sed -i -- 's/CELERYD_GROUP="celery_comet"/CELERYD_GROUP="apache"/' /etc/default/celeryd
 
 <file name="/tmp/mysqld.patch" perms="644" rcs="false">
 --- /etc/init.d/mysqld	2016-02-01 16:09:12.000000000 -0800
@@ -242,6 +239,39 @@ rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
 /usr/sbin/useradd -M -u510844 -g8172 -c "Comet mysql" -d /var/lib/mysql mysql_comet
 /usr/sbin/userdel mysql
 /bin/chown mysql_comet:mysql_comet /var/run/mysqld
+
+<file name="/etc/default/celeryd" perms="755">
+#!/bin/bash
+
+CELERYD_NODES="nucleus_service_worker"
+
+# Absolute or relative path to the 'celery' command:
+CELERY_BIN="/opt/python/bin/celery"
+
+# App instance to use
+# comment out this line if you don't use an app
+CELERY_APP="nucleus"
+
+# Where to chdir at start.
+CELERYD_CHDIR="/opt/python/lib/python2.7/site-packages/nucleus_service"
+
+# Extra command-line arguments to the worker
+CELERYD_OPTS="--concurrency=2 -Q update"
+
+# %N will be replaced with the first part of the nodename.
+CELERYD_LOG_FILE="/var/log/celery/%N.log"
+CELERYD_PID_FILE="/var/run/celery/%N.pid"
+
+# Workers should run as an unprivileged user.
+#   You need to create this user manually (or you can choose
+#   a user/group combination that already exists, e.g. nobody).
+CELERYD_USER="celery_comet"
+CELERYD_GROUP="celery_comet"
+
+# If enabled pid and log directories will be created if missing,
+# and owned by the userid/group configured.
+CELERY_CREATE_DIRS=1
+</file>
 
 </post>
 
