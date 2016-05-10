@@ -23,7 +23,7 @@
 		<to>nucleus-service</to>
 	</edge>
 
-	<edge from="server" cond="nucleus_server">
+	<edge from="server">
 		<to>nucleus-server</to>
 	</edge>
 
