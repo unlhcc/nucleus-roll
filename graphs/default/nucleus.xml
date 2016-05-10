@@ -27,8 +27,4 @@
 		<to>nucleus-server</to>
 	</edge>
 
-	<edge from="client" cond="nucleus_client">
-		<to>nucleus-client</to>
-	</edge>
-
 </graph>

@@ -16,6 +16,9 @@
 
 <post>
 
+/usr/sbin/groupadd -g8846 celery_comet
+/usr/sbin/useradd -M -u513459 -g8846 -c "Celery for comet" -d /home/celery_comet celery_comet
+
 <file name="/etc/default/celeryd" perms="755">
 #!/bin/bash
 
