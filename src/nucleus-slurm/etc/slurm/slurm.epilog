@@ -19,10 +19,10 @@ TRACKING_DIR=/var/spool/slurmd/job_tracking/${SLURM_JOB_USER}
 unhealthy=0
 reason=""
 
-if [ x$SLURM_UID = "x" ] ; then 
+if [ x$SLURM_UID = "x" ] ; then
 	exit 0
 fi
-if [ x$SLURM_JOB_ID = "x" ] ; then 
+if [ x$SLURM_JOB_ID = "x" ] ; then
         exit 0
 fi
 
