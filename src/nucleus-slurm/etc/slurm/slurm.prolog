@@ -40,7 +40,7 @@ if [ x$SLURM_JOB_ID = "x" ] ; then
 fi
 
 export COMPUTESET_JOB_STAGE='PROLOG'
-export NOTIFY_SCRIPT=/home/dimm/code/nucleus-service/nucleus_service/computeset_job_notify.sh
+export NOTIFY_SCRIPT=/opt/python/lib/python2.7/site-packages/nucleus_service/computeset_job_notify.sh
 function notify(){
     export COMPUTESET_JOB_STATE="$1"
     ${NOTIFY_SCRIPT}
