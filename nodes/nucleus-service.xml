@@ -1,0 +1,279 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+	<description>
+		Packages and configuration for the Nucleus service server.
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2014 The Regents of the University of California.
+	All rights reserved. Rocks(r) 6.2 www.rocksclusters.org
+
+	</copyright>
+
+	<package>nucleus-service</package>
+    <package>Django</package>
+    <package>django-rest-auth</package>
+    <package>djangorestframework</package>
+    <package>djangorestframework-httpsignature</package>
+    <package>django-rest-swagger</package>
+    <package>docopts</package>
+    <package>drf-nested-routers</package>
+    <package>MySQL-python</package>
+    <package>M2Crypto</package>
+    <package>httpsig</package>
+    <package>pycrypto</package>
+    <package>PyYAML</package>
+
+    <package disable="1">httpd</package>
+    <package>httpd24u</package>
+    <package>mod_wsgi</package>
+
+    <package>mysql-community-server</package>
+
+<post>
+
+<!-- Enable Services -->
+/sbin/chkconfig httpd on
+chkconfig celeryd on
+
+<!-- Apache configuration for nucleus-service -->
+<file name="/etc/httpd/conf.d/nucleus.conf">
+LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+
+WSGIScriptAlias /nucleus /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/wsgi.py
+WSGIApplicationGroup %{GLOBAL}
+WSGIDaemonProcess nucleus_service_app python-path=/opt/python/lib/site-packages/django:/opt/python/lib/python2.7/site-packages/nucleus_service
+WSGISocketPrefix /var/run/wsgi
+WSGIProcessGroup nucleus_service_app
+WSGIPassAuthorization On
+
+&lt;Directory /opt/python/lib/python2.7/site-packages/nucleus_service&gt;
+&lt;Files wsgi.py&gt;
+    Options All
+    Require all granted
+&lt;/Files&gt;
+&lt;/Directory&gt;
+
+
+# The Django static files
+Alias /static/ /var/www/html/static/
+&lt;Location /static&gt;
+Order deny,allow
+Allow from all
+&lt;/Location&gt;
+</file>
+
+<file name="/tmp/mysqld.patch" perms="644" rcs="false">
+--- /etc/init.d/mysqld	2016-02-01 16:09:12.000000000 -0800
++++ /etc/init.d/mysqld	2016-03-30 18:21:55.847076006 -0700
+@@ -46,6 +46,8 @@
+ 
+ get_mysql_option mysqld datadir "/var/lib/mysql"
+ datadir="$result"
++get_mysql_option mysqld user "mysql"
++user="$result"
+ get_mysql_option mysqld socket "$datadir/mysql.sock"
+ socketfile="$result"
+ get_mysql_option mysqld_safe log-error "/var/log/mysqld.log"
+@@ -63,7 +65,7 @@
+     local initfile
+     dir=/var/lib/mysql
+     initfile="$(mktemp $dir/install-validate-password-plugin.XXXXXX.sql)"
+-    chown mysql:mysql "$initfile"
++    chown "$user":"$user" "$initfile"
+     echo "INSERT INTO mysql.plugin (name, dl) VALUES ('validate_password', 'validate_password.so');" &gt; "$initfile"
+     echo "SHUTDOWN;" &gt;&gt; "$initfile"
+     echo "$initfile"
+@@ -85,7 +87,7 @@
+     else
+ 	# prepare for start
+ 	touch "$errlogfile"
+-	chown mysql:mysql "$errlogfile"
++	chown "$user":"$user" "$errlogfile"
+ 	chmod 0640 "$errlogfile"
+ 	[ -x /sbin/restorecon ] &amp;&amp; /sbin/restorecon "$errlogfile"
+ 	if [ ! -d "$datadir/mysql" ] ; then
+@@ -94,7 +96,7 @@
+ 	    then
+ 		mkdir -p "$datadir" || exit 1
+ 	    fi
+-	    chown mysql:mysql "$datadir"
++	    chown "$user":"$user" "$datadir"
+ 	    chmod 0751 "$datadir"
+ 	    if [ -x /sbin/restorecon ] ; then
+ 		/sbin/restorecon "$datadir"
+@@ -106,21 +108,21 @@
+ 		done
+ 	    fi
+ 	    # Now create the database
+-	    action $"Initializing MySQL database: " /usr/sbin/mysqld --initialize --datadir="$datadir" --user=mysql
++	    action $"Initializing MySQL database: " /usr/sbin/mysqld --initialize --datadir="$datadir" --user="$user"
+ 	    ret=$?
+ 	    [ $ret -ne 0 ] &amp;&amp; return $ret
+ 	    initfile="$(install_validate_password_sql_file)"
+ 	    action $"Installing validate password plugin: " /usr/sbin/mysqld --datadir="$datadir" --user=mysql --init-file="$initfile"
+ 	    ret=$?
+ 	    rm -f "$initfile"
+-	    chown -R mysql:mysql "$datadir"
++	    chown -R "$user":"$user" "$datadir"
+ 	    [ $ret -ne 0 ] &amp;&amp; return $ret
+ 	    # Generate certs if needed
+ 	    if [ -x /usr/bin/mysql_ssl_rsa_setup -a ! -e "${datadir}/server-key.pem" ] ; then
+-		/usr/bin/mysql_ssl_rsa_setup --datadir="$datadir" --uid=mysql &gt;/dev/null 2&gt;&amp;1
++		/usr/bin/mysql_ssl_rsa_setup --datadir="$datadir" --uid="$user" &gt;/dev/null 2&gt;&amp;1
+ 	    fi
+ 	fi
+-	chown mysql:mysql "$datadir"
++	chown "$user":"$user" "$datadir"
+ 	chmod 0751 "$datadir"
+ 	# Pass all the options determined above, to ensure consistent behavior.
+ 	# In many cases mysqld_safe would arrive at the same conclusions anyway
+@@ -131,7 +133,7 @@
+ 	# alarms, per bug #547485
+ 	$exec   --datadir="$datadir" --socket="$socketfile" \
+ 		--pid-file="$mypidfile" \
+-		--basedir=/usr --user=mysql $extra_opts &gt;/dev/null 2&gt;&amp;1 &amp;
++		--basedir=/usr --user="$user" $extra_opts &gt;/dev/null 2&gt;&amp;1 &amp;
+ 	safe_pid=$!
+ 	# Spin for a maximum of N seconds waiting for the server to come up;
+ 	# exit the loop immediately if mysqld_safe process disappears.
+</file>
+
+/usr/bin/patch -p0 &lt; /tmp/mysqld.patch
+rm /tmp/mysqld.patch
+
+<file name="/etc/my.cnf" perms="644" mode="append" rcs="false">
+user=mysql_comet
+</file>
+
+<!-- MySQL Community Server configuration files -->
+<file name="/root/.mysqld.my.cnf" perms="600" mode="append" rcs="false">
+[client]
+host        = 127.0.0.1
+port        = 3306
+user        = root
+</file>
+
+<file name="/opt/rocks/etc/.nucleus.my.cnf" perms="600" mode="append" rcs="false">
+[client]
+host        = 127.0.0.1
+port        = 3306
+user        = nucleus
+database    = comet-nucleus
+</file>
+
+/bin/chown apache:apache /opt/rocks/etc/.nucleus.my.cnf # don't know why owner attribute didn't work
+
+<!-- Post-install configuration for MySQL Community Server -->
+<file name="/etc/rc.d/rocksconfig.d/post-98-setup-mysql" perms="700" rcs="false">
+#!/bin/bash -l
+
+service mysqld start
+
+# we need a password which contains a symbol from each group, otherwise MySQL won't accept one
+
+while [[ $MYSQL_NUCLEUS_PASS != *[_\(\)/*+^%!]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[0-9]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[a-z]*  ]] || [[ $MYSQL_NUCLEUS_PASS != *[A-Z]*  ]]
+do
+    MYSQL_NUCLEUS_PASS=$(&lt; /dev/urandom tr -dc '_()/*+^%!A-Z-a-z-0-9' | head -c26)
+done
+
+while [[ $MYSQL_ROOT_PASS != *[_\(\)/*+^%!]*  ]] || [[ $MYSQL_ROOT_PASS != *[0-9]*  ]] || [[ $MYSQL_ROOT_PASS != *[a-z]*  ]] || [[ $MYSQL_ROOT_PASS != *[A-Z]*  ]]
+do
+    MYSQL_ROOT_PASS=$(&lt; /dev/urandom tr -dc '_()/*+^%!A-Z-a-z-0-9' | head -c26)
+done
+
+while [[ $DJANGO_ADMIN_PASS != *[_\(\)/*+^%!]*  ]] || [[ $DJANGO_ADMIN_PASS != *[0-9]*  ]] || [[ $DJANGO_ADMIN_PASS != *[a-z]*  ]] || [[ $DJANGO_ADMIN_PASS != *[A-Z]*  ]]
+do
+    DJANGO_ADMIN_PASS=$(&lt; /dev/urandom tr -dc '_()/*+^%!A-Z-a-z-0-9' | head -c26)
+done
+
+
+echo "password = $MYSQL_ROOT_PASS" >> /root/.mysqld.my.cnf
+echo $DJANGO_ADMIN_PASS >> /root/.django_admin
+echo "password = $MYSQL_NUCLEUS_PASS" >> /opt/rocks/etc/.nucleus.my.cnf
+
+MYSQL_TEMP_PASS=`grep "A temporary password is generated for root@localhost:" /var/log/mysqld.log | sed 's/ /\n/g' | tail -n 1 | tr -d '\n'`
+
+SECURE_MYSQL=$(expect -c "
+set timeout 10
+spawn mysql_secure_installation
+expect \"Enter password for user root\"
+send \"$MYSQL_TEMP_PASS\r\"
+expect \"New password:\"
+send \"$MYSQL_ROOT_PASS\r\"
+expect \"Re-enter new password:\"
+send \"$MYSQL_ROOT_PASS\r\"
+expect \"Change the password for root ?\"
+send \"n\r\"
+expect \"Remove anonymous users?\"
+send \"y\r\"
+expect \"Disallow root login remotely?\"
+send \"y\r\"
+expect \"Remove test database and access to it?\"
+send \"y\r\"
+expect \"Reload privilege tables now?\"
+send \"y\r\"
+expect eof
+")
+
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "CREATE DATABASE \`comet-nucleus\`;"
+
+# Add nucleus user to MySQL Grant tables
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON \`comet-nucleus\`.* TO 'nucleus'@'localhost' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS' WITH GRANT OPTION;"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "GRANT ALL ON \`comet-nucleus\`.* TO nucleus@'%' IDENTIFIED BY '$MYSQL_NUCLEUS_PASS';"
+/usr/bin/mysql --defaults-extra-file=/root/.mysqld.my.cnf -e "FLUSH PRIVILEGES;"
+
+module load python
+cd /opt/python/lib/python2.7/site-packages/nucleus_service
+python manage.py collectstatic --noinput
+python manage.py makemigrations
+python manage.py migrate
+
+echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'dmishin@sdsc.edu', '$DJANGO_ADMIN_PASS')" | python manage.py shell
+
+rm /etc/rc.d/rocksconfig.d/post-98-setup-mysql
+</file>
+
+/usr/sbin/groupadd -g8172 mysql_comet
+/usr/sbin/useradd -M -u510844 -g8172 -c "Comet mysql" -d /var/lib/mysql mysql_comet
+/usr/sbin/userdel mysql
+/bin/chown mysql_comet:mysql_comet /var/run/mysqld
+
+<file name="/etc/default/celeryd" perms="755">
+#!/bin/bash
+
+CELERYD_NODES="nucleus_service_worker"
+
+# Absolute or relative path to the 'celery' command:
+CELERY_BIN="/opt/python/bin/celery"
+
+# App instance to use
+# comment out this line if you don't use an app
+CELERY_APP="nucleus"
+
+# Where to chdir at start.
+CELERYD_CHDIR="/opt/python/lib/python2.7/site-packages/nucleus_service"
+
+# Extra command-line arguments to the worker
+CELERYD_OPTS="--concurrency=2 -Q update"
+
+# %N will be replaced with the first part of the nodename.
+CELERYD_LOG_FILE="/var/log/celery/%N.log"
+CELERYD_PID_FILE="/var/run/celery/%N.pid"
+
+# Workers should run as an unprivileged user.
+#   You need to create this user manually (or you can choose
+#   a user/group combination that already exists, e.g. nobody).
+CELERYD_USER="apache"
+CELERYD_GROUP="apache"
+
+# If enabled pid and log directories will be created if missing,
+# and owned by the userid/group configured.
+CELERY_CREATE_DIRS=1
+</file>
+
+</post>
+
+</kickstart>
+
