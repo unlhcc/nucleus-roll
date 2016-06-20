@@ -15,6 +15,7 @@
 	<package>tomcat</package>
 	<package>nucleus-guacamole-client</package>
     <package>httpd24u</package>
+    <package>httpd24u-mod_ssl</package>
     <package>tomcat-connectors</package>
 
 <post>

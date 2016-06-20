@@ -27,6 +27,7 @@
 
     <package disable="1">httpd</package>
     <package>httpd24u</package>
+    <package>httpd24u-mod_ssl</package>
     <package>mod_wsgi</package>
 
     <package>mysql-community-server</package>

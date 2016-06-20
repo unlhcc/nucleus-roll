@@ -11,12 +11,13 @@ b07217e60e1ddbb188a28b842771d02b57a6d8c2 src/RPMS/tomcat-el-2.2-api-7.0.65-1.el6
 5d9778357bef34420a3f70d36b4d6f17d4b9ea0f src/RPMS/swig-2.0.8-1.el6.sroycode.x86_64.rpm
 e771c47d471600bebdbfb89be3386c9d9cd1998a src/RPMS/mysql-5.7.11-1.el6.x86_64.rpm-bundle.tar
 6b26d8dada26b0296749b3dce79ac7a38f503739 src/RPMS/nginx-1.8.1-1.el6.ngx.x86_64.rpm
-3140b9b2c8ced03e8b4bb32b15f241c496bde725 src/RPMS/httpd24u-2.4.18-3.ius.el6.x86_64.rpm
 3480163795c50fd42e20e3ad196be4e54fbb96b3 src/RPMS/apr15u-util-1.5.4-3.ius.el6.x86_64.rpm
-e75e909a56496ddd26671d9baab317037fc89f5c src/RPMS/httpd24u-filesystem-2.4.18-3.ius.el6.noarch.rpm
-ac2e58f82d06c5c5fd6d31edca216e2dd91be712 src/RPMS/httpd24u-tools-2.4.18-3.ius.el6.x86_64.rpm
 3640cb035c53b8feb31893e9ed89439ceb5371d0 src/RPMS/apr15u-1.5.2-1.ius.el6.x86_64.rpm
 20c4e743f149114e84e06d17c1960031ad4c3d15 src/RPMS/libnghttp2-1.6.0-1.el6.1.x86_64.rpm
-9f060a22f762ef1904e0162597e4ca54d9676d8f src/RPMS/httpd24u-devel-2.4.18-3.ius.el6.x86_64.rpm
 7e705b3cd990f33774eb8aa2df96777c3e021017 src/RPMS/apr15u-devel-1.5.2-1.ius.el6.x86_64.rpm
 a6ad6662b6a678ad6e8899e26989537410ffbf06 src/RPMS/apr15u-util-devel-1.5.4-3.ius.el6.x86_64.rpm
+26a53256ead5e04070ed64f5fbaa6017be0302a2 src/RPMS/httpd24u-2.4.20-3.ius.centos6.x86_64.rpm
+4779d43443afde137b39d5f8b0f6be1ab1b0be55 src/RPMS/httpd24u-devel-2.4.20-3.ius.centos6.x86_64.rpm
+bfa65975db76827f2d7066b58cf04f05aa6db2e1 src/RPMS/httpd24u-filesystem-2.4.20-3.ius.centos6.noarch.rpm
+bbdcdb817d2b13135aeec510eae103d0dfd7906f src/RPMS/httpd24u-mod_ssl-2.4.20-3.ius.centos6.x86_64.rpm
+5eb118428701c26c1ba23649c6ef0f7d79f3322f src/RPMS/httpd24u-tools-2.4.20-3.ius.centos6.x86_64.rpm
