@@ -194,6 +194,10 @@ echo "password = $MYSQL_ROOT_PASS" >> /root/.mysqld.my.cnf
 echo $DJANGO_ADMIN_PASS >> /root/.django_admin
 echo "password = $MYSQL_NUCLEUS_PASS" >> /opt/rocks/etc/.nucleus.my.cnf
 
+/bin/chmod 600 /root/.mysqld.my.cnf
+/bin/chmod 600 /root/.django_admin
+/bin/chmod 600 /opt/rocks/etc/.nucleus.my.cnf
+
 MYSQL_TEMP_PASS=`grep "A temporary password is generated for root@localhost:" /var/log/mysqld.log | sed 's/ /\n/g' | tail -n 1 | tr -d '\n'`
 
 SECURE_MYSQL=$(expect -c "
