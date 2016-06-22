@@ -73,7 +73,6 @@ build: $(SRC_DIRS)
 
 install::
 	( \
-          pwd && ls ; \
           mkdir -p $(ROOT)/var/lib/tomcat/webapps; \
 	  cp $(NAME)/target/nucleus-guacamole-$(VERSION).war $(ROOT)/var/lib/tomcat/webapps; \
 	)

@@ -1,14 +1,12 @@
-#!/bin/sh
-#
-# This file should remain OS independent
 #
 # @Copyright@
 # 
 # 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		         version 6.2 (SideWinder)
+# 		         version 5.6 (Emerald Boa)
+# 		         version 6.1 (Emerald Boa)
 # 
-# Copyright (c) 2000 - 2014 The Regents of the University of California.
+# Copyright (c) 2000 - 2013 The Regents of the University of California.
 # All rights reserved.	
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -55,26 +53,33 @@
 # 
 # @Copyright@
 #
+# $Log$
 
-if [ ! -f "$ROLLSROOT/../../bin/get_sources.sh" ]; then
-	echo "To compile this roll on Rocks 6.1.1 or older you need to install a newer rocks-devel rpm.
-Install it with:
-rpm -Uvh https://googledrive.com/host/0B0LD0shfkvCRRGtadUFTQkhoZWs/rocks-devel-6.2-3.x86_64.rpm
-If you need an older version of this roll you can get it from:
-https://github.com/rocksclusters-attic"
-	exit 1
-fi
+REDHAT.ROOT = $(CURDIR)/../../
 
-. $ROLLSROOT/etc/bootstrap-functions.sh
 
-yum install src/RPMS/swig* # needed to build high-performance M2Crypto with -builtin key, otherwise fails
+-include $(ROCKSROOT)/etc/Rules.mk
+include Rules.mk
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
 
-yum remove httpd httpd-devel httpd-tools
-yum install src/RPMS/httpd24u* src/RPMS/apr15u* src/RPMS/libnghttp2*
+build: $(SRC_DIRS)
+	gunzip -c $(NAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
+	( \
+          cd $(NAME)-$(VERSION) ;   \
+	  ./configure --prefix=$(PKGROOT) --with-init-dir=/etc/init.d --without-ssh ; \
+	  $(MAKE); \
+	)
+	@echo "::: Package $(NAME) build complete :::"
 
-compile_and_install maven
+install::
+	mkdir -p $(ROOT)/$(PKGROOT)
+	( \
+          cd $(NAME)-$(VERSION) ;   \
+	  $(MAKE) prefix=$(ROOT)/$(PKGROOT) install ; \
+	)
+	@echo "::: Package $(NAME) install complete :::"
 
-# install can't find /usr/src/redhat/RPMS and fails. installing by hand
+clean::
+	rm -rf $(NAME)-$(VERSION)
 
-yum install RPMS/x86_64/apache-maven*
-yum install uuid-devel libvncserver-devel openssl-devel libssh2-devel pango-devel

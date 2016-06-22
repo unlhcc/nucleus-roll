@@ -4,4 +4,4 @@ RELEASE 	= 574610d
 
 SOURCE_DIR		= $(NAME)
 
-GIT_REPO	= ssh://git@github.com/sdsc/$(NAME).git
+GIT_REPO	= ssh://git@forge.sdsc.edu:7999/xsd/$(NAME).git
