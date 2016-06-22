@@ -29,6 +29,11 @@
     <package>httpd24u</package>
     <package>httpd24u-mod_ssl</package>
     <package>mod_wsgi</package>
+    <package>tomcat-connectors</package>
+    <package>nucleus-scripts</package>
+    <package>nucleus-guacamole-client</package>
+    <package>guacamole-server</package>
+    <package>tomcat</package>
 
     <package>mysql-community-server</package>
 
@@ -37,6 +42,7 @@
 <!-- Enable Services -->
 /sbin/chkconfig httpd on
 chkconfig celeryd on
+/sbin/chkconfig tomcat on
 
 <!-- Apache configuration for nucleus-service -->
 <file name="/etc/httpd/conf.d/nucleus.conf">
@@ -277,6 +283,55 @@ CELERYD_GROUP="apache"
 # and owned by the userid/group configured.
 CELERY_CREATE_DIRS=1
 </file>
+
+/usr/sbin/groupadd -g8848 tomcat_comet
+/usr/sbin/useradd -M -u513458 -g8848 -c "Comet tomcat" -d /usr/share/tomcat tomcat_comet
+/usr/sbin/userdel tomcat
+
+/bin/chown -R tomcat_comet:tomcat_comet /var/lib/tomcat
+/bin/chown -R tomcat_comet:tomcat_comet /var/log/tomcat
+
+/bin/sed -i -- 's/TOMCAT_USER="tomcat"/TOMCAT_USER="tomcat_comet"/' /etc/tomcat/tomcat.conf
+
+<!-- Apache Configuration -->
+<file name="/etc/httpd/conf.d/mod_jk.conf">
+LoadModule jk_module modules/mod_jk.so
+JkWorkersFile /etc/httpd/conf/workers.properties
+
+# Where to put jk logs
+JkLogFile     /var/log/httpd/mod_jk.log
+
+# Set the jk log level [debug/error/info]
+JkLogLevel    info
+
+# Select the log format
+JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+
+# JkOptions indicate to send SSL KEY SIZE,
+JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
+
+# JkRequestLogFormat set the request format
+JkRequestLogFormat     "%w %V %T"
+
+JkMount /nucleus-guacamole-0.9.8/* ajp13
+
+</file>
+
+<!-- Post-install re-configuration for tomcat -->
+<file name="/etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh">
+#!/bin/bash
+
+# Tomcat rpm adds tomcat user and group which are NOT valid in
+# Trestles trust domain. Fix that here...
+
+/bin/rm /etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh
+</file>
+
+<file name="/etc/httpd/conf/workers.properties">
+workers.java_home=/usr/java/latest
+ps=/
+</file>
+
 
 </post>
 
