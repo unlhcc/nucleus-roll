@@ -56,6 +56,14 @@ CELERY_CREATE_DIRS=1
 
 chkconfig celeryd on
 
+
+<file name="/etc/cron.d/nucleus">
+PATH=$PATH:/opt/python/bin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/python/lib
+LIBPATH=$LIBPATH:/opt/python/lib
+* * * * * /opt/python/bin/python /opt/python/lib/python2.7/site-packages/nucleus_service/update_status.py &gt; /dev/null 2&gt;&amp;1
+</file>
+
 </post>
 
 </kickstart>
