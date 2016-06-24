@@ -21,9 +21,6 @@
 
 <post>
 
-/usr/sbin/groupadd -g8846 celery_comet
-/usr/sbin/useradd -M -u513459 -g8846 -c "Celery for comet" -d /home/celery_comet celery_comet
-
 <file name="/etc/default/celeryd" perms="755">
 #!/bin/bash
 
@@ -49,8 +46,8 @@ CELERYD_PID_FILE="/var/run/celery/%N.pid"
 # Workers should run as an unprivileged user.
 #   You need to create this user manually (or you can choose
 #   a user/group combination that already exists, e.g. nobody).
-CELERYD_USER="celery_comet"
-CELERYD_GROUP="celery_comet"
+CELERYD_USER="root"
+CELERYD_GROUP="root"
 
 # If enabled pid and log directories will be created if missing,
 # and owned by the userid/group configured.
