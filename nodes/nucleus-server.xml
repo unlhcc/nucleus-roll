@@ -13,6 +13,11 @@
 
     <package>celery</package>
     <package>nucleus-service</package>
+    <package>pyOpenSSL</package>
+    <package>cffi</package>
+    <package>libffi</package>
+    <package>cryptography</package>
+    <package>enum</package>
 
 <post>
 

@@ -24,6 +24,11 @@
     <package>httpsig</package>
     <package>pycrypto</package>
     <package>PyYAML</package>
+    <package>pyOpenSSL</package>
+    <package>cffi</package>
+    <package>enum</package>
+    <package>libffi</package>
+    <package>cryptography</package>
 
     <package disable="1">httpd</package>
     <package>httpd24u</package>
@@ -284,6 +289,117 @@ CELERYD_GROUP="apache"
 CELERY_CREATE_DIRS=1
 </file>
 
+
+
+<file name="/etc/httpd/conf/httpd.conf">
+ServerRoot "/etc/httpd"
+
+Listen *:80
+Listen *:443 https
+
+LoadModule unixd_module modules/mod_unixd.so
+LoadModule mpm_event_module modules/mod_mpm_event.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule ssl_module modules/mod_ssl.so
+LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+LoadModule headers_module modules/mod_headers.so
+LoadModule alias_module modules/mod_alias.so
+LoadModule authz_host_module modules/mod_authz_host.so
+User apache
+Group apache
+
+ErrorLog logs/error_log
+
+LogFormat "%h %l %u %t \"%r\" %>s %b" common
+CustomLog logs/access_log common
+
+&lt;Directory /&gt;
+  AllowOverride None
+  Require all denied
+&lt;/Directory&gt;
+
+
+# HSTS (mod_headers is required) (15768000 seconds = 6 months)
+Header always set Strict-Transport-Security "max-age=15768000"
+
+SSLSessionCache         shmcb:/var/run/httpd/sslcache(512000)
+SSLSessionCacheTimeout  300
+
+LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
+
+WSGIScriptAlias /nucleus /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/wsgi.py
+WSGIApplicationGroup %{GLOBAL}
+WSGIDaemonProcess nucleus_service_app python-path=/opt/python/lib/site-packages/django:/opt/python/lib/python2.7/site-packages/nucleus_service
+WSGISocketPrefix /var/run/wsgi
+WSGIProcessGroup nucleus_service_app
+WSGIPassAuthorization On
+
+&lt;Directory /opt/python/lib/python2.7/site-packages/nucleus_service&gt;
+&lt;Files wsgi.py&gt;
+    Options All
+    Require host comet-nucleus-stage.local
+&lt;/Files&gt;
+&lt;/Directory&gt;
+
+# The Django static files
+Alias /static/ /var/www/html/static/
+&lt;Location /static&gt;
+    Require host comet-nucleus-stage.local
+&lt;/Location&gt;
+
+&lt;VirtualHost *:443&gt;
+
+    SSLEngine On
+
+    SSLProtocol all -SSLv2 -SSLv3
+    SSLHonorCipherOrder on
+    SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM \
+                EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 \
+                EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 \
+                EECDH EDH+aRSA \
+                !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4"
+
+    SSLCompression Off
+
+    RequestHeader set X-Forwarded-Proto 'https' env=HTTPS
+
+    SSLCertificateFile /var/secrets/cometvc/cert.pem
+
+    SSLCertificateKeyFile /var/secrets/cometvc/key.pem
+
+    SSLCertificateChainFile /var/secrets/cometvc/ca.pem
+
+
+    # Where to put jk logs
+    JkLogFile     /var/log/httpd/mod_jk.log
+
+    # Set the jk log level [debug/error/info]
+    JkLogLevel    info
+
+    # Select the log format
+    JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+
+    # JkOptions indicate to send SSL KEY SIZE,
+    JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
+
+    # JkRequestLogFormat set the request format
+    JkRequestLogFormat     "%w %V %T"
+    JkMount /nucleus-guacamole-0.9.8/* ajp13
+
+&lt;/VirtualHost&gt;
+
+LoadModule jk_module modules/mod_jk.so
+JkWorkersFile /etc/httpd/conf/workers.properties
+
+&lt;Location /nucleus-guacamole-0.9.8&gt;
+    Require all granted
+&lt;/Location&gt;
+
+</file>
+
 /usr/sbin/groupadd -g8848 tomcat_comet
 /usr/sbin/useradd -M -u513458 -g8848 -c "Comet tomcat" -d /usr/share/tomcat tomcat_comet
 /usr/sbin/userdel tomcat
@@ -292,30 +408,6 @@ CELERY_CREATE_DIRS=1
 /bin/chown -R tomcat_comet:tomcat_comet /var/log/tomcat
 
 /bin/sed -i -- 's/TOMCAT_USER="tomcat"/TOMCAT_USER="tomcat_comet"/' /etc/tomcat/tomcat.conf
-
-<!-- Apache Configuration -->
-<file name="/etc/httpd/conf.d/mod_jk.conf">
-LoadModule jk_module modules/mod_jk.so
-JkWorkersFile /etc/httpd/conf/workers.properties
-
-# Where to put jk logs
-JkLogFile     /var/log/httpd/mod_jk.log
-
-# Set the jk log level [debug/error/info]
-JkLogLevel    info
-
-# Select the log format
-JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
-
-# JkOptions indicate to send SSL KEY SIZE,
-JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
-
-# JkRequestLogFormat set the request format
-JkRequestLogFormat     "%w %V %T"
-
-JkMount /nucleus-guacamole-0.9.8/* ajp13
-
-</file>
 
 <!-- Post-install re-configuration for tomcat -->
 <file name="/etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh">

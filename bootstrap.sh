@@ -78,3 +78,8 @@ compile_and_install maven
 
 yum install RPMS/x86_64/apache-maven*
 yum install uuid-devel libvncserver-devel openssl-devel libssh2-devel pango-devel
+
+yum install libffi-devel
+pip install pycparser-2.14.tar.gz
+pip install cffi-1.7.0.tar.gz 
+
