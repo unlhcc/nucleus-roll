@@ -21,6 +21,9 @@
 
 <post>
 
+/opt/rocks/bin/rocks set host attr comet-nucleus-stage x11 false
+/opt/rocks/bin/rocks set host attr comet-sdamn x11 false
+
 <file name="/etc/default/celeryd" perms="755">
 #!/bin/bash
 
