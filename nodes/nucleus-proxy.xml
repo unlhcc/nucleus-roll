@@ -64,6 +64,12 @@ SSLSessionCacheTimeout  300
     ServerName comet-nucleus-stage.sdsc.edu
     SSLEngine On
 
+    SSLProxyEngine on
+    SSLProxyVerify none
+    SSLProxyCheckPeerCN off
+    SSLProxyCheckPeerName off
+    SSLProxyCheckPeerExpire off
+
     SSLProtocol all -SSLv2 -SSLv3
     SSLHonorCipherOrder on
     SSLCipherSuite "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM \
@@ -75,11 +81,14 @@ SSLSessionCacheTimeout  300
 
     RequestHeader set X-Forwarded-Proto 'https' env=HTTPS
 
-    ProxyPass "/static/" "http://comet-sdamn.local/static/"
-    ProxyPassReverse "/static/" "http://comet-sdamn.local/static/"
+    ProxyPass "/static/" "https://comet-sdamn.local/static/"
+    ProxyPassReverse "/static/" "https://comet-sdamn.local/static/"
 
-    ProxyPass "/nucleus/" "http://comet-sdamn.local/nucleus/"
-    ProxyPassReverse "/nucleus/" "http://comet-sdamn.local/nucleus/"
+    ProxyPass "/nucleus/" "https://comet-sdamn.local/nucleus/"
+    ProxyPassReverse "/nucleus/" "https://comet-sdamn.local/nucleus/"
+
+    ProxyPass "/nucleus-guacamole-0.9.8/" "https://comet-sdamn.local/nucleus-guacamole-0.9.8/"
+    ProxyPassReverse "/nucleus-guacamole-0.9.8/" "https://comet-sdamn.local/nucleus-guacamole-0.9.8/"
 
     SSLCertificateFile /var/secrets/httpd/pki/tls/certs/comet-nucleus-stage_sdsc_edu_cert.cer
 
