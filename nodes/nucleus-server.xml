@@ -64,7 +64,7 @@ chkconfig celeryd on
 PATH=$PATH:/opt/python/bin
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/python/lib
 LIBPATH=$LIBPATH:/opt/python/lib
-* * * * * /opt/python/bin/python /opt/python/lib/python2.7/site-packages/nucleus_service/update_status.py &gt; /dev/null 2&gt;&amp;1
+* * * * * root /opt/python/bin/python /opt/python/lib/python2.7/site-packages/nucleus_service/update_status.py &gt; /dev/null 2&gt;&amp;1
 </file>
 
 </post>
