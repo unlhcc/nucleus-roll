@@ -1,6 +1,6 @@
 PKGROOT            = /opt/guacamole
 NAME               = guacamole-server
-VERSION            = 0.9.9
+VERSION            = 0.9.8
 RELEASE            = 0
 TARBALL_POSTFIX    = tar.gz
 
