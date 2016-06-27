@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import psutil
 import socket
 import subprocess
 import os, sys
@@ -30,7 +29,7 @@ def _createTunnel(port, vnc_params, command):
 		'{remote_cmd}'.format(remote_cmd=command)]
 
 	try:
-		p = psutil.Popen(cmd)
+		p = subprocess.Popen(cmd)
 		p.communicate()
 		if p.returncode < 0:
 			print >>sys.stderr, "Child was terminated by signal %d" % (-p.returncode)

@@ -10,7 +10,7 @@ install::
 	( \
 	  for F in bin/*; do \
 	    if test ! -d $${F}; then \
-	      install -m0754 $${F} $(ROOT)/$(PKGROOT)/bin; \
+	      install -m0755 $${F} $(ROOT)/$(PKGROOT)/bin; \
 	    fi; \
 	  done \
 	)

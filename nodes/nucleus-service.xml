@@ -39,6 +39,7 @@
     <package>nucleus-guacamole-client</package>
     <package>guacamole-server</package>
     <package>tomcat</package>
+    <package>nucleus-libvirt-python</package>
 
     <package>mysql-community-server</package>
 
