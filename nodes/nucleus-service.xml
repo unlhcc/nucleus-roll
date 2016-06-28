@@ -282,18 +282,26 @@ CELERYD_PID_FILE="/var/run/celery/%N.pid"
 # Workers should run as an unprivileged user.
 #   You need to create this user manually (or you can choose
 #   a user/group combination that already exists, e.g. nobody).
-CELERYD_USER="celery_comet"
-CELERYD_GROUP="celery_comet"
+CELERYD_USER="apache"
+CELERYD_GROUP="apache"
 
 # If enabled pid and log directories will be created if missing,
 # and owned by the userid/group configured.
 CELERY_CREATE_DIRS=1
 </file>
 
+mkdir /etc/sdsc/sudoers.d
 <file name="/etc/sdsc/sudoers.d/apache" perms="440">
 Defaults:apache !requiretty
 apache          ALL=(nucleus_comet) NOPASSWD: /opt/nucleus-scripts/bin/open_tunnel.py
 </file>
+
+mkdir -p /var/secrets/cometvc
+chmod 700 /var/secrets
+chmod 750 /var/secrets/cometvc
+ln -s /var/secrets/cometvc/ca.pem /var/secrets/cometvc/cacert.pem
+ln -s /var/secrets/cometvc/key.pem /var/secrets/cometvc/clientkey.pem
+ln -s /var/secrets/cometvc/cert.pem /var/secrets/cometvc/clientcert.pem
 
 <file name="/etc/httpd/conf/httpd.conf">
 ServerRoot "/etc/httpd"

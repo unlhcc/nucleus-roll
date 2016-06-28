@@ -67,7 +67,7 @@ build: $(SRC_DIRS)
 	gunzip -c $(NAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
 	( \
           cd $(NAME)-$(VERSION) ;   \
-	  ./configure --prefix=$(PKGROOT) --with-init-dir=/etc/init.d --without-ssh ; \
+	  ./configure --prefix=$(PKGROOT) --without-ssh ; \
 	  $(MAKE); \
 	)
 	@echo "::: Package $(NAME) build complete :::"
