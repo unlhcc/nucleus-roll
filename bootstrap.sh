@@ -83,3 +83,4 @@ yum install libffi-devel libvirt-devel
 pip install pycparser-2.14.tar.gz
 pip install cffi-1.7.0.tar.gz 
 
+tar xvzf maven-repo.tgz -C ~/
