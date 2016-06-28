@@ -297,8 +297,9 @@ apache          ALL=(nucleus_comet) NOPASSWD: /opt/nucleus-scripts/bin/open_tunn
 </file>
 
 mkdir -p /var/secrets/cometvc
-chmod 700 /var/secrets
+chmod 755 /var/secrets
 chmod 750 /var/secrets/cometvc
+chgrp 8980 /var/secrets/cometvc
 ln -s /var/secrets/cometvc/ca.pem /var/secrets/cometvc/cacert.pem
 ln -s /var/secrets/cometvc/key.pem /var/secrets/cometvc/clientkey.pem
 ln -s /var/secrets/cometvc/cert.pem /var/secrets/cometvc/clientcert.pem
