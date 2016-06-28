@@ -570,6 +570,7 @@ exit $?
 
 /bin/chown -R tomcat_comet:tomcat_comet /var/lib/tomcat
 /bin/chown -R tomcat_comet:tomcat_comet /var/log/tomcat
+/bin/chown -R tomcat_comet:tomcat_comet /etc/tomcat
 
 /bin/sed -i -- 's/TOMCAT_USER="tomcat"/TOMCAT_USER="tomcat_comet"/' /etc/tomcat/tomcat.conf
 
