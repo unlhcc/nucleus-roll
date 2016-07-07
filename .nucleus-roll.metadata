@@ -22,3 +22,5 @@ bfa65975db76827f2d7066b58cf04f05aa6db2e1 src/RPMS/httpd24u-filesystem-2.4.20-3.i
 bbdcdb817d2b13135aeec510eae103d0dfd7906f src/RPMS/httpd24u-mod_ssl-2.4.20-3.ius.centos6.x86_64.rpm
 5eb118428701c26c1ba23649c6ef0f7d79f3322f src/RPMS/httpd24u-tools-2.4.20-3.ius.centos6.x86_64.rpm
 921dfe141b4df7c97ac060b71732323d8964817c maven-repo.tgz
+d8033f34e17c0c51bb834b27f6e8c59fc24ae72c cffi-1.7.0.tar.gz
+922162bad4aa8503988035506c1c65bbf8690ba4 pycparser-2.14.tar.gz
