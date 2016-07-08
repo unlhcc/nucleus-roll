@@ -41,6 +41,9 @@
     <package>tomcat</package>
     <package>nucleus-libvirt-python</package>
 
+    <package>python-pam</package>
+    <package>django-pam</package>
+
     <package>mysql-community-server</package>
 
 <post>
