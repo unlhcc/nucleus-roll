@@ -1,6 +1,7 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
+	    #CFLAGS="-Wl,-rpath=/opt/python/lib:/opt/gnu/gmp/lib" 
 ROLLPY = python
 
 ifndef PYPATH
@@ -20,7 +21,9 @@ build:: $(SRC_DIRS)
 install::
 	( \
 	    $(MODULE_LOAD_PYTHON); \
+	    $(MODULE_LOAD_GMP); \
 	    cd $(SOURCE_DIR); \
+	    patch -p0 < $(CURDIR)/gmp_module.diff; \
 	    python setup.py install --root=$(ROOT); \
         )
 	@echo "::: Package $(NAME) install complete :::"

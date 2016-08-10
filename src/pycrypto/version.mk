@@ -1,6 +1,6 @@
 NAME            = pycrypto
 VERSION         = 2.6.1
-RELEASE 	= 0
+RELEASE 	= 1
 
 SOURCE_DIR	= $(NAME)-$(VERSION)
 

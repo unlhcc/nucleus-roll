@@ -1,0 +1,12 @@
+--- setup.py	2013-10-14 14:38:10.000000000 -0700
++++ setup.py	2013-10-14 14:38:10.000000000 -0700
+@@ -370,7 +370,8 @@
+       'ext_modules': plat_ext + [
+             # _fastmath (uses GNU mp library)
+             Extension("Crypto.PublicKey._fastmath",
+-                      include_dirs=['src/','/usr/include/'],
++                      include_dirs=['/opt/gnu/gmp/include','src/', '/usr/include/'],
++                      library_dirs=['/opt/gnu/gmp/lib'],
+                       libraries=['gmp'],
+                       sources=["src/_fastmath.c"]),
+ 
