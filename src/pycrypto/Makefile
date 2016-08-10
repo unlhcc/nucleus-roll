@@ -1,7 +1,6 @@
 
 REDHAT.ROOT = $(CURDIR)/../../
 
-	    #CFLAGS="-Wl,-rpath=/opt/python/lib:/opt/gnu/gmp/lib" 
 ROLLPY = python
 
 ifndef PYPATH
