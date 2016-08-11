@@ -1,6 +1,6 @@
 NAME            = nucleus-service
 VERSION         = 1.0
-RELEASE 	= 9c9fd5fec
+RELEASE 	= f00aa8a282
 
 SOURCE_DIR		= $(NAME)
 
