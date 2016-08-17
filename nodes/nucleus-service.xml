@@ -578,6 +578,10 @@ exit $?
 
 /bin/sed -i -- 's/TOMCAT_USER="tomcat"/TOMCAT_USER="tomcat_comet"/' /etc/tomcat/tomcat.conf
 
+<!--bind tomcat to localhost-->
+/bin/sed -i -- 's/<Connector port="8080" protocol="HTTP\/1.1"/<Connector port="8080" protocol="HTTP\/1.1" address="127.0.0.1"/' /etc/tomcat/server.xml
+/bin/sed -i -- 's/<Connector port="8009" protocol="AJP\/1.3" redirectPort="8443"/<Connector port="8009" protocol="AJP\/1.3" redirectPort="8443" address="127.0.0.1"/' /etc/tomcat/server.xml
+
 <!-- Post-install re-configuration for tomcat -->
 <file name="/etc/rc.d/rocksconfig.d/post-98-tomcat-config.sh">
 #!/bin/bash
