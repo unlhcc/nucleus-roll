@@ -1,5 +1,5 @@
 NAME            = nucleus-guacamole-client
-VERSION         = 1.0
+VERSION         = 0.9.8
 RELEASE 	= 34eddef1c5
 
 SOURCE_DIR		= $(NAME)
