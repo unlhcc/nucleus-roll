@@ -356,14 +356,14 @@ WSGIPassAuthorization On
 &lt;Directory /opt/python/lib/python2.7/site-packages/nucleus_service&gt;
 &lt;Files wsgi.py&gt;
     Options All
-    Require host comet-nucleus-stage.local
+    Require host comet-nucleus.local
 &lt;/Files&gt;
 &lt;/Directory&gt;
 
 # The Django static files
 Alias /static/ /var/www/html/static/
 &lt;Location /static&gt;
-    Require host comet-nucleus-stage.local
+    Require host comet-nucleus.local
 &lt;/Location&gt;
 
 &lt;VirtualHost *:443&gt;

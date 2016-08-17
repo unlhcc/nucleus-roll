@@ -56,12 +56,12 @@ SSLSessionCacheTimeout  300
 &lt;/Directory&gt;
 
 &lt;VirtualHost *:80>
-    ServerName comet-nucleus-stage.sdsc.edu
-    Redirect "/" "https://comet-nucleus-stage.sdsc.edu/"
+    ServerName comet-nucleus.sdsc.edu
+    Redirect "/" "https://comet-nucleus.sdsc.edu/"
 &lt;/VirtualHost&gt;
 
 &lt;VirtualHost *:443&gt;
-    ServerName comet-nucleus-stage.sdsc.edu
+    ServerName comet-nucleus.sdsc.edu
     SSLEngine On
 
     SSLProxyEngine on
@@ -81,20 +81,20 @@ SSLSessionCacheTimeout  300
 
     RequestHeader set X-Forwarded-Proto 'https' env=HTTPS
 
-    ProxyPass "/static/" "https://comet-sdamn.local/static/"
-    ProxyPassReverse "/static/" "https://comet-sdamn.local/static/"
+    ProxyPass "/static/" "https://comet-damn.local/static/"
+    ProxyPassReverse "/static/" "https://comet-damn.local/static/"
 
-    ProxyPass "/nucleus/" "https://comet-sdamn.local/nucleus/"
-    ProxyPassReverse "/nucleus/" "https://comet-sdamn.local/nucleus/"
+    ProxyPass "/nucleus/" "https://comet-damn.local/nucleus/"
+    ProxyPassReverse "/nucleus/" "https://comet-damn.local/nucleus/"
 
-    ProxyPass "/nucleus-guacamole-0.9.8/" "https://comet-sdamn.local/nucleus-guacamole-0.9.8/"
-    ProxyPassReverse "/nucleus-guacamole-0.9.8/" "https://comet-sdamn.local/nucleus-guacamole-0.9.8/"
+    ProxyPass "/nucleus-guacamole-0.9.8/" "https://comet-damn.local/nucleus-guacamole-0.9.8/"
+    ProxyPassReverse "/nucleus-guacamole-0.9.8/" "https://comet-damn.local/nucleus-guacamole-0.9.8/"
 
-    SSLCertificateFile /var/secrets/httpd/pki/tls/certs/comet-nucleus-stage_sdsc_edu_cert.cer
+    SSLCertificateFile /var/secrets/httpd/pki/tls/certs/comet-nucleus_sdsc_edu_cert.cer
 
-    SSLCertificateKeyFile /var/secrets/httpd/pki/tls/private/comet-nucleus-stage.sdsc.edu.privkey
+    SSLCertificateKeyFile /var/secrets/httpd/pki/tls/private/comet-nucleus.sdsc.edu.privkey
 
-    SSLCertificateChainFile /var/secrets/httpd/pki/tls/certs/comet-nucleus-stage_sdsc_edu_interm.cer
+    SSLCertificateChainFile /var/secrets/httpd/pki/tls/certs/comet-nucleus_sdsc_edu_interm.cer
 &lt;/VirtualHost&gt;
 
 </file>
