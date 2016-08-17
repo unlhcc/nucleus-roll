@@ -161,6 +161,7 @@ rm /tmp/mysqld.patch
 
 <file name="/etc/my.cnf" perms="644" mode="append" rcs="false">
 user=mysql_comet
+bind-address=127.0.0.1
 </file>
 
 <!-- MySQL Community Server configuration files -->
