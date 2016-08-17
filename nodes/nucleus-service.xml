@@ -53,6 +53,12 @@
 /sbin/chkconfig celeryd on
 /sbin/chkconfig tomcat on
 
+<!-- Modify Django settings.py -->
+/bin/egrep -q "^ALLOWED_HOSTS = \['" /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/settings.py
+if [[ $? -ne 0 ]]; then
+    /bin/sed -i "s/^\(ALLOWED_HOSTS = \[\)/\1'&Nucleus_ProxyHost;'/g" /opt/python/lib/python2.7/site-packages/nucleus_service/nucleus/settings.py
+fi
+
 <!-- Apache configuration for nucleus-service -->
 <file name="/etc/httpd/conf.d/nucleus.conf">
 LoadModule wsgi_module /opt/python/lib/python2.7/site-packages/mod_wsgi/server/mod_wsgi-py27.so
