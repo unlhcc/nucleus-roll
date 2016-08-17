@@ -1,15 +1,7 @@
-NAME               = nucleus-guacamole-client
-VERSION            = 0.9.8
-RELEASE            = 0
-TARBALL_POSTFIX    = tgz
+NAME            = nucleus-guacamole-client
+VERSION         = 1.0
+RELEASE 	= 34eddef1c5
 
-SRC_SUBDIR         = $(NAME)
+SOURCE_DIR		= $(NAME)
 
-SOURCE_NAME        = $(NAME)
-SOURCE_VERSION     = $(VERSION)
-SOURCE_SUFFIX      = tgz
-SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
-SOURCE_DIR         = $(SOURCE_PKG:%.$(SOURCE_SUFFIX)=%)
-
-TGZ_PKGS           = $(SOURCE_PKG)
-
+GIT_REPO	= ssh://git@forge.sdsc.edu:7999/xsd/$(NAME).git
