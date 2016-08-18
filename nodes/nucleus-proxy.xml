@@ -90,6 +90,9 @@ SSLSessionCacheTimeout  300
     ProxyPass "/nucleus-guacamole-0.9.8/" "https://comet-damn.local/nucleus-guacamole-0.9.8/"
     ProxyPassReverse "/nucleus-guacamole-0.9.8/" "https://comet-damn.local/nucleus-guacamole-0.9.8/"
 
+    ProxyPass "/rabbitmq-management/" "https://comet-fe5.local:15672/"
+    ProxyPassReverse "/rabbitmq-management/" "https://comet-fe5.local:15672/"
+
     SSLCertificateFile /var/secrets/httpd/pki/tls/certs/comet-nucleus_sdsc_edu_cert.cer
 
     SSLCertificateKeyFile /var/secrets/httpd/pki/tls/private/comet-nucleus.sdsc.edu.privkey
