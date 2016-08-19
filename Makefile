@@ -66,13 +66,14 @@ include Rolls.mk
 
 export SURL=https://forge.sdsc.edu/triton/
 
-default:
+default: download
 	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
 	/opt/rocks/share/devel/src/roll/bin/manifest-check.py
 
 distclean:: clean
 	-rm -f _arch build.log
 	-rm -rf RPMS SRPMS
+	-rm -f src/RPMS/*.rpm src/RPMS/*.tar ./*.tgz ./*.tar.gz
 
 doc:
 	cd docs; make html
