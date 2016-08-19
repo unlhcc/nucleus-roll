@@ -68,6 +68,7 @@ export SURL=https://forge.sdsc.edu/triton/
 
 default:
 	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
+	/opt/rocks/share/devel/src/roll/bin/manifest-check.py
 
 distclean:: clean
 	-rm -f _arch build.log
