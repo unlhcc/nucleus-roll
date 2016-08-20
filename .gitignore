@@ -33,6 +33,7 @@ cache/
 *.spec
 *.spec.mk
 *.iso
+*.tar
 *.tar.gz
 *.tar.bz2
 *.tgz
