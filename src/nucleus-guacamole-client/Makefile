@@ -63,10 +63,16 @@ include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
-build: $(SRC_DIRS)
-	tar -xvzf $(SOURCE_PKG)
+repo_clone: 
+	git clone $(GIT_REPO) $(NAME)
+	( \
+	  cd $(NAME); \
+	  git checkout $(RELEASE); \
+	)
+
+build: $(SRC_DIRS) repo_clone
 	(                              \
-            cd $(NAME) ;   \
+        cd $(NAME) ;   \
 	    /opt/maven/bin/mvn package ; \
         )
 	@echo "::: Package $(NAME) build complete :::"
