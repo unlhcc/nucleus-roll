@@ -20,7 +20,7 @@ repo_clone:
 	git clone $(GIT_REPO) $(NAME)
 	( \
 	  cd $(NAME); \
-	  git checkout $(RELEASE); \
+	  git checkout $(BUILD_HASH); \
 	)
 
 install:: repo_clone
