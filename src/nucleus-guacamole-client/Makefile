@@ -67,13 +67,13 @@ repo_clone:
 	git clone $(GIT_REPO) $(NAME)
 	( \
 	  cd $(NAME); \
-	  git checkout $(RELEASE); \
+	  git checkout $(BUILD_HASH); \
 	)
 
 build: $(SRC_DIRS) repo_clone
 	(                              \
-        cd $(NAME) ;   \
-	    /opt/maven/bin/mvn package ; \
+	  cd $(NAME) ;   \
+	  /opt/maven/bin/mvn package ; \
         )
 	@echo "::: Package $(NAME) build complete :::"
 
