@@ -314,6 +314,10 @@ ln -s /var/secrets/cometvc/ca.pem /var/secrets/cometvc/cacert.pem
 ln -s /var/secrets/cometvc/key.pem /var/secrets/cometvc/clientkey.pem
 ln -s /var/secrets/cometvc/cert.pem /var/secrets/cometvc/clientcert.pem
 
+python -c 'import random; import string; print "".join([random.SystemRandom().choice(string.digits + string.letters + string.punctuation) for i in range(100)])' &gt; /var/secrets/cometvc/django_secret
+chmod 640 /var/secrets/cometvc/django_secret
+chgrp 8980 /var/secrets/cometvc/django_secret
+
 <file name="/etc/httpd/conf/httpd.conf">
 ServerRoot "/etc/httpd"
 
