@@ -11,7 +11,6 @@
 
 	</copyright>
 
-	<package>nucleus-service</package>
     <package>Django</package>
     <package>django-rest-auth</package>
     <package>djangorestframework</package>
