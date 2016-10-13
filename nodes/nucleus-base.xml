@@ -16,5 +16,6 @@
     <package>kombu</package>
     <package>anyjson</package>
     <package>billiard</package>
+	<package>nucleus-service</package>
 
 </kickstart>
