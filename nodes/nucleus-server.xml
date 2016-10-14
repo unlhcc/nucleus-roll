@@ -12,7 +12,6 @@
 	</copyright>
 
     <package>celery</package>
-    <package>nucleus-service</package>
     <package>pyOpenSSL</package>
     <package>cffi</package>
     <package>libffi</package>
