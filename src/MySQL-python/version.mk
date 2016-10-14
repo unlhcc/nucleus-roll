@@ -1,12 +1,12 @@
-NAME            = MySQL-python
+NAME            = sdsc-MySQL-python
 VERSION         = 1.2.5
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= MySQL-python-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = MySQL-python
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = MySQL-python
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = zip
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

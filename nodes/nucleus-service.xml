@@ -18,7 +18,7 @@
     <package>django-rest-swagger</package>
     <package>docopts</package>
     <package>drf-nested-routers</package>
-    <package>MySQL-python</package>
+    <package>sdsc-MySQL-python</package>
     <package>M2Crypto</package>
     <package>httpsig</package>
     <package>pycrypto</package>
