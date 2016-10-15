@@ -1,12 +1,12 @@
-NAME            = anyjson
+NAME            = opt-anyjson
 VERSION         = 0.3.3
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= anyjson-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = anyjson
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = anyjson
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

@@ -1,12 +1,12 @@
-NAME            = cffi
+NAME            = opt-cffi
 VERSION         = 1.7.0
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= cffi-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = cffi
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = cffi
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

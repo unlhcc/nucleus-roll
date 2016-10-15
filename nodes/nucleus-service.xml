@@ -19,15 +19,15 @@
     <package>docopts</package>
     <package>drf-nested-routers</package>
     <package>sdsc-MySQL-python</package>
-    <package>M2Crypto</package>
+    <package>opt-M2Crypto</package>
     <package>httpsig</package>
-    <package>pycrypto</package>
-    <package>PyYAML</package>
-    <package>pyOpenSSL</package>
-    <package>cffi</package>
+    <package>opt-pycrypto</package>
+    <package>opt-PyYAML</package>
+    <package>opt-pyOpenSSL</package>
+    <package>opt-cffi</package>
     <package>enum</package>
     <package>libffi</package>
-    <package>cryptography</package>
+    <package>opt-cryptography</package>
 
     <package disable="1">httpd</package>
     <package>httpd24u</package>
@@ -40,7 +40,7 @@
     <package>tomcat</package>
     <package>nucleus-libvirt-python</package>
 
-    <package>python-pam</package>
+    <package>opt-python-pam</package>
     <package>django-pam</package>
 
     <package>mysql-community-server</package>

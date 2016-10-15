@@ -11,11 +11,11 @@
 
 	</copyright>
 
-    <package>amqp</package>
-    <package>celery</package>
-    <package>kombu</package>
-    <package>anyjson</package>
-    <package>billiard</package>
-	<package>nucleus-service</package>
+    <package>opt-amqp</package>
+    <package>opt-celery</package>
+    <package>opt-kombu</package>
+    <package>opt-anyjson</package>
+    <package>opt-billiard</package>
+    <package>nucleus-service</package>
 
 </kickstart>

@@ -1,12 +1,12 @@
-NAME            = python-pam
+NAME            = opt-python-pam
 VERSION         = 1.8.2
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= python-pam-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = python-pam
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = python-pam
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
