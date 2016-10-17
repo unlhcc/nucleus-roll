@@ -16,7 +16,7 @@
     <package>opt-cffi</package>
     <package>opt-libffi</package>
     <package>opt-cryptography</package>
-    <package>enum</package>
+    <package>opt-enum</package>
 
 <post>
 

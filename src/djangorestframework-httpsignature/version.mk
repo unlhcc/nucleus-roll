@@ -1,12 +1,12 @@
-NAME            = djangorestframework-httpsignature
+NAME            = opt-djangorestframework-httpsignature
 VERSION         = 1.0.0
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= djangorestframework-httpsignature-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = djangorestframework-httpsignature
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = djangorestframework-httpsignature
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
