@@ -11,11 +11,16 @@
 
 	</copyright>
 
+    <package>nucleus-service</package>
     <package>opt-amqp</package>
-    <package>opt-celery</package>
-    <package>opt-kombu</package>
     <package>opt-anyjson</package>
     <package>opt-billiard</package>
-    <package>nucleus-service</package>
+    <package>opt-celery</package>
+    <package>opt-cffi</package>
+    <package>opt-cryptography</package>
+    <package>opt-enum</package>
+    <package>opt-kombu</package>
+    <package>opt-libffi</package>
+    <package>opt-pyOpenSSL</package>
 
 </kickstart>
