@@ -11,13 +11,6 @@
 
 	</copyright>
 
-    <package>opt-celery</package>
-    <package>opt-pyOpenSSL</package>
-    <package>opt-cffi</package>
-    <package>opt-libffi</package>
-    <package>opt-cryptography</package>
-    <package>opt-enum</package>
-
 <post>
 
 /opt/rocks/bin/rocks set host attr comet-nucleus x11 false

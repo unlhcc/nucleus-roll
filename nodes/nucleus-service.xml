@@ -11,39 +11,36 @@
 
 	</copyright>
 
-    <package>opt-Django</package>
-    <package>opt-django-rest-auth</package>
-    <package>opt-djangorestframework</package>
-    <package>opt-djangorestframework-httpsignature</package>
-    <package>opt-django-rest-swagger</package>
-    <package>opt-docopts</package>
-    <package>opt-drf-nested-routers</package>
-    <package>sdsc-MySQL-python</package>
-    <package>opt-M2Crypto</package>
-    <package>opt-httpsig</package>
-    <package>opt-pycrypto</package>
-    <package>opt-PyYAML</package>
-    <package>opt-pyOpenSSL</package>
-    <package>opt-cffi</package>
-    <package>opt-enum</package>
-    <package>opt-libffi</package>
-    <package>opt-cryptography</package>
-
     <package disable="1">httpd</package>
-    <package>httpd24u</package>
-    <package>httpd24u-mod_ssl</package>
-    <package>mod_wsgi</package>
-    <package>tomcat-connectors</package>
-    <package>nucleus-scripts</package>
-    <package>nucleus-guacamole-client</package>
-    <package>guacamole-server</package>
-    <package>tomcat</package>
-    <package>nucleus-libvirt-python</package>
 
-    <package>opt-python-pam</package>
-    <package>opt-django-pam</package>
+    <package>guacamole-server</package>
+
+    <package>httpd24u-mod_ssl</package>
+    <package>httpd24u</package>
+    <package>mod_wsgi</package>
 
     <package>mysql-community-server</package>
+
+    <package>nucleus-guacamole-client</package>
+    <package>nucleus-libvirt-python</package>
+    <package>nucleus-scripts</package>
+
+    <package>opt-django-pam</package>
+    <package>opt-django-rest-auth</package>
+    <package>opt-django-rest-swagger</package>
+    <package>opt-Django</package>
+    <package>opt-djangorestframework-httpsignature</package>
+    <package>opt-djangorestframework</package>
+    <package>opt-docopts</package>
+    <package>opt-drf-nested-routers</package>
+    <package>opt-httpsig</package>
+    <package>opt-M2Crypto</package>
+    <package>opt-pycrypto</package>
+    <package>opt-python-pam</package>
+    <package>opt-PyYAML</package>
+    <package>sdsc-MySQL-python</package>
+    <package>tomcat-connectors</package>
+    <package>tomcat</package>
 
 <post>
 
