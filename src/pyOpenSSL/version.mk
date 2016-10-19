@@ -1,12 +1,12 @@
-NAME            = pyOpenSSL
+NAME            = opt-pyOpenSSL
 VERSION         = 16.0.0
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= pyOpenSSL-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = pyOpenSSL
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = pyOpenSSL
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

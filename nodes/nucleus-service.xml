@@ -11,23 +11,23 @@
 
 	</copyright>
 
-    <package>Django</package>
-    <package>django-rest-auth</package>
-    <package>djangorestframework</package>
-    <package>djangorestframework-httpsignature</package>
-    <package>django-rest-swagger</package>
-    <package>docopts</package>
-    <package>drf-nested-routers</package>
-    <package>MySQL-python</package>
-    <package>M2Crypto</package>
-    <package>httpsig</package>
-    <package>pycrypto</package>
-    <package>PyYAML</package>
-    <package>pyOpenSSL</package>
-    <package>cffi</package>
-    <package>enum</package>
-    <package>libffi</package>
-    <package>cryptography</package>
+    <package>opt-Django</package>
+    <package>opt-django-rest-auth</package>
+    <package>opt-djangorestframework</package>
+    <package>opt-djangorestframework-httpsignature</package>
+    <package>opt-django-rest-swagger</package>
+    <package>opt-docopts</package>
+    <package>opt-drf-nested-routers</package>
+    <package>sdsc-MySQL-python</package>
+    <package>opt-M2Crypto</package>
+    <package>opt-httpsig</package>
+    <package>opt-pycrypto</package>
+    <package>opt-PyYAML</package>
+    <package>opt-pyOpenSSL</package>
+    <package>opt-cffi</package>
+    <package>opt-enum</package>
+    <package>opt-libffi</package>
+    <package>opt-cryptography</package>
 
     <package disable="1">httpd</package>
     <package>httpd24u</package>
@@ -40,8 +40,8 @@
     <package>tomcat</package>
     <package>nucleus-libvirt-python</package>
 
-    <package>python-pam</package>
-    <package>django-pam</package>
+    <package>opt-python-pam</package>
+    <package>opt-django-pam</package>
 
     <package>mysql-community-server</package>
 

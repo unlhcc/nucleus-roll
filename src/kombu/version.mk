@@ -1,12 +1,12 @@
-NAME            = kombu
+NAME            = opt-kombu
 VERSION         = 3.0.34
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= kombu-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = kombu
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = kombu
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

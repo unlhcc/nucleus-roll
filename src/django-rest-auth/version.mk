@@ -1,12 +1,12 @@
-NAME            = django-rest-auth
+NAME            = opt-django-rest-auth
 VERSION         = 0.7.0
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= django-rest-auth-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = django-rest-auth
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = django-rest-auth
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

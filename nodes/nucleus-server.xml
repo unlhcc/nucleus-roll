@@ -11,12 +11,12 @@
 
 	</copyright>
 
-    <package>celery</package>
-    <package>pyOpenSSL</package>
-    <package>cffi</package>
-    <package>libffi</package>
-    <package>cryptography</package>
-    <package>enum</package>
+    <package>opt-celery</package>
+    <package>opt-pyOpenSSL</package>
+    <package>opt-cffi</package>
+    <package>opt-libffi</package>
+    <package>opt-cryptography</package>
+    <package>opt-enum</package>
 
 <post>
 

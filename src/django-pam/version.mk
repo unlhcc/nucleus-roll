@@ -1,12 +1,12 @@
-NAME            = django-pam
+NAME            = opt-django-pam
 VERSION         = 1.1.2
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= django-pam-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = django-pam
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = django-pam
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

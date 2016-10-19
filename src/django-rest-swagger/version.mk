@@ -1,12 +1,12 @@
-NAME            = django-rest-swagger
+NAME            = opt-django-rest-swagger
 VERSION         = 0.3.5
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= django-rest-swagger-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = django-rest-swagger
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = django-rest-swagger
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

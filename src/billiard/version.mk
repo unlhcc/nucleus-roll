@@ -1,12 +1,12 @@
-NAME            = billiard
+NAME            = opt-billiard
 VERSION         = 3.3.0.23
 RELEASE 	= 0
 
-SOURCE_DIR	= $(NAME)-$(VERSION)
+SOURCE_DIR	= billiard-$(VERSION)
 
-SRC_SUBDIR         = $(NAME)
+SRC_SUBDIR         = billiard
 
-SOURCE_NAME        = $(NAME)
+SOURCE_NAME        = billiard
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
