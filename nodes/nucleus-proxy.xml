@@ -36,6 +36,7 @@ LoadModule proxy_module modules/mod_proxy.so
 LoadModule proxy_http_module modules/mod_proxy_http.so
 LoadModule headers_module modules/mod_headers.so
 LoadModule alias_module modules/mod_alias.so
+LoadModule mime_module modules/mod_mime.so
 
 User apache
 Group apache
@@ -49,6 +50,16 @@ Header always set Strict-Transport-Security "max-age=15768000"
 
 SSLSessionCache         shmcb:/var/run/httpd/sslcache(512000)
 SSLSessionCacheTimeout  300
+
+TypesConfig /etc/mime.types
+<IfModule mod_mime_magic.c>
+    MIMEMagicFile conf/magic
+</IfModule>
+AddDefaultCharset UTF-8
+AddType application/x-compress .Z
+AddType application/x-gzip .gz .tgz
+AddType application/x-x509-ca-cert .crt
+AddType application/x-pkcs7-crl .crl
 
 &lt;Directory /&gt;
   AllowOverride None
