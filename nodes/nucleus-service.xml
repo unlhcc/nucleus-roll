@@ -636,10 +636,7 @@ mkdir -p /etc/nucleus
 
 if [ ! -f /etc/nucleus/nucleus.conf ]; then
 <file name="/etc/nucleus/nucleus.conf">
-dmishin
-tcooper
-cirving
-ssmallen
+SDSC_ADMINS=['dmishin', 'tcooper', 'cirving', 'ssmallen']
 </file>
 fi
 
