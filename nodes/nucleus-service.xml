@@ -632,6 +632,13 @@ workers.java_home=/usr/java/latest
 ps=/
 </file>
 
+mkdir -p /etc/nucleus
+
+if [ ! -f /etc/nucleus/nucleus.conf ]; then
+<file name="/etc/nucleus/nucleus.conf">
+SDSC_ADMINS=['dmishin', 'tcooper', 'cirving', 'ssmallen']
+</file>
+fi
 
 </post>
 
