@@ -1,12 +1,12 @@
-NAME            = opt-amqp
-VERSION         = 2.1.4
+NAME            = opt-openapi-codec
+VERSION         = 1.3.1
 RELEASE 	= 0
 
-SOURCE_DIR	= amqp-$(VERSION)
+SOURCE_DIR	= openapi-codec-$(VERSION)
 
-SRC_SUBDIR         = amqp
+SRC_SUBDIR         = openapi-codec
 
-SOURCE_NAME        = amqp
+SOURCE_NAME        = openapi-codec
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

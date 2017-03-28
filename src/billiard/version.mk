@@ -1,5 +1,5 @@
 NAME            = opt-billiard
-VERSION         = 3.3.0.23
+VERSION         = 3.5.0.2
 RELEASE 	= 0
 
 SOURCE_DIR	= billiard-$(VERSION)

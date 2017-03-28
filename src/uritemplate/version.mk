@@ -1,12 +1,12 @@
-NAME            = opt-anyjson
-VERSION         = 0.3.3
+NAME            = opt-uritemplate
+VERSION         = 3.0.0
 RELEASE 	= 0
 
-SOURCE_DIR	= anyjson-$(VERSION)
+SOURCE_DIR	= uritemplate-$(VERSION)
 
-SRC_SUBDIR         = anyjson
+SRC_SUBDIR         = uritemplate
 
-SOURCE_NAME        = anyjson
+SOURCE_NAME        = uritemplate
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

@@ -1,5 +1,5 @@
 NAME            = opt-Django
-VERSION         = 1.9.4
+VERSION         = 1.10.6
 RELEASE 	= 0
 
 SOURCE_DIR	= Django-$(VERSION)
