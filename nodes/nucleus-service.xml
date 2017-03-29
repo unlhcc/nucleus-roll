@@ -279,7 +279,7 @@ CELERY_APP="nucleus"
 CELERYD_CHDIR="/opt/python/lib/python2.7/site-packages/nucleus_service"
 
 # Extra command-line arguments to the worker
-CELERYD_OPTS="--concurrency=2 -Q update"
+CELERYD_OPTS="--concurrency=2 -Q update -Ofair"
 
 # %N will be replaced with the first part of the nodename.
 CELERYD_LOG_FILE="/var/log/celery/%N.log"
