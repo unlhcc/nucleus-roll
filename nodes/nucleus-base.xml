@@ -13,13 +13,22 @@
 
     <package>nucleus-service</package>
     <package>opt-amqp</package>
-    <package>opt-anyjson</package>
     <package>opt-billiard</package>
     <package>opt-celery</package>
     <package>opt-cffi</package>
     <package>opt-cryptography</package>
     <package>opt-enum</package>
     <package>opt-kombu</package>
+    <package>opt-vine</package>
+    <package>opt-coreapi</package>
+    <package>opt-requests</package>
+    <package>opt-itypes</package>
+    <package>opt-coreschema</package>
+    <package>opt-Jinja2</package>
+    <package>opt-MarkupSafe</package>
+    <package>opt-uritemplate</package>
+    <package>opt-simplejson</package>
+    <package>opt-openapi-codec</package>
     <package>opt-libffi</package>
     <package>opt-pyOpenSSL</package>
 

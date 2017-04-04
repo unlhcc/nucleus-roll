@@ -1,5 +1,5 @@
 NAME            = opt-djangorestframework
-VERSION         = 3.3.3
+VERSION         = 3.6.2
 RELEASE 	= 0
 
 SOURCE_DIR	= djangorestframework-$(VERSION)

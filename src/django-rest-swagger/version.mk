@@ -1,5 +1,5 @@
 NAME            = opt-django-rest-swagger
-VERSION         = 0.3.5
+VERSION         = 2.1.2
 RELEASE 	= 0
 
 SOURCE_DIR	= django-rest-swagger-$(VERSION)

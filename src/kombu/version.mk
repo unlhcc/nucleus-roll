@@ -1,5 +1,5 @@
 NAME            = opt-kombu
-VERSION         = 3.0.34
+VERSION         = 4.0.2
 RELEASE 	= 0
 
 SOURCE_DIR	= kombu-$(VERSION)

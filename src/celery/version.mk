@@ -1,5 +1,5 @@
 NAME            = opt-celery
-VERSION         = 3.1.23
+VERSION         = 4.0.2
 RELEASE 	= 0
 
 SOURCE_DIR	= celery-$(VERSION)

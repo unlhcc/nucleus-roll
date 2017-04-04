@@ -1,12 +1,12 @@
-NAME            = opt-amqp
-VERSION         = 2.1.4
+NAME            = opt-Jinja2
+VERSION         = 2.9.5
 RELEASE 	= 0
 
-SOURCE_DIR	= amqp-$(VERSION)
+SOURCE_DIR	= Jinja2-$(VERSION)
 
-SRC_SUBDIR         = amqp
+SRC_SUBDIR         = Jinja2
 
-SOURCE_NAME        = amqp
+SOURCE_NAME        = Jinja2
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)

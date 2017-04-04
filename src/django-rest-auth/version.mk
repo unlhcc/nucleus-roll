@@ -1,5 +1,5 @@
 NAME            = opt-django-rest-auth
-VERSION         = 0.7.0
+VERSION         = 0.9.1
 RELEASE 	= 0
 
 SOURCE_DIR	= django-rest-auth-$(VERSION)

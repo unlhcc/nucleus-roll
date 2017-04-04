@@ -1,12 +1,12 @@
-NAME            = opt-amqp
-VERSION         = 2.1.4
+NAME            = opt-simplejson
+VERSION         = 3.10.0
 RELEASE 	= 0
 
-SOURCE_DIR	= amqp-$(VERSION)
+SOURCE_DIR	= simplejson-$(VERSION)
 
-SRC_SUBDIR         = amqp
+SRC_SUBDIR         = simplejson
 
-SOURCE_NAME        = amqp
+SOURCE_NAME        = simplejson
 SOURCE_VERSION     = $(VERSION)
 SOURCE_SUFFIX      = tar.gz
 SOURCE_PKG         = $(SOURCE_NAME)-$(SOURCE_VERSION).$(SOURCE_SUFFIX)
