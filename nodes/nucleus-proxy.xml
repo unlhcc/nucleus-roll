@@ -76,10 +76,9 @@ AddType application/x-pkcs7-crl .crl
     SSLEngine On
 
     SSLProxyEngine on
-    SSLProxyVerify none
     SSLProxyCheckPeerCN off
     SSLProxyCheckPeerName off
-    SSLProxyCheckPeerExpire off
+    SSLProxyCACertificateFile /var/secrets/cometvc/ca.pem
 
     SSLProtocol all -SSLv2 -SSLv3
     SSLHonorCipherOrder on
