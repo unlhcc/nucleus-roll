@@ -1,6 +1,6 @@
 NAME            = nucleus-service
 VERSION         = 1.0
-BUILD_HASH      = dbc920c
+BUILD_HASH      = 5a55b46
 RELEASE        :=$(shell bash ../../version.sh -r).g$(BUILD_HASH)
 
 SOURCE_DIR      = $(NAME)
