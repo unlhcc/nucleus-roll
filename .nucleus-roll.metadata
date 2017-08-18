@@ -16,11 +16,11 @@ e771c47d471600bebdbfb89be3386c9d9cd1998a src/RPMS/mysql-5.7.11-1.el6.x86_64.rpm-
 20c4e743f149114e84e06d17c1960031ad4c3d15 src/RPMS/libnghttp2-1.6.0-1.el6.1.x86_64.rpm
 7e705b3cd990f33774eb8aa2df96777c3e021017 src/RPMS/apr15u-devel-1.5.2-1.ius.el6.x86_64.rpm
 a6ad6662b6a678ad6e8899e26989537410ffbf06 src/RPMS/apr15u-util-devel-1.5.4-3.ius.el6.x86_64.rpm
-26a53256ead5e04070ed64f5fbaa6017be0302a2 src/RPMS/httpd24u-2.4.20-3.ius.centos6.x86_64.rpm
-4779d43443afde137b39d5f8b0f6be1ab1b0be55 src/RPMS/httpd24u-devel-2.4.20-3.ius.centos6.x86_64.rpm
-bfa65975db76827f2d7066b58cf04f05aa6db2e1 src/RPMS/httpd24u-filesystem-2.4.20-3.ius.centos6.noarch.rpm
-bbdcdb817d2b13135aeec510eae103d0dfd7906f src/RPMS/httpd24u-mod_ssl-2.4.20-3.ius.centos6.x86_64.rpm
-5eb118428701c26c1ba23649c6ef0f7d79f3322f src/RPMS/httpd24u-tools-2.4.20-3.ius.centos6.x86_64.rpm
+af3bc6bd3fe135ae33a1d2e8df60c7f43c199349 src/RPMS/httpd24u-2.4.27-1.ius.centos6.x86_64.rpm
+56d8e729c14694c14da29feafe20731e50cacb75 src/RPMS/httpd24u-devel-2.4.27-1.ius.centos6.x86_64.rpm
+25fe64714ce3a40d65f0509d0e122abdadf436f2 src/RPMS/httpd24u-filesystem-2.4.27-1.ius.centos6.noarch.rpm
+28a7ff87bee2b57ffb584cb6a6dcc48e4a8f6b0a src/RPMS/httpd24u-mod_ssl-2.4.27-1.ius.centos6.x86_64.rpm
+a713aca4f1ab6d473df9e9ca5b2bfd0150284e0a src/RPMS/httpd24u-tools-2.4.27-1.ius.centos6.x86_64.rpm
 921dfe141b4df7c97ac060b71732323d8964817c maven-repo.tgz
 d8033f34e17c0c51bb834b27f6e8c59fc24ae72c cffi-1.7.0.tar.gz
 922162bad4aa8503988035506c1c65bbf8690ba4 pycparser-2.14.tar.gz
