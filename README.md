@@ -20,6 +20,10 @@ Rocks development machine.
 The sdsc-roll must be installed on the build machine, since the build process
 depends on make include files provided by that roll.
 
+Parts of the bootstrap.sh script require pip to install Python packages and the
+nucleus-roll depends on Python 2.7. The SDSC python-roll provides both in
+CentOS 6 so `module load python` before bootstrap and build will work.
+
 The roll binds together img-storage, rabbitmq and kvm functionality and
 requires all those to be installed in the cluster.
 
