@@ -22,6 +22,14 @@ af3bc6bd3fe135ae33a1d2e8df60c7f43c199349 src/RPMS/httpd24u-2.4.27-1.ius.centos6.
 28a7ff87bee2b57ffb584cb6a6dcc48e4a8f6b0a src/RPMS/httpd24u-mod_ssl-2.4.27-1.ius.centos6.x86_64.rpm
 a713aca4f1ab6d473df9e9ca5b2bfd0150284e0a src/RPMS/httpd24u-tools-2.4.27-1.ius.centos6.x86_64.rpm
 19a33dfdf190410d130237205a1f1e73e32fda80 src/RPMS/nghttp2-1.6.0-1.el6.1.x86_64.rpm
+e4cb5da77f8f3a57793fcfb98a0d9ca01aa7eaed src/RPMS/mysql-community-client-5.7.21-1.el6.x86_64.rpm
+2858db2e4547bea355b51d46311c555a38730130 src/RPMS/mysql-community-common-5.7.21-1.el6.x86_64.rpm
+6390015972684602a10fbb4a8f6dac10851576d3 src/RPMS/mysql-community-devel-5.7.21-1.el6.x86_64.rpm
+41c0906e1c7bdc2ee844c5e1c3a3d5bea90f2b82 src/RPMS/mysql-community-embedded-devel-5.7.21-1.el6.x86_64.rpm
+e9abca9b801784ecd0ffefef0c5cbd5f4e3e0550 src/RPMS/mysql-community-libs-5.7.21-1.el6.x86_64.rpm
+d0a6887777c8d175d302e309ae1e3ea2335f5eb1 src/RPMS/mysql-community-libs-compat-5.7.21-1.el6.x86_64.rpm
+fe419f12998666b92815ec9c02c12e1ed7e8079f src/RPMS/mysql-community-server-5.7.21-1.el6.x86_64.rpm
+071071107a918750fe35561bef153f7f485a466d src/RPMS/mysql-community-test-5.7.21-1.el6.x86_64.rpm
 921dfe141b4df7c97ac060b71732323d8964817c maven-repo.tgz
 d8033f34e17c0c51bb834b27f6e8c59fc24ae72c cffi-1.7.0.tar.gz
 922162bad4aa8503988035506c1c65bbf8690ba4 pycparser-2.14.tar.gz
