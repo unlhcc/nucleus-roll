@@ -75,6 +75,7 @@ yum install src/RPMS/httpd24u* src/RPMS/apr15u* src/RPMS/libnghttp2* src/RPMS/ng
 compile_and_install maven
 
 # install can't find /usr/src/redhat/RPMS and fails. installing by hand
+mkdir -p /usr/src/redhat/RPMS
 
 yum install RPMS/x86_64/apache-maven*
 yum install uuid-devel libvncserver-devel openssl-devel libssh2-devel pango-devel
