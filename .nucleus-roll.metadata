@@ -9,7 +9,6 @@ e71dc8a710a722a91caab081700525af6243c10b src/RPMS/tomcat-native-1.1.34-1.el6.i68
 b07217e60e1ddbb188a28b842771d02b57a6d8c2 src/RPMS/tomcat-el-2.2-api-7.0.65-1.el6.noarch.rpm
 5b4c117854921b527ab6190615f9435da730ba05 src/maven/apache-maven-3.3.9-bin.tar.gz
 5d9778357bef34420a3f70d36b4d6f17d4b9ea0f src/RPMS/swig-2.0.8-1.el6.sroycode.x86_64.rpm
-e771c47d471600bebdbfb89be3386c9d9cd1998a src/RPMS/mysql-5.7.11-1.el6.x86_64.rpm-bundle.tar
 6b26d8dada26b0296749b3dce79ac7a38f503739 src/RPMS/nginx-1.8.1-1.el6.ngx.x86_64.rpm
 3480163795c50fd42e20e3ad196be4e54fbb96b3 src/RPMS/apr15u-util-1.5.4-3.ius.el6.x86_64.rpm
 3640cb035c53b8feb31893e9ed89439ceb5371d0 src/RPMS/apr15u-1.5.2-1.ius.el6.x86_64.rpm
@@ -22,6 +21,15 @@ af3bc6bd3fe135ae33a1d2e8df60c7f43c199349 src/RPMS/httpd24u-2.4.27-1.ius.centos6.
 28a7ff87bee2b57ffb584cb6a6dcc48e4a8f6b0a src/RPMS/httpd24u-mod_ssl-2.4.27-1.ius.centos6.x86_64.rpm
 a713aca4f1ab6d473df9e9ca5b2bfd0150284e0a src/RPMS/httpd24u-tools-2.4.27-1.ius.centos6.x86_64.rpm
 19a33dfdf190410d130237205a1f1e73e32fda80 src/RPMS/nghttp2-1.6.0-1.el6.1.x86_64.rpm
+e4cb5da77f8f3a57793fcfb98a0d9ca01aa7eaed src/RPMS/mysql-community-client-5.7.21-1.el6.x86_64.rpm
+2858db2e4547bea355b51d46311c555a38730130 src/RPMS/mysql-community-common-5.7.21-1.el6.x86_64.rpm
+6390015972684602a10fbb4a8f6dac10851576d3 src/RPMS/mysql-community-devel-5.7.21-1.el6.x86_64.rpm
+ce87770ebb117c48adf2a556fcfeac09f8d8dff0 src/RPMS/mysql-community-embedded-5.7.21-1.el6.x86_64.rpm
+41c0906e1c7bdc2ee844c5e1c3a3d5bea90f2b82 src/RPMS/mysql-community-embedded-devel-5.7.21-1.el6.x86_64.rpm
+e9abca9b801784ecd0ffefef0c5cbd5f4e3e0550 src/RPMS/mysql-community-libs-5.7.21-1.el6.x86_64.rpm
+d0a6887777c8d175d302e309ae1e3ea2335f5eb1 src/RPMS/mysql-community-libs-compat-5.7.21-1.el6.x86_64.rpm
+fe419f12998666b92815ec9c02c12e1ed7e8079f src/RPMS/mysql-community-server-5.7.21-1.el6.x86_64.rpm
+071071107a918750fe35561bef153f7f485a466d src/RPMS/mysql-community-test-5.7.21-1.el6.x86_64.rpm
 921dfe141b4df7c97ac060b71732323d8964817c maven-repo.tgz
 d8033f34e17c0c51bb834b27f6e8c59fc24ae72c cffi-1.7.0.tar.gz
 922162bad4aa8503988035506c1c65bbf8690ba4 pycparser-2.14.tar.gz

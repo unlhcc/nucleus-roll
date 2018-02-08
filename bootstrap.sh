@@ -70,11 +70,12 @@ fi
 yum install src/RPMS/swig* # needed to build high-performance M2Crypto with -builtin key, otherwise fails
 
 yum remove httpd httpd-devel httpd-tools
-yum install src/RPMS/httpd24u* src/RPMS/apr15u* src/RPMS/libnghttp2*
+yum install src/RPMS/httpd24u* src/RPMS/apr15u* src/RPMS/libnghttp2* src/RPMS/nghttp2*
 
 compile_and_install maven
 
 # install can't find /usr/src/redhat/RPMS and fails. installing by hand
+mkdir -p /usr/src/redhat/RPMS
 
 yum install RPMS/x86_64/apache-maven*
 yum install uuid-devel libvncserver-devel openssl-devel libssh2-devel pango-devel
